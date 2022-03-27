@@ -30,11 +30,11 @@ export const onScroll = (mouse: any) => (e: Event) => {
   mouse.oldScroll = mouse.curScroll;
 };
 
-export const setupMouseEventHandlers = (mouse: any) => {
+export const setupMouseEventHandlers = (mouse: any, onWindowResize: any) => {
   window.addEventListener("mousemove", onMouseMove(mouse));
   window.addEventListener("scroll", onScroll(mouse));
   window.addEventListener("touchmove", onMouseMove(mouse));
-  window.addEventListener("resize", onScroll(mouse));
+  window.addEventListener("resize", onWindowResize);
 };
 
 export const onWindowResize = ({

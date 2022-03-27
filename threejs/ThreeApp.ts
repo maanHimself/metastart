@@ -74,7 +74,6 @@ const sketch = (threeRootElement: HTMLDivElement) => {
 
   // end adding objects
 
-  setupMouseEventHandlers(mouse);
   onWindowResize({
     camera,
     container: threeRootElement,
@@ -82,6 +81,15 @@ const sketch = (threeRootElement: HTMLDivElement) => {
     material,
     renderer,
   });
+  setupMouseEventHandlers(mouse, () =>
+    onWindowResize({
+      camera,
+      container: threeRootElement,
+      dimensions,
+      material,
+      renderer,
+    })
+  );
   postProcessing();
   render(0);
 
