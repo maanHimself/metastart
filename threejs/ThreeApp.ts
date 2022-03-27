@@ -1,17 +1,12 @@
 import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import * as pixelShader from "./shaders/planeShader";
 import { clamp } from "three/src/math/MathUtils";
-import Scrollbar from "smooth-scrollbar";
 
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
 import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
 import { basicShader } from "./shaders/basicShader";
-import { CustomPass } from "./shaders/DotScreenShader";
-import { textureMaterial } from "./shaders/textureShader";
 import { customShader } from "./shaders/customShader";
-import { MeshBasicMaterial } from "three";
 
 export default (canvas: any) => {
   const scene = new THREE.Scene();
@@ -122,6 +117,7 @@ export default (canvas: any) => {
 
   createThreeHtml("/logo.png", true, "logo");
   createThreeHtml("/goal.png", true, "goal");
+  createThreeHtml("/vision.png", true, "vision");
 
   // end adding objects
 
@@ -152,15 +148,15 @@ export default (canvas: any) => {
           document.documentElement.clientHeight)) *
       100;
 
-    if (mouse.curScroll > mouse.oldScroll) {
-      let data = offsetTexture.image.data;
-      for (let i = 0; i < size * 4 * 20; i += 4) {
-        let r = Math.random() * 0.1 * 2 - 0.1;
-        let r2 = Math.random() * 0.01 * (20 - i / (size * 4 * 20));
-        data[i] = 0;
-        data[i + 1] = r2;
-      }
-    }
+    // if (mouse.curScroll > mouse.oldScroll) {
+    //   let data = offsetTexture.image.data;
+    //   for (let i = 0; i < size * 4 * 20; i += 4) {
+    //     let r = Math.random() * 0.1 * 2 - 0.1;
+    //     let r2 = Math.random() * 0.01 * (20 - i / (size * 4 * 20));
+    //     data[i] = 0;
+    //     data[i + 1] = r2;
+    //   }
+    // }
 
     mouse.scrollV = mouse.curScroll - mouse.oldScroll;
 
@@ -292,12 +288,29 @@ export default (canvas: any) => {
     effect1.uniforms["offsetT"].value = offsetTexture;
     composer.addPass(effect1);
   }
-
-  function render(time: number) {
+  function updateElements() {
+    console.log("jhj");
     elems.forEach((elem) => {
       setMeshtoHtmlPos(elem.mesh, elem.dom.getBoundingClientRect());
+      setMeshtoHtmlSize(elem.mesh, elem.dom.getBoundingClientRect());
     });
+  }
 
+  function debounce<Params extends any[]>(
+    func: (...args: Params) => any,
+    timeout: number
+  ): (...args: Params) => void {
+    let timer: NodeJS.Timeout;
+    return (...args: Params) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        func(...args);
+      }, timeout);
+    };
+  }
+
+  function render(time: number) {
+    debounce(updateElements, 1000)();
     material.uniforms.time.value = time * 0.005;
     updateOffset();
     requestAnimationFrame(render);
