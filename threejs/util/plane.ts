@@ -35,9 +35,9 @@ export const getImageAspect = () => {
   if (window.innerHeight / window.innerWidth > imageAspect) {
     a1 = (window.innerWidth / window.innerHeight) * imageAspect;
     a2 = 1;
-  } else {
-    a1 = 1;
-    a2 = window.innerHeight / window.innerWidth / imageAspect;
+    return { imageAspect, a1, a2 };
   }
+  a1 = 1;
+  a2 = window.innerHeight / window.innerWidth / imageAspect;
   return { imageAspect, a1, a2 };
 };

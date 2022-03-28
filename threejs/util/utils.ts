@@ -15,31 +15,31 @@ export function debounce<Params extends any[]>(
   };
 }
 
-export function updateElements({ elements }: { elements: any }) {
-  elements.forEach((elem: any) => {
-    setMeshtoHtmlPos(elem.mesh, elem.dom.getBoundingClientRect());
-    setMeshtoHtmlSize(elem.mesh, elem.dom.getBoundingClientRect());
+export function updateElements({ elements }: { elements: elementType[] }) {
+  elements.forEach((elem: elementType) => {
+    setMeshToHtmlPos(elem.mesh, elem.dom.getBoundingClientRect());
+    setMeshToHtmlSize(elem.mesh, elem.dom.getBoundingClientRect());
   });
 }
 
-export function setMeshtoHtmlPos(
+export function setMeshToHtmlPos(
   mesh: THREE.Mesh,
   bounds: DOMRect | undefined
 ) {
   if (!bounds) {
-    console.log("bounds is null");
+    console.error("bounds is null");
     return;
   }
   mesh.position.y = window.innerHeight / 2 - bounds.top - bounds.height / 2;
   mesh.position.x = -(window.innerWidth / 2) + bounds.left + bounds.width / 2;
 }
 
-export function setMeshtoHtmlSize(
+export function setMeshToHtmlSize(
   mesh: THREE.Mesh,
   bounds: DOMRect | undefined
 ) {
   if (!bounds) {
-    console.log("bounds is null");
+    console.error("bounds is null");
     return;
   }
   let meshSize = new THREE.Vector3();
@@ -68,13 +68,10 @@ export function createThreeHtml({
   material.transparent = transparent;
   const mesh = new THREE.Mesh(geo, material);
   scene.add(mesh);
-
   let dom = document.getElementById(id);
   let bounds = dom?.getBoundingClientRect();
-
-  setMeshtoHtmlPos(mesh, bounds);
-  setMeshtoHtmlSize(mesh, bounds);
-
+  setMeshToHtmlPos(mesh, bounds);
+  setMeshToHtmlSize(mesh, bounds);
   elements.push({
     mesh: mesh,
     dom: dom as any,

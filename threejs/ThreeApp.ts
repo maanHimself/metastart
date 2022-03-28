@@ -12,7 +12,7 @@ import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
 import { basicShader } from "./shaders/basicShader";
 import { createRenderer } from "./util/renderer";
 import { onWindowResize, setupMouseEventHandlers } from "./util/eventsHandlers";
-import { dimensionsType, elementType } from "./util/types";
+import { dimensionsType, elementType, mouseType } from "./util/types";
 import { createThreeHtml, debounce, updateElements } from "./util/utils";
 
 const sketch = (threeRootElement: HTMLDivElement) => {
@@ -21,15 +21,13 @@ const sketch = (threeRootElement: HTMLDivElement) => {
     width: threeRootElement.offsetWidth,
     height: threeRootElement.offsetHeight,
   };
-
   const renderer = createRenderer({ ...dimensions });
   threeRootElement.appendChild(renderer.domElement);
   const composer = new EffectComposer(renderer);
   const effect1 = new ShaderPass(basicShader);
   const elements: elementType[] = [];
   const camera = createCamera();
-
-  let mouse = {
+  const mouse: mouseType = {
     x: 0,
     y: 0,
     prevX: 0,
@@ -41,7 +39,6 @@ const sketch = (threeRootElement: HTMLDivElement) => {
     curScroll: 0,
     scrollV: 0,
   };
-  //end setup
 
   let size = 128;
   let offsetWidth = size;
@@ -61,7 +58,6 @@ const sketch = (threeRootElement: HTMLDivElement) => {
   );
   const { plane, material } = createPlane({ offsetTexture, planeGeo });
   scene.add(plane);
-
   ["logo", "goal", "vision"].map((elementToBeCreated) => {
     createThreeHtml({
       id: elementToBeCreated,
@@ -72,8 +68,6 @@ const sketch = (threeRootElement: HTMLDivElement) => {
     });
   });
 
-  // end adding objects
-
   onWindowResize({
     camera,
     container: threeRootElement,
@@ -81,30 +75,27 @@ const sketch = (threeRootElement: HTMLDivElement) => {
     material,
     renderer,
   });
-  setupMouseEventHandlers(mouse, () =>
-    onWindowResize({
-      camera,
-      container: threeRootElement,
-      dimensions,
-      material,
-      renderer,
-    })
-  );
+  setupMouseEventHandlers({
+    mouse,
+    camera,
+    container: threeRootElement,
+    dimensions,
+    material,
+    renderer,
+  });
+
   postProcessing();
   render(0);
-
   function postProcessing() {
     composer.addPass(new RenderPass(scene, camera));
     effect1.uniforms["offsetT"].value = offsetTexture;
     composer.addPass(effect1);
   }
-
   function render(time: number) {
     debounce(updateElements, 1000)({ elements });
     material.uniforms.time.value = time * 0.005;
     updateOffset({ mouse, offsetTexture, size });
     requestAnimationFrame(render);
-
     composer.render();
   }
 };
