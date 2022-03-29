@@ -313,7 +313,7 @@ export default (canvas: any) => {
   }
 
   function render(time: number) {
-    debounce(updateElements, 500)();
+    debounce(updateElements, 100)();
     material.uniforms.time.value = time * 0.005;
     updateOffset();
     requestAnimationFrame(render);

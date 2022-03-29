@@ -77,7 +77,9 @@ export default function Home() {
           <img id="" src="/WT 1801-1.jpg" className=" m-0"></img>
         </div>
       </div>
-      <p className=" pt-24 pb-0 text-white font-main text-6xl">THE TEAM</p>
+      <p className=" pt-24 pb-0 text-white font-main text-6xl text-center">
+        THE TEAM
+      </p>
       <div className="flex flex-row justify-around items-center w-full flex-wrap  mt-4">
         <img id="team1" src="/team1.png" className=" mt-10 opacity-0"></img>
         <img id="team2" src="/team2.png" className=" mt-10 opacity-0"></img>
