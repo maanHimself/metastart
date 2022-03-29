@@ -242,8 +242,9 @@ export default (canvas: any) => {
       mouse.x = e.clientX / window.innerWidth;
       mouse.y = e.clientY / window.innerHeight;
     } else {
-      mouse.x = e.touches.item(0)!.clientX / window.innerWidth;
-      mouse.y = e.touches.item(0)!.clientY / window.innerHeight;
+      // mouse.x = e.touches.item(0)!.clientX / window.innerWidth;
+      // mouse.y = e.touches.item(0)!.clientY / window.innerHeight;
+      return;
     }
 
     mouse.vX = mouse.x - mouse.prevX;

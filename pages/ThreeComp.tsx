@@ -20,7 +20,7 @@ export default function ThreeContainer() {
         //   top: 0,
         //   zIndex: -1,
         // }}
-        className={"h-full w-full fixed top-0 left-0 -z-10"}
+        className={"h-full w-full fixed top-0 left-0 -z-10 m-0 p-0"}
         ref={threeRootElement}
       />
     </>
