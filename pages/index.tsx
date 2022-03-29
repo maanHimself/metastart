@@ -34,7 +34,7 @@ export default function Home() {
         )}
       />
       <AboutSection
-        reverse
+        reverse={true}
         renderImage={() => (
           <img
             id="vision"
