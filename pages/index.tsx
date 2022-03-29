@@ -4,7 +4,7 @@ import AboutSection from "../Components/AboutSection.tsx/AboutSection";
 export default function Home() {
   return (
     <>
-      <div className="h-fu w-full flex flex-col items-center justify-center p-10">
+      <div className="h-fu w-full flex flex-col items-center justify-center p-10 pt-0">
         <ThreeContainer></ThreeContainer>
 
         <div className="h-screen w-full flex items-center justify-center ">
@@ -54,6 +54,34 @@ export default function Home() {
             </>
           )}
         />
+        <p className=" p-24 pb-0 mt-10 text-white font-main text-8xl">
+          PROJECTS
+        </p>
+
+        <div className="flex flex-col md:flex-row md:justify-around w-full  md:space-x-4 mt-8 text-white font-main">
+          <div className="flex flex-col mb-10">
+            <img id="" src="/WT 1801-1.jpg" className=" m-0 "></img>
+            <p className=" left-full right-0 text-4xl  mt-4">Indie Company</p>
+            <p className=" left-full right-0 text-2xl m-2">
+              Our own crypto enabled e-commerce
+            </p>
+          </div>
+          <div className="flex flex-col-reverse md:flex-col ">
+            <div>
+              <p className=" left-full right-0 text-4xl mt-4">Indie Company</p>
+              <p className=" left-full right-0 text-2xl m-2 md:mb-8 ">
+                Our own crypto enabled e-commerce
+              </p>
+            </div>
+            <img id="" src="/WT 1801-1.jpg" className=" m-0"></img>
+          </div>
+        </div>
+        <p className=" p-24 pb-0 text-white font-main text-8xl">THE TEAM</p>
+        <div className="flex flex-row justify-around items-center w-full flex-wrap  mt-4">
+          <img id="team1" src="/team1.png" className=" mt-10 opacity-0"></img>
+          <img id="team2" src="/team2.png" className=" mt-10 opacity-0"></img>
+          <img id="team3" src="/team1.png" className=" mt-10 opacity-0"></img>
+        </div>
       </div>
     </>
   );

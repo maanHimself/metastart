@@ -118,6 +118,9 @@ export default (canvas: any) => {
   createThreeHtml("/logo.png", true, "logo");
   createThreeHtml("/goal.png", true, "goal");
   createThreeHtml("/vision.png", true, "vision");
+  createThreeHtml("/team1.png", true, "team1");
+  createThreeHtml("/team2.png", true, "team2");
+  createThreeHtml("/team1.png", true, "team3");
 
   // end adding objects
 
@@ -261,14 +264,14 @@ export default (canvas: any) => {
 
     let mouseGridX = size * mouse.x; //* (window.innerHeight / window.innerWidth);
     let mouseGridY = size * (1 - mouse.y);
-    let maxDist = clamp(mouse.v ** 2, 25, 100);
+    let maxDist = clamp(mouse.v ** 3, 10, 200);
 
     for (let i = 0; i < size; i++) {
       for (let j = 0; j < size; j++) {
         let dist = (mouseGridX - i) ** 2 + (mouseGridY - j) ** 2;
 
         if (dist < maxDist) {
-          let power = (1 * maxDist) / dist;
+          let power = ((1 * maxDist) / dist) * 0.3;
           data[4 * (i + size * j)] += mouse.vX * power;
           data[4 * (i + size * j) + 1] += mouse.vY * power;
         }
@@ -289,7 +292,6 @@ export default (canvas: any) => {
     composer.addPass(effect1);
   }
   function updateElements() {
-    console.log("jhj");
     elems.forEach((elem) => {
       setMeshtoHtmlPos(elem.mesh, elem.dom.getBoundingClientRect());
       setMeshtoHtmlSize(elem.mesh, elem.dom.getBoundingClientRect());
@@ -310,7 +312,7 @@ export default (canvas: any) => {
   }
 
   function render(time: number) {
-    debounce(updateElements, 1000)();
+    debounce(updateElements, 500)();
     material.uniforms.time.value = time * 0.005;
     updateOffset();
     requestAnimationFrame(render);

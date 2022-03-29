@@ -57,20 +57,9 @@ export const fragment: string = `
 
     void main()	{
         vec2 newUV = (vUv - vec2(0.5))*resolution.zw + vec2(0.5);
-        // vec2 offsetUV = vec2(newUV.x * ((1.5) / (resolution.y/resolution.x)),newUV.y);
-        vec2 offsetUV = (vUv - vec2(0.5))*vec2(1.,resolution.y / resolution.x / 1. / 1.5) + vec2(0.5);
-        vec4 t = texture2D(vT, newUV);
-        vec4 offset = texture2D(dT , vUv);
-        // vec4 color = texture2D(vT, newUV - vec2(0.03 * offset.x , 0.03 * -offset.y));
-        vec4 color = texture2D(vT, newUV );
         float fractals = fractal(newUV* 0.3);
         float noises = noise(newUV * 20. );
         noises = step(0.5,noises);
-        // color = mix(color, vec4(fractals, 0, 0, 1),  clamp(abs(length(offset.xy)),0.,1.));
-        // color += mix(0. , fractals ,length(vPosition.xy - vec2(0.)));
-        // color += fractals * clamp( 1. - smoothstep(0.1,0.4,  length(vPosition.xy - vec2(0.))) , 0. ,1.);
-        color += fractals * noises;
         gl_FragColor = vec4(vec3(fractals * noises),1.);
-        // gl_FragColor = vec4(noises , 0, 0, 1.);
     }
 `;
