@@ -265,23 +265,25 @@ export default (canvas: any) => {
 
     let mouseGridX = size * mouse.x; //* (window.innerHeight / window.innerWidth);
     let mouseGridY = size * (1 - mouse.y);
-    let maxDist = clamp(mouse.v ** 3, 10, 200);
+    let maxDist = clamp(mouse.v * 100, 25, 150);
 
     for (let i = 0; i < size; i++) {
       for (let j = 0; j < size; j++) {
         let dist = (mouseGridX - i) ** 2 + (mouseGridY - j) ** 2;
 
         if (dist < maxDist) {
-          let power = ((1 * maxDist) / dist) * 0.3;
+          let power =
+            ((1 * maxDist) / dist) *
+            ((20 - Math.min(mouse.curScroll, 20)) / 20 + 0.1);
           data[4 * (i + size * j)] += mouse.vX * power;
           data[4 * (i + size * j) + 1] += mouse.vY * power;
         }
-        data[4 * (i + size * j) + 1] += mouse.scrollV * Math.random() * 0.01;
+        data[4 * (i + size * j) + 1] += mouse.scrollV * Math.random() * 0.05;
       }
     }
-    mouse.scrollV *= 0.8;
-    mouse.vX *= 0.99;
-    mouse.vY *= 0.99;
+    mouse.scrollV *= 0.9;
+    mouse.vX *= 0.5;
+    mouse.vY *= 0.5;
 
     offsetTexture.needsUpdate = true;
   }

@@ -15,10 +15,10 @@ const AboutSection: FC<AboutSectionProps> = ({
   const reverseClassName = reverse ? "md:flex-row-reverse" : "md:flex-row";
   return (
     <div
-      className={`flex items-center justify-center w-full h-full text-white p-4 font-main flex-col md:flex-row space-y-5 md:space-y-0 md:text-left text-center ${className} ${reverseClassName}`}
+      className={`flex items-center justify-center max-w-6xl h-full text-white p-4 font-main flex-col md:flex-row space-y-5 md:space-y-0 md:text-left text-center ${reverseClassName} ${className}`}
     >
       {renderImage()}
-      <div className="md:pl-10 max-w-3xl">{renderDescription()}</div>
+      <div className="md:pl-10 ">{renderDescription()}</div>
     </div>
   );
 };

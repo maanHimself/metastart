@@ -56,7 +56,7 @@ export default function Home() {
         )}
       />
 
-      <p className=" pt-24 pb-0 mt-10 text-white font-main md:text-8xl text-4xl">
+      <p className=" pt-24 pb-0 mt-10 text-white font-main md:text-6xl text-4xl">
         PROJECTS
       </p>
       <div className="flex flex-col md:flex-row md:justify-around w-full  md:space-x-4 mt-8 text-white font-main">
@@ -81,9 +81,21 @@ export default function Home() {
         THE TEAM
       </p>
       <div className="flex flex-row justify-around items-center w-full flex-wrap  mt-4">
-        <img id="team1" src="/team1.png" className=" mt-10 opacity-0"></img>
-        <img id="team2" src="/team2.png" className=" mt-10 opacity-0"></img>
-        <img id="team3" src="/team1.png" className=" mt-10 opacity-0"></img>
+        <img
+          id="team1"
+          src="/team1.png"
+          className=" mt-10 max-h-56 opacity-0"
+        ></img>
+        <img
+          id="team2"
+          src="/team2.png"
+          className="max-h-56 mt-10 opacity-0"
+        ></img>
+        <img
+          id="team3"
+          src="/team1.png"
+          className="max-h-56 mt-10 opacity-0"
+        ></img>
       </div>
     </div>
   );
