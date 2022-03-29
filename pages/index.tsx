@@ -24,8 +24,8 @@ export default function Home() {
         )}
         renderDescription={() => (
           <>
-            <p className=" text-4xl">MISSION</p>
-            <p className=" md:text-2xl text-lg">
+            <p className="md:pl-10 text-4xl">MISSION</p>
+            <p className="md:pl-10 md:text-2xl text-lg">
               Mission to accelerate the Migration of creators and businesses
               towards the web 3.0 sphere by building and providing future ready
               products and services.
@@ -34,7 +34,7 @@ export default function Home() {
         )}
       />
       <AboutSection
-        reverse={true}
+        reverse
         renderImage={() => (
           <img
             id="vision"
@@ -44,10 +44,10 @@ export default function Home() {
         )}
         renderDescription={() => (
           <>
-            <p className=" left-full right-0 text-4xl md:text-left text-center">
+            <p className="md:pl-10 left-full right-0 text-4xl md:text-left text-center">
               VISION
             </p>
-            <p className=" md:text-2xl text-lg">
+            <p className="md:pl-10 md:text-2xl text-lg">
               Vision to build a democratic and decentralized world and
               concomitantly allowing clients to harness the full potential of
               the future.

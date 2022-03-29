@@ -16,7 +16,7 @@ const AboutSection: FC<AboutSectionProps> = (props: AboutSectionProps) => {
       text-white p-4 font-main flex-col md:flex-row space-y-5 md:space-y-0 md:text-left text-center ${reverseClassName} ${props.className}`}
     >
       {props.renderImage()}
-      <div className="md:pl-10 ">{props.renderDescription()}</div>
+      <div className=" ">{props.renderDescription()}</div>
     </div>
   );
 };
