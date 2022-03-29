@@ -15,45 +15,20 @@ export default function Home() {
       </div>
 
       <AboutSection
-        renderImage={() => (
-          <img
-            id="goal"
-            src="/goal.png"
-            className="h-60  inline-block opacity-0"
-          ></img>
-        )}
-        renderDescription={() => (
-          <>
-            <p className="md:pl-10 text-4xl">MISSION</p>
-            <p className="md:pl-10 md:text-2xl text-lg">
-              Mission to accelerate the Migration of creators and businesses
-              towards the web 3.0 sphere by building and providing future ready
-              products and services.
-            </p>
-          </>
-        )}
+        src="/goal.png"
+        id="goal"
+        titel="MISSION"
+        desc="Mission to accelerate the Migration of creators and businesses
+      towards the web 3.0 sphere by building and providing future ready
+      products and services."
       />
       <AboutSection
+        src="/vision.png"
+        id={"vision"}
         reverse
-        renderImage={() => (
-          <img
-            id="vision"
-            src="/vision.png"
-            className="h-60 right-0 inline-block opacity-0 "
-          ></img>
-        )}
-        renderDescription={() => (
-          <>
-            <p className="md:pl-10 left-full right-0 text-4xl md:text-left text-center">
-              VISION
-            </p>
-            <p className="md:pl-10 md:text-2xl text-lg">
-              Vision to build a democratic and decentralized world and
-              concomitantly allowing clients to harness the full potential of
-              the future.
-            </p>
-          </>
-        )}
+        titel="VISION"
+        desc="Vision to build a democratic and decentralized world and concomitantly
+          allowing clients to harness the full potential of the future."
       />
 
       <p className=" pt-24 pb-0 mt-10 text-white font-main md:text-6xl text-4xl">
