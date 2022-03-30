@@ -30,7 +30,7 @@ const AboutSection: FC<AboutSectionProps> = (props: AboutSectionProps) => {
     : "md:flex-row";
   return (
     <div
-      className={`flex items-center justify-center max-w-6xl h-full text-white p-4 font-main flex-col md:flex-row space-y-5 md:space-y-0 md:text-left text-center ${reverseClassName} ${props.className}`}
+      className={`flex items-center justify-center max-w-6xl h-full text-white p-4 font-main flex-col md:flex-row space-y-5 md:space-y-0 md:text-left text-center`}
     >
       <img
         id={props.id}
@@ -38,9 +38,7 @@ const AboutSection: FC<AboutSectionProps> = (props: AboutSectionProps) => {
         className="h-60 right-0 inline-block opacity-0 "
       ></img>
       <div className="md:pl-10 ">
-        <p className="left-full right-0 text-4xl md:text-left text-center">
-          {props.titel}
-        </p>
+        <p className="text-4xl">{props.titel}</p>
         <p className=" md:text-2xl text-lg">{props.desc}</p>
       </div>
     </div>
