@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import { FC } from "react";
 
 type AboutSectionProps = {
@@ -30,7 +31,10 @@ const AboutSection: FC<AboutSectionProps> = (props: AboutSectionProps) => {
     : "md:flex-row";
   return (
     <div
-      className={`flex items-center justify-center max-w-6xl h-full text-white p-4 font-main flex-col md:flex-row space-y-5 md:space-y-0`}
+      className={classNames(
+        "flex items-center justify-center max-w-6xl h-full text-white p-4 font-main flex-col md:flex-row space-y-5 md:space-y-0",
+        reverseClassName
+      )}
     >
       <img
         id={props.id}
