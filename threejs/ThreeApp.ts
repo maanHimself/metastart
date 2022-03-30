@@ -153,7 +153,11 @@ export default (canvas: any) => {
 
     // if (mouse.curScroll > mouse.oldScroll) {
     //   let data = offsetTexture.image.data;
-    //   for (let i = 0; i < size * 4 * 20; i += 4) {
+    //   for (
+    //     let i = size * size * 4 - size * 4 * 20;
+    //     i < size * size * 4;
+    //     i += 4
+    //   ) {
     //     let r = Math.random() * 0.1 * 2 - 0.1;
     //     let r2 = Math.random() * 0.01 * (20 - i / (size * 4 * 20));
     //     data[i] = 0;
@@ -238,7 +242,7 @@ export default (canvas: any) => {
   }
 
   function onMouseMove(e: MouseEvent | TouchEvent) {
-    if (e instanceof MouseEvent) {
+    if (e instanceof MouseEvent && window.innerWidth > 768) {
       mouse.x = e.clientX / window.innerWidth;
       mouse.y = e.clientY / window.innerHeight;
     } else {
@@ -278,7 +282,11 @@ export default (canvas: any) => {
           data[4 * (i + size * j)] += mouse.vX * power;
           data[4 * (i + size * j) + 1] += mouse.vY * power;
         }
-        data[4 * (i + size * j) + 1] += mouse.scrollV * Math.random() * 0.05;
+        let s = 0;
+        mouse.scrollV > 0 ? (s = (size - j) / size) : (s = j / size);
+        // if (j < size / 2)
+        data[4 * (i + size * j) + 1] +=
+          mouse.scrollV * Math.random() * 0.05 * s;
       }
     }
     mouse.scrollV *= 0.9;

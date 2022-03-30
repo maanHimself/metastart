@@ -3,7 +3,7 @@ import ThreeContainer from "./ThreeComp";
 
 export default function Home() {
   return (
-    <div className="h-full w-full flex flex-col items-center justify-center m-0 p-6 pt-0 pb-0 ">
+    <div className="h-full w-full flex flex-col items-center justify-center m-0 p-6 pt-0 pb-0 pointer-events-none">
       <ThreeContainer></ThreeContainer>
 
       <div className="h-screen w-full flex items-center justify-center ">
