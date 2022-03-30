@@ -34,22 +34,22 @@ export default function Home() {
       <p className=" pt-24 pb-0 mt-10 text-white font-main md:text-6xl text-4xl">
         PROJECTS
       </p>
-      <div className="flex flex-col md:flex-row md:justify-around w-full  md:space-x-4 mt-8 text-white font-main">
-        <div className="flex flex-col mb-10">
-          <img id="" src="/WT 1801-1.jpg" className=" m-0 "></img>
-          <p className=" left-full right-0 text-4xl  mt-4">Indie Company</p>
-          <p className=" left-full right-0 text-2xl m-2">
+      <div className="flex flex-col max-w-6xl md:flex-row md:justify-around w-full  md:space-x-4 mt-8 text-white font-main">
+        <div className="flex flex-col items-center justify-center mb-10">
+          <img id="" src="/WT 1801-1.jpg" className=" max-w-md m-0 "></img>
+          <p className=" text-center right-0 text-4xl  mt-4">Indie Company</p>
+          <p className=" text-center right-0 text-2xl m-2">
             Our own crypto enabled e-commerce
           </p>
         </div>
-        <div className="flex flex-col-reverse md:flex-col ">
+        <div className="flex flex-col-reverse items-center justify-center md:flex-col ">
           <div>
-            <p className=" left-full right-0 text-4xl mt-4">Indie Company</p>
-            <p className=" left-full right-0 text-2xl m-2 md:mb-8 ">
+            <p className=" text-center right-0 text-4xl mt-4">Indie Company</p>
+            <p className=" text-center right-0 text-2xl m-2 md:mb-8 ">
               Our own crypto enabled e-commerce
             </p>
           </div>
-          <img id="" src="/WT 1801-1.jpg" className=" m-0"></img>
+          <img id="" src="/WT 1801-1.jpg" className=" max-w-md m-0"></img>
         </div>
       </div>
       <p className=" pt-24 pb-0 text-white font-main text-6xl text-center">
