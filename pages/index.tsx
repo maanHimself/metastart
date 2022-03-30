@@ -55,7 +55,7 @@ export default function Home() {
       <p className=" pt-24 pb-0 text-white font-main text-6xl text-center">
         THE TEAM
       </p>
-      <div className="flex flex-row justify-around items-center w-full flex-wrap  mt-4">
+      <div className="flex flex-row justify-around items-center w-full flex-wrap max-w-6xl mt-4">
         <img
           id="team1"
           src="/team1.png"
