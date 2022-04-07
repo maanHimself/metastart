@@ -120,7 +120,7 @@ export default (canvas: any) => {
   createThreeHtml("/vision.png", true, "vision");
   createThreeHtml("/team1.png", true, "team1");
   createThreeHtml("/team2.png", true, "team2");
-  createThreeHtml("/team1.png", true, "team3");
+  createThreeHtml("/team3.png", true, "team3");
 
   // end adding objects
 
@@ -278,7 +278,8 @@ export default (canvas: any) => {
         if (dist < maxDist) {
           let power =
             ((1 * maxDist) / dist) *
-            ((20 - Math.min(mouse.curScroll, 20)) / 20 + 0.1);
+            ((20 - Math.min(mouse.curScroll, 20)) / 20) *
+            0.1;
           data[4 * (i + size * j)] += mouse.vX * power;
           data[4 * (i + size * j) + 1] += mouse.vY * power;
         }
