@@ -15,7 +15,7 @@ export default function Home() {
         <img
           id="logo"
           src="/logo.png"
-          className="inline-block opacity-0  "
+          className="inline-block opacity-0 md:w-2/3 -translate-y-20 "
         ></img>
       </div>
 
@@ -89,7 +89,7 @@ export default function Home() {
       </p>
       <div className="flex flex-col max-w-6xl md:flex-row md:justify-around w-full  md:space-x-4 mt-8 text-white font-main">
         <div className="flex flex-col items-center justify-center mb-10">
-          <img id="" src="/WT 1801-1.jpg" className=" max-w-md m-0 "></img>
+          <img id="" src="/WT 1801-1.jpg" className=" w-5/5 m-0 "></img>
           <p className=" text-center right-0 text-4xl  mt-4">Indie Company</p>
           <p className=" text-center right-0 text-2xl m-2">
             Our own crypto enabled e-commerce
@@ -102,7 +102,7 @@ export default function Home() {
               Our own crypto enabled e-commerce
             </p>
           </div>
-          <img id="" src="/WT 1801-1.jpg" className=" max-w-md m-0"></img>
+          <img id="" src="/WT 1801-1.jpg" className=" w-5/5 m-0"></img>
         </div>
       </div>
       <p className=" pt-24 pb-0 text-white font-main text-6xl text-center">
@@ -142,18 +142,19 @@ export default function Home() {
         ></input>
         <textarea
           placeholder="Details"
-          className="w-3/4 h-48 rounded-md border-2 text-white resize-none align-text-top border-[#0daa93] bg-transparent bg-[#0DAA93] bg-opacity-10 p-2 "
+          className="w-3/4 min-h-[200px] rounded-md border-2 text-white resize-none align-text-top border-[#0daa93] bg-transparent bg-[#0DAA93] bg-opacity-10 p-2 "
         ></textarea>
 
-        <button className="w-3/4 h-10 rounded-md border-2 text-white border-[#0daa93]  bg-[#0DAA93]  p-2 ">
+        <button className=" w-3/4 h-20 rounded-md border-2 text-white border-[#0daa93]  bg-[#0DAA93]  p-2 ">
           Send
         </button>
-      </div>
-      <div className="w-full h-16  flex flex-row items-center justify-center space-x-4 ">
-        <img id="media" src="/whatsapp.png" className="block w-8"></img>
-        <img id="media" src="/twitter.png" className="block w-8"></img>
-        <img id="media" src="/email.png" className="block w-8"></img>
-        <img id="media" src="/facebook.png" className="block w-8"></img>
+        <div className="flex-1"></div>
+        <div className="w-full h-16  flex flex-row items-center justify-center space-x-4 mt-auto">
+          <img id="media" src="/whatsapp.png" className=" w-8"></img>
+          <img id="media" src="/twitter.png" className=" w-8"></img>
+          <img id="media" src="/email.png" className=" w-8"></img>
+          <img id="media" src="/facebook.png" className=" w-8"></img>
+        </div>
       </div>
     </div>
   );
