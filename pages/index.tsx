@@ -156,7 +156,11 @@ export default function Home() {
               Our own Nft marketplace based on polygon
             </p>
           </div>
-          <img id="sd" src="/sd.png" className="opacity-0 w-5/5 m-0"></img>
+          <img
+            id="skyDeck"
+            src="/skyDeck.png"
+            className="opacity-0 w-5/5 m-0"
+          ></img>
         </div>
       </div>
       <p className=" pt-24 pb-0 text-white font-main text-6xl text-center">

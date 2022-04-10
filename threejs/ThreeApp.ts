@@ -127,7 +127,7 @@ export default (canvas: any) => {
   createThreeHtml("/team6.png", true, "team6");
   createThreeHtml("/team7.png", true, "team7");
   createThreeHtml("/indie.png", true, "indie");
-  createThreeHtml("/sd.png", true, "sd");
+  createThreeHtml("/skyDeck.png", true, "skyDeck");
 
   const torusG = new THREE.PlaneGeometry(300, 300);
   const torusM = new torusMaterial();
