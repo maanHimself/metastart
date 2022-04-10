@@ -6,6 +6,7 @@ import emailjs from "@emailjs/browser";
 // @ts-ignore
 import { AwesomeButton } from "react-awesome-button";
 import "react-awesome-button/dist/styles.css";
+import Head from "next/head";
 
 import { useRef } from "react";
 
@@ -44,6 +45,11 @@ export default function Home() {
 
   return (
     <div className="content h-full w-full flex flex-col items-center justify-center m-0 p-6 pt-0 pb-0">
+      <Head>
+        <title>Metastart</title>
+        <link rel="icon" href="/thumbnail.png" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <ThreeContainer></ThreeContainer>
 
       <div className="h-screen w-full flex flex-col items-center justify-center ">
@@ -133,7 +139,11 @@ export default function Home() {
       </p>
       <div className="flex flex-col max-w-6xl md:flex-row md:justify-around w-full  md:space-x-4 mt-8 text-white font-main">
         <div className="flex flex-col items-center justify-center mb-10">
-          <img id="" src="/indie.png" className=" w-5/5 m-0 "></img>
+          <img
+            id="indie"
+            src="/indie.png"
+            className="opacity-0 w-5/5 m-0 "
+          ></img>
           <p className=" text-center right-0 text-4xl  mt-4">Indie Company</p>
           <p className=" text-center right-0 text-2xl m-2">
             Our own crypto enabled e-commerce
@@ -146,7 +156,7 @@ export default function Home() {
               Our own Nft marketplace based on polygon
             </p>
           </div>
-          <img id="" src="/sd.png" className=" w-5/5 m-0"></img>
+          <img id="sd" src="/sd.png" className="opacity-0 w-5/5 m-0"></img>
         </div>
       </div>
       <p className=" pt-24 pb-0 text-white font-main text-6xl text-center">
@@ -181,6 +191,11 @@ export default function Home() {
         <img
           id="team6"
           src="/team6.png"
+          className="md:h-56 h-28 mt-10 opacity-0 m-4"
+        ></img>
+        <img
+          id="team7"
+          src="/team7.png"
           className="md:h-56 h-28 mt-10 opacity-0 m-4"
         ></img>
       </div>
@@ -226,6 +241,10 @@ export default function Home() {
           </button>
         </form>
         <div className="flex-1"></div>
+        <p className="w-3/4 text-[20px] align-middle text-center text-white">
+          PS: We wanted to give you a taste of Metaverse hence the theme, not
+          cause we can’t afford intense UX website :P
+        </p>
         <div className="w-full h-16  flex flex-row items-center justify-center space-x-4 mt-auto pb-6">
           <a href="https://wa.me/00919686343315">
             <img id="media" src="/whatsapp.png" className=" w-8"></img>

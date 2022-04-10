@@ -7,6 +7,7 @@ import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
 import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
 import { basicShader } from "./shaders/basicShader";
 import { customShader } from "./shaders/customShader";
+import { torusMaterial } from "./shaders/torusMaterial";
 
 export default (canvas: any) => {
   const scene = new THREE.Scene();
@@ -91,7 +92,7 @@ export default (canvas: any) => {
     vertexShader: pixelShader.vertex,
     fragmentShader: pixelShader.fragment,
     uniforms: {
-      vT: { value: new THREE.TextureLoader().load("/img.jpg") },
+      // vT: { value: new THREE.TextureLoader().load("/img.jpg") },
       dT: { value: offsetTexture },
       time: { value: 0 },
       resolution: { value: new THREE.Vector4() },
@@ -124,6 +125,17 @@ export default (canvas: any) => {
   createThreeHtml("/team4.png", true, "team4");
   createThreeHtml("/team5.png", true, "team5");
   createThreeHtml("/team6.png", true, "team6");
+  createThreeHtml("/team7.png", true, "team7");
+  createThreeHtml("/indie.png", true, "indie");
+  createThreeHtml("/sd.png", true, "sd");
+
+  const torusG = new THREE.PlaneGeometry(300, 300);
+  const torusM = new torusMaterial();
+  torusM.uniforms["t"].value = new THREE.TextureLoader().load(
+    "/torusTexture.jpg"
+  );
+  const torus = new THREE.Mesh(torusG, torusM);
+  // scene.add(torus);
 
   // end adding objects
 
@@ -153,20 +165,6 @@ export default (canvas: any) => {
         (document.documentElement.scrollHeight -
           document.documentElement.clientHeight)) *
       100;
-
-    // if (mouse.curScroll > mouse.oldScroll) {
-    //   let data = offsetTexture.image.data;
-    //   for (
-    //     let i = size * size * 4 - size * 4 * 20;
-    //     i < size * size * 4;
-    //     i += 4
-    //   ) {
-    //     let r = Math.random() * 0.1 * 2 - 0.1;
-    //     let r2 = Math.random() * 0.01 * (20 - i / (size * 4 * 20));
-    //     data[i] = 0;
-    //     data[i + 1] = r2;
-    //   }
-    // }
 
     mouse.scrollV = mouse.curScroll - mouse.oldScroll;
 
@@ -326,6 +324,7 @@ export default (canvas: any) => {
   }
 
   function render(time: number) {
+    torusM.uniforms["time"].value = time;
     debounce(updateElements, 100)();
     material.uniforms.time.value = time * 0.005;
     updateOffset();
