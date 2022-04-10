@@ -43,7 +43,7 @@ export default function Home() {
   };
 
   return (
-    <div className="h-full w-full flex flex-col items-center justify-center m-0 p-6 pt-0 pb-0">
+    <div className="content h-full w-full flex flex-col items-center justify-center m-0 p-6 pt-0 pb-0">
       <ThreeContainer></ThreeContainer>
 
       <div className="h-screen w-full flex flex-col items-center justify-center ">
@@ -133,7 +133,7 @@ export default function Home() {
       </p>
       <div className="flex flex-col max-w-6xl md:flex-row md:justify-around w-full  md:space-x-4 mt-8 text-white font-main">
         <div className="flex flex-col items-center justify-center mb-10">
-          <img id="" src="/WT 1801-1.jpg" className=" w-5/5 m-0 "></img>
+          <img id="" src="/indie.png" className=" w-5/5 m-0 "></img>
           <p className=" text-center right-0 text-4xl  mt-4">Indie Company</p>
           <p className=" text-center right-0 text-2xl m-2">
             Our own crypto enabled e-commerce
@@ -152,21 +152,31 @@ export default function Home() {
       <p className=" pt-24 pb-0 text-white font-main text-6xl text-center">
         THE TEAM
       </p>
-      <div className="flex flex-row justify-around items-center w-full flex-wrap max-w-6xl mt-4">
+      <div className="flex flex-row justify-center items-center w-full flex-wrap max-w-7xl mt-4">
         <img
           id="team1"
           src="/team1.png"
-          className=" mt-10 md:h-56 h-28 opacity-0 "
+          className=" mt-10 md:h-56 h-28 opacity-0  m-4"
         ></img>
         <img
           id="team2"
           src="/team2.png"
-          className="md:h-56 h-28 mt-10 opacity-0"
+          className="md:h-56 h-28 mt-10 opacity-0 m-4"
         ></img>
         <img
           id="team3"
           src="/team3.png"
-          className="md:h-56 h-28 mt-10 opacity-0"
+          className="md:h-56 h-28 mt-10 opacity-0 m-4"
+        ></img>
+        <img
+          id="team4"
+          src="/team4.png"
+          className="md:h-56 h-28 mt-10 opacity-0 m-4"
+        ></img>
+        <img
+          id="team5"
+          src="/team5.png"
+          className="md:h-56 h-28 mt-10 opacity-0 m-4"
         ></img>
       </div>
 

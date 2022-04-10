@@ -121,6 +121,8 @@ export default (canvas: any) => {
   createThreeHtml("/team1.png", true, "team1");
   createThreeHtml("/team2.png", true, "team2");
   createThreeHtml("/team3.png", true, "team3");
+  createThreeHtml("/team4.png", true, "team4");
+  createThreeHtml("/team5.png", true, "team5");
 
   // end adding objects
 
