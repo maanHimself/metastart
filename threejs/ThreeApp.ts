@@ -123,6 +123,7 @@ export default (canvas: any) => {
   createThreeHtml("/team3.png", true, "team3");
   createThreeHtml("/team4.png", true, "team4");
   createThreeHtml("/team5.png", true, "team5");
+  createThreeHtml("/team6.png", true, "team6");
 
   // end adding objects
 

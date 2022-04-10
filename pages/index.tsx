@@ -63,13 +63,13 @@ export default function Home() {
         </AwesomeButton>
       </div>
 
-      <p className=" pt-10 pb-24 text-white font-main text-4xl text-center">
+      <p className=" pt-10 pb-24 text-white font-main text-4xl text-center hidden">
         WE ...
       </p>
       <div
         ref={services}
-        className="h-full w-full items-center  text-white font-main over break-words 
-        justify-evenly flex-wrap space-x-1 md:space-y-0 space-y-6 mb-48 flex flex-col md:flex-row "
+        className=" h-full w-full items-center  text-white font-main over break-words 
+        justify-evenly flex-wrap space-x-1 md:space-y-0 space-y-6 mb-48 flex flex-col md:flex-row hidden"
       >
         <Service
           titel="BUILD DEFI APPS"
@@ -141,12 +141,12 @@ export default function Home() {
         </div>
         <div className="flex flex-col-reverse items-center justify-center md:flex-col ">
           <div>
-            <p className=" text-center right-0 text-4xl mt-4">Indie Company</p>
+            <p className=" text-center right-0 text-4xl mt-4">Sky Deck</p>
             <p className=" text-center right-0 text-2xl m-2 md:mb-8 ">
-              Our own crypto enabled e-commerce
+              Our own Nft marketplace based on polygon
             </p>
           </div>
-          <img id="" src="/WT 1801-1.jpg" className=" w-5/5 m-0"></img>
+          <img id="" src="/sd.png" className=" w-5/5 m-0"></img>
         </div>
       </div>
       <p className=" pt-24 pb-0 text-white font-main text-6xl text-center">
@@ -176,6 +176,11 @@ export default function Home() {
         <img
           id="team5"
           src="/team5.png"
+          className="md:h-56 h-28 mt-10 opacity-0 m-4"
+        ></img>
+        <img
+          id="team6"
+          src="/team6.png"
           className="md:h-56 h-28 mt-10 opacity-0 m-4"
         ></img>
       </div>
