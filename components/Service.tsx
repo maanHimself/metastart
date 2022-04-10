@@ -11,7 +11,7 @@ type AboutSectionProps = {
 const Service: FC<AboutSectionProps> = (props: AboutSectionProps) => {
   return (
     <div
-      className="md:w-2/5 w-3/4 h-48 rounded-md border-2 bg-transparent bg-[#0DAA93] bg-opacity-25 p-2 "
+      className="md:w-2/5 w-full h-56 rounded-md border-2 bg-transparent bg-[#0DAA93] bg-opacity-25 p-2 "
       style={{
         borderColor: "#0daa93",
       }}
@@ -19,7 +19,7 @@ const Service: FC<AboutSectionProps> = (props: AboutSectionProps) => {
       <img
         id="icon"
         src={props.src}
-        className="  h-28 float-right -translate-y-12 translate-x-4"
+        className="  md:h-28 h-20 float-right -translate-y-12 translate-x-4"
       ></img>
       {props.visible && (
         <>
@@ -27,7 +27,7 @@ const Service: FC<AboutSectionProps> = (props: AboutSectionProps) => {
             onInit={(typewriter) => {
               typewriter
                 .callFunction((state) => {
-                  state.elements.container.style.fontSize = "120%";
+                  state.elements.container.style.fontSize = "170%";
                   state.elements.container.style.color = "#09F6FB";
                 })
                 .pauseFor(250)
@@ -44,7 +44,7 @@ const Service: FC<AboutSectionProps> = (props: AboutSectionProps) => {
             onInit={(typewriter) => {
               typewriter
                 .callFunction((state) => {
-                  state.elements.container.style.fontSize = "100%";
+                  state.elements.container.style.fontSize = "150%";
                   // state.elements.wrapper.style.overflowWrap =
                   //   "break-word";
                   // state.elements.wrapper.style.whiteSpace = "pre-wrap";

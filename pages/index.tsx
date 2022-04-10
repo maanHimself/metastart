@@ -2,24 +2,68 @@ import AboutSection from "../components/AboutSection/AboutSection";
 import ThreeContainer from "./ThreeComp";
 import { useInView } from "react-intersection-observer";
 import Service from "../components/Service";
+import emailjs from "@emailjs/browser";
+// @ts-ignore
+import { AwesomeButton } from "react-awesome-button";
+import "react-awesome-button/dist/styles.css";
+
+import { useRef } from "react";
+
 export default function Home() {
   // let services = useRef(null);
 
   const { ref: services, inView: myElementIsVisible } = useInView();
 
+  const form = useRef() as React.MutableRefObject<HTMLFormElement>;
+
+  const messagesEndRef = useRef<null | HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const sendEmail = (e: any) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm(
+        "service_qyvhhx4",
+        "template_yqd7yyr",
+        form.current!,
+        "ipFgnqh9oaOBRsCmm"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+  };
+
   return (
     <div className="h-full w-full flex flex-col items-center justify-center m-0 p-6 pt-0 pb-0">
       <ThreeContainer></ThreeContainer>
 
-      <div className="h-screen w-full flex items-center justify-center ">
+      <div className="h-screen w-full flex flex-col items-center justify-center ">
         <img
           id="logo"
           src="/logo.png"
           className="inline-block opacity-0 md:w-2/3 -translate-y-20 "
         ></img>
+        <AwesomeButton
+          type="primary"
+          size="large"
+          onPress={() => {
+            scrollToBottom();
+          }}
+        >
+          Contact us
+        </AwesomeButton>
       </div>
 
-      <p className=" pt-10 pb-24 text-white font-main text-2xl text-center">
+      <p className=" pt-10 pb-24 text-white font-main text-4xl text-center">
         WE ...
       </p>
       <div
@@ -112,50 +156,77 @@ export default function Home() {
         <img
           id="team1"
           src="/team1.png"
-          className=" mt-10 max-h-56 opacity-0"
+          className=" mt-10 md:h-56 h-28 opacity-0 "
         ></img>
         <img
           id="team2"
           src="/team2.png"
-          className="max-h-56 mt-10 opacity-0"
+          className="md:h-56 h-28 mt-10 opacity-0"
         ></img>
         <img
           id="team3"
           src="/team3.png"
-          className="max-h-56 mt-10 opacity-0"
+          className="md:h-56 h-28 mt-10 opacity-0"
         ></img>
       </div>
 
       <div className="h-screen w-full flex flex-col items-center justify-center font-main space-y-6">
         <p className=" pt-24 pb-10 text-white font-main text-6xl text-center">
-          contact us
+          CONTACT US
         </p>
-        <input
-          placeholder="Name"
-          type={"text"}
-          className="w-3/4 h-10 rounded-md border-2 text-white border-[#0daa93] bg-transparent bg-[#0DAA93] bg-opacity-10 p-2 "
-        ></input>
-        <input
-          placeholder="Email"
-          type={"email"}
-          className="w-3/4 h-10 rounded-md border-2 text-white border-[#0daa93] bg-transparent bg-[#0DAA93] bg-opacity-10 p-2 "
-        ></input>
-        <textarea
-          placeholder="Details"
-          className="w-3/4 min-h-[200px] rounded-md border-2 text-white resize-none align-text-top border-[#0daa93] bg-transparent bg-[#0DAA93] bg-opacity-10 p-2 "
-        ></textarea>
-
-        <button className=" w-3/4 h-20 rounded-md border-2 text-white border-[#0daa93]  bg-[#0DAA93]  p-2 ">
-          Send
-        </button>
+        <form
+          ref={form}
+          onSubmit={sendEmail}
+          className="w-full max-w-7xl text-[150%] flex flex-col items-center justify-center font-main space-y-6"
+        >
+          <input
+            name="from_name"
+            placeholder="Name"
+            type={"text"}
+            className="w-3/4 h-10 rounded-md border-2 text-white border-[#0daa93] bg-transparent bg-[#0DAA93] bg-opacity-10 p-2 "
+          ></input>
+          <input
+            name="from_email"
+            placeholder="Email"
+            type={"email"}
+            className="w-3/4 h-10 rounded-md border-2 text-white border-[#0daa93] bg-transparent bg-[#0DAA93] bg-opacity-10 p-2 "
+          ></input>
+          <input
+            name="from_phone"
+            placeholder="phone number"
+            type={"text"}
+            className="w-3/4 h-10 rounded-md border-2 text-white border-[#0daa93] bg-transparent bg-[#0DAA93] bg-opacity-10 p-2 "
+          ></input>
+          <textarea
+            name="message"
+            placeholder="Details"
+            className="w-3/4 min-h-[200px] rounded-md border-2 text-white resize-none align-text-top border-[#0daa93] bg-transparent bg-[#0DAA93] bg-opacity-10 p-2 "
+          ></textarea>
+          <button
+            type="submit"
+            value="Send"
+            className=" w-3/4 h-12 rounded-md border-2 text-white border-[#0daa93]  bg-[#0DAA93]  p-2 "
+          >
+            Send
+          </button>
+        </form>
         <div className="flex-1"></div>
-        <div className="w-full h-16  flex flex-row items-center justify-center space-x-4 mt-auto">
-          <img id="media" src="/whatsapp.png" className=" w-8"></img>
-          <img id="media" src="/twitter.png" className=" w-8"></img>
-          <img id="media" src="/email.png" className=" w-8"></img>
-          <img id="media" src="/facebook.png" className=" w-8"></img>
+        <div className="w-full h-16  flex flex-row items-center justify-center space-x-4 mt-auto pb-6">
+          <a href="https://wa.me/00919686343315">
+            <img id="media" src="/whatsapp.png" className=" w-8"></img>
+          </a>
+          <a href="http://www.twitter.com/0xmetastart">
+            <img id="media" src="/twitter.png" className=" w-8"></img>
+          </a>
+          <a href="mailto:Hi@metastart.in">
+            <img id="media" src="/email.png" className=" w-8"></img>
+          </a>
+          <a href="https://www.instagram.com/metastart.in/">
+            <img id="media" src="/insta.png" className=" w-8"></img>
+          </a>
         </div>
       </div>
+      <div ref={messagesEndRef} />
     </div>
   );
 }

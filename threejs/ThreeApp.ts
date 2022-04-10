@@ -53,7 +53,7 @@ export default (canvas: any) => {
 
   //end setup
 
-  let size = 128;
+  let size = 64;
 
   let offsetWidth = size;
   let offsetHeight = size;
@@ -286,8 +286,7 @@ export default (canvas: any) => {
         let s = 0;
         mouse.scrollV > 0 ? (s = (size - j) / size) : (s = j / size);
         // if (j < size / 2)
-        data[4 * (i + size * j) + 1] +=
-          mouse.scrollV * Math.random() * 0.05 * s;
+        data[4 * (i + size * j) + 1] += mouse.scrollV * Math.random() * 0.1 * s;
       }
     }
     mouse.scrollV *= 0.9;
