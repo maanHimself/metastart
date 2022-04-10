@@ -246,8 +246,8 @@ export default function Home() {
         </form>
         <div className="flex-1"></div>
         <p className="w-3/4 text-[20px] align-middle text-center text-white">
-          PS: We wanted to give you a taste of Metaverse hence the theme, not
-          cause we can’t afford intense UX website :P
+          PS: We wanted to give you a taste of the Metaverse hence the theme,
+          not cause we can’t afford an intense UX website :P
         </p>
         <div className="w-full h-16  flex flex-row items-center justify-center space-x-4 mt-auto pb-6">
           <a href="https://wa.me/00919686343315">
