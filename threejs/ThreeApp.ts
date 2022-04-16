@@ -165,12 +165,12 @@ export default (canvas: any) => {
   createThreeHtml("/goal.png", true, "goal");
   createThreeHtml("/vision.png", true, "vision");
 
-  //services
-  createThreeHtml("/services/1.png", true, "s1");
-  createThreeHtml("/services/2.png", true, "s2");
-  createThreeHtml("/services/3.png", true, "s3");
-  createThreeHtml("/services/4.png", true, "s4");
-  createThreeHtml("/services/5.png", true, "s5");
+  // //services
+  // createThreeHtml("/services/1.png", true, "s1");
+  // createThreeHtml("/services/2.png", true, "s2");
+  // createThreeHtml("/services/3.png", true, "s3");
+  // createThreeHtml("/services/4.png", true, "s4");
+  // createThreeHtml("/services/5.png", true, "s5");
 
   createThreeHtml("/team1.png", true, "team1");
   createThreeHtml("/team2.png", true, "team2");
@@ -475,7 +475,7 @@ export default (canvas: any) => {
           let power =
             ((1 * maxDist) / dist) *
             ((20 - Math.min(mouse.curScroll, 20)) / 20) *
-            0.1;
+            0.5;
           data[4 * (i + size * j)] += mouse.vX * power;
           data[4 * (i + size * j) + 1] += mouse.vY * power;
         }

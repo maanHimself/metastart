@@ -155,7 +155,7 @@ export default function Home() {
           </AwesomeButton> */}
         </div>
 
-        <p className=" pt-10 pb-24 text-white font-main md:text-6xl text-4xl text-center">
+        <p className=" pt-10  text-white font-main md:text-6xl text-4xl text-center">
           WE ...
         </p>
         <Services />
@@ -186,7 +186,7 @@ export default function Home() {
             <img
               id="indie"
               src="/indie.png"
-              className="opacity-0 w-5/5 m-0 "
+              className="opacity-0 w-3/5 m-0 "
             ></img>
             <p className=" text-center right-0 text-4xl  mt-4">Indie Company</p>
             <p className=" text-center right-0 text-2xl m-2">
@@ -203,7 +203,7 @@ export default function Home() {
             <img
               id="skyDeck"
               src="/skyDeck.png"
-              className="opacity-0 w-5/5 m-0"
+              className="opacity-0 w-3/5 m-0"
             ></img>
           </div>
         </div>
@@ -289,10 +289,10 @@ export default function Home() {
             </button>
           </form>
           <div className="flex-1"></div>
-          <p className="w-3/4 text-[20px] align-middle text-center text-white">
+          {/* <p className="w-3/4 text-[20px] align-middle text-center text-white">
             PS: We wanted to give you a taste of the Metaverse hence the theme,
             not cause we can’t afford an intense UX website :P
-          </p>
+          </p> */}
           <div className="w-full h-16  flex flex-row items-center justify-center space-x-4 mt-auto pb-6">
             <a href="https://wa.me/00919686343315">
               <img id="media" src="/whatsapp.png" className=" w-8"></img>
