@@ -7,6 +7,7 @@ export default function ThreeContainer() {
   const svg = React.useRef(null);
   React.useEffect(() => {
     Sketch(threeRootElement.current);
+    // threeRootElement.current.style.display = "fixed";
   }, []);
 
   return (
@@ -20,9 +21,8 @@ export default function ThreeContainer() {
         //   top: 0,
         //   zIndex: -1,
         // }}
-        className={
-          "canvas bg-black h-screen w-screen fixed top-0 left-0 -z-10 m-0 p-0"
-        }
+        id="three"
+        className={"three bg-black h-screen w-screen block fixed -z-10 m-0 p-0"}
         ref={threeRootElement}
       />
     </>
