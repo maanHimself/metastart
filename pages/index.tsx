@@ -124,7 +124,7 @@ export default function Home() {
           />
         </Head>
 
-        <div className="h-[70vh] w-full flex flex-col items-center justify-center ">
+        <div className="h-[80vh] w-full flex flex-col items-center justify-center ">
           {/* old logo */}
           {/* <img
             id="logo"
@@ -132,7 +132,7 @@ export default function Home() {
             className="inline-block opacity-0 md:w-2/3 -translate-y-20 "
           ></img> */}
           {/* new logo */}
-          <div className=" md:w-2/4 w-3/3 -translate-y-20 flex flex-col justify-center items-center">
+          <div className=" md:w-2/4 w-3/3 flex flex-col justify-center items-center">
             <img
               id="donut"
               src="/donut.png"
