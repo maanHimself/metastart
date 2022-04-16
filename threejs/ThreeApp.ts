@@ -48,7 +48,8 @@ export default (canvas: any) => {
     if (document.readyState === "complete") {
       console.log(document.readyState);
       let opacity = { value: 0 };
-      document.getElementById("loadingBg")?.style.display = "none";
+      let loadingBg = document.getElementById("loadingBg");
+      if (loadingBg != null) loadingBg.style.display = "none";
       new TWEEN.Tween(opacity)
         .to({ value: 100 })
         .easing(TWEEN.Easing.Exponential.Out)
@@ -89,7 +90,7 @@ export default (canvas: any) => {
   let time = 0;
 
   let content = document.getElementById("content");
-  content?.style.opacity = "0%";
+  if (content != null) content.style.opacity = "0%";
   //end setup
 
   let size = 64;
@@ -335,7 +336,7 @@ export default (canvas: any) => {
       //   donutbounds!.width / meshSize.x
       // );
       // mesh.position.z = 100;
-      content?.style.opacity = "100%";
+      if (content != null) content.style.opacity = "100%";
 
       // material.fragmentShader = planeShader.fragment;
       // material.needsUpdate = true;
