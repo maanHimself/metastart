@@ -193,15 +193,16 @@ export default (canvas: any) => {
     100
   );
   const torusM = new torusMaterial();
-  torusM.uniforms["t"].value = new THREE.TextureLoader().load(
-    "/torusTexture.jpg"
-  );
+  torusM.side = THREE.DoubleSide;
+  // torusM.uniforms["t"].value = new THREE.TextureLoader().load(
+  //   "/torusTexture.jpg"
+  // );
   const torus = new THREE.Mesh(torusG, torusM);
   torus.position.z = 0;
   // torus.position.x =
-  torus.rotation.x = (125 * Math.PI) / 180;
-  torus.rotateY((20 * Math.PI) / 180);
-  torus.rotateZ((320 * Math.PI) / 180);
+  torus.rotation.x = (90 * Math.PI) / 180;
+  // torus.rotateY((20 * Math.PI) / 180);
+  // torus.rotateZ((320 * Math.PI) / 180);
   // torus.rotation.x = (90 * Math.PI) / 180;
 
   // torus.position.y += 100;
@@ -210,31 +211,26 @@ export default (canvas: any) => {
     2 * Math.atan(window.innerHeight / 2 / camera.position.z) * (180 / Math.PI);
 
   setMeshtoHtmlPos(torus, donutbounds);
-  camera.position.y =
-    torus.position.y -
-    (window.innerWidth < 756
-      ? ((innerWidth * 0.7) / 4) * 0.5
-      : ((innerWidth * 0.7 * 0.5) / 4) * 0.5);
-  camera.position.x = torus.position.x;
-  (camera.position.z =
+
+  camera.position.y = torus.position.y;
+  camera.position.z =
     window.innerWidth < 756
-      ? (innerWidth * 0.7) / 4
-      : (innerWidth * 0.7 * 0.5) / 4),
-    scene.add(torus);
+      ? ((innerWidth * 0.7) / 4) * 0.98
+      : ((innerWidth * 0.7 * 0.5) / 4) * 0.98;
+
+  scene.add(torus);
 
   scene.add(new THREE.AmbientLight("white", 1));
 
   let mesh: THREE.Mesh;
-  loader.load("/torus.glb", (gltf) => {
-    mesh = gltf.scene.children[0] as THREE.Mesh;
-    mesh.material = torusM;
-    mesh.material.side = THREE.DoubleSide;
-    mesh.scale.set(100, 100, 100);
-    mesh.position.z = 100;
-    gltf.scene.rotateX((60 * Math.PI) / 180);
-    gltf.scene.rotateY((20 * Math.PI) / 180);
-    // scene.add(mesh);
-  });
+  // loader.load("/torus.glb", (gltf) => {
+  //   mesh = gltf.scene.children[0] as THREE.Mesh;
+  //   mesh.scale.set(100, 100, 100);
+  //   mesh.position.z = 100;
+  //   gltf.scene.rotateX((60 * Math.PI) / 180);
+  //   gltf.scene.rotateY((20 * Math.PI) / 180);
+  //   // scene.add(mesh);
+  // });
 
   // end adding objects
 
@@ -300,6 +296,34 @@ export default (canvas: any) => {
   function OnEntered(e: Event) {
     if (!entered) {
       e.preventDefault();
+
+      const torusRotation = {
+        x: (90 * Math.PI) / 180,
+        y: 0,
+        z: 0,
+      };
+      let tweenTorusIntro = new TWEEN.Tween(torusRotation)
+        .to(
+          {
+            x: (140 * Math.PI) / 180,
+            y: (20 * Math.PI) / 180,
+            z: (320 * Math.PI) / 180,
+          },
+          1000
+        )
+        .easing(TWEEN.Easing.Circular.InOut)
+        .onUpdate(() => {
+          torus.rotation.x = torusRotation.x;
+          torus.rotation.y = torusRotation.y;
+          torus.rotation.z = torusRotation.z;
+
+          camera.fov =
+            2 *
+            Math.atan(window.innerHeight / 2 / camera.position.z) *
+            (180 / Math.PI);
+          camera.updateProjectionMatrix();
+        })
+        .start();
       document.body.style.overflow = "auto";
       // document..style.overflow = "auto";
       const coords = {
@@ -325,17 +349,6 @@ export default (canvas: any) => {
 
       entered = true;
 
-      // setMeshtoHtmlSize(mesh, donut?.getBoundingClientRect());
-      // let meshSize = new Vector3();
-      // mesh.geometry.computeBoundingBox();
-      // mesh.geometry.boundingBox?.getSize(meshSize);
-
-      // mesh.scale.set(
-      //   donutbounds!.width / meshSize.x,
-      //   donutbounds!.width / meshSize.x,
-      //   donutbounds!.width / meshSize.x
-      // );
-      // mesh.position.z = 100;
       if (content != null) content.style.opacity = "100%";
 
       // material.fragmentShader = planeShader.fragment;
@@ -355,30 +368,28 @@ export default (canvas: any) => {
   }
 
   function onWindowResize() {
-    debounce(() => {
-      width = container.offsetWidth;
-      height = container.offsetHeight;
-      renderer.setSize(width, height);
-      camera.aspect = width / height;
+    width = container.offsetWidth;
+    height = container.offsetHeight;
+    renderer.setSize(width, height);
+    camera.aspect = width / height;
 
-      camera.updateProjectionMatrix();
+    camera.updateProjectionMatrix();
 
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      if (window.innerHeight / window.innerWidth > ImageAspect) {
-        a1 = (window.innerWidth / window.innerHeight) * ImageAspect;
-        a2 = 1;
-      } else {
-        a1 = 1;
-        a2 = window.innerHeight / window.innerWidth / ImageAspect;
-      }
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    if (window.innerHeight / window.innerWidth > ImageAspect) {
+      a1 = (window.innerWidth / window.innerHeight) * ImageAspect;
+      a2 = 1;
+    } else {
+      a1 = 1;
+      a2 = window.innerHeight / window.innerWidth / ImageAspect;
+    }
 
-      material.uniforms.resolution.value.x = window.innerWidth;
-      material.uniforms.resolution.value.y = window.innerHeight;
-      material.uniforms.resolution.value.z = a1;
-      material.uniforms.resolution.value.w = a2;
+    material.uniforms.resolution.value.x = window.innerWidth;
+    material.uniforms.resolution.value.y = window.innerHeight;
+    material.uniforms.resolution.value.z = a1;
+    material.uniforms.resolution.value.w = a2;
 
-      // render();
-    }, 300);
+    // render();
   }
 
   function createThreeHtml(

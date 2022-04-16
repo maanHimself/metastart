@@ -13,7 +13,7 @@ const AnimatedIcon: FC<props> = (props: props) => {
   return (
     <div>
       <Zoom delay={100} exit={true}>
-        <img src={props.src} id={props.id} className="mb-8 mt-8" />
+        <img src={props.src} id={props.id} className="mb-4 mt-4" />
       </Zoom>
     </div>
   );

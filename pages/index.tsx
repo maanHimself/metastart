@@ -88,7 +88,7 @@ export default function Home() {
       <div className="h-full w-full text-black flex justify-center items-center text-lg absolute">
         <div
           ref={porgress}
-          className="w-full h-full absolute  -z-10  bg-[#D284E7]"
+          className="w-full h-full fixed  -z-10  bg-[#D284E7]"
           id="loadingBg"
         ></div>
         <Typewriter
@@ -124,7 +124,7 @@ export default function Home() {
           />
         </Head>
 
-        <div className="h-screen w-full flex flex-col items-center justify-center ">
+        <div className="h-[70vh] w-full flex flex-col items-center justify-center ">
           {/* old logo */}
           {/* <img
             id="logo"
@@ -164,9 +164,7 @@ export default function Home() {
           src="/goal.png"
           id="goal"
           titel="MISSION"
-          desc="Mission to accelerate the Migration of creators and businesses
-      towards the web 3.0 sphere by building and providing future ready
-      products and services."
+          desc="Accelerating the migration of Businesses and Creators towards the web3 sphere."
         />
 
         <AboutSection
@@ -174,8 +172,7 @@ export default function Home() {
           id={"vision"}
           reverse
           titel="VISION"
-          desc="Vision to build a democratic and decentralized world and concomitantly
-          allowing clients to harness the full potential of the future."
+          desc="Building a democratic and Decentralised World."
         />
 
         <p
