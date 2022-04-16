@@ -60,10 +60,7 @@ export const fragment: string = `
         float fractals = fractal(newUV* 0.3);
         float noises = noise(newUV * 20. );
         noises = step(0.5,noises);
-        vec3 color = vec3(0.823, 0.517, 0.905);
-        float noiseFract =  fractals * noises;
-        color *= noiseFract;
-        gl_FragColor = vec4( color,1.);
-        // gl_FragColor = vec4(vec3(1.),1.);
+        gl_FragColor = vec4(vec3(fractals * noises),1.);
+        gl_FragColor = vec4(vec3(1.),1.);
     }
 `;
