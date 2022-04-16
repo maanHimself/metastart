@@ -305,7 +305,7 @@ export default (canvas: any) => {
       let tweenTorusIntro = new TWEEN.Tween(torusRotation)
         .to(
           {
-            x: (130 * Math.PI) / 180,
+            x: (135 * Math.PI) / 180,
             y: (20 * Math.PI) / 180,
             z: (320 * Math.PI) / 180,
           },
