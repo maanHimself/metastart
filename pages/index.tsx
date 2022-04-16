@@ -22,6 +22,7 @@ export default function Home() {
   const [clickAnything, setClickAnything] = useState<TypewriterClass>();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     window.addEventListener("keydown", () => setEntered(true));
     window.addEventListener("mousedown", () => setEntered(true));
     window.addEventListener("touchstart", () => setEntered(true));
@@ -39,14 +40,24 @@ export default function Home() {
     }
   }, [entered]);
 
+  //make the progress disapear
+  const porgress = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (porgress.current != null) porgress.current.style.opacity = "0%";
+  });
+
   const { ref: services, inView: myElementIsVisible } = useInView();
 
   const form = useRef() as React.MutableRefObject<HTMLFormElement>;
 
   const messagesEndRef = useRef<null | HTMLDivElement>(null);
+  const StartRef = useRef<null | HTMLDivElement>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+  const scrollToTop = () => {
+    StartRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   const sendEmail = (e: any) => {
@@ -71,10 +82,12 @@ export default function Home() {
 
   return (
     <>
+      <div ref={StartRef} />
       <ThreeContainer></ThreeContainer>
       {/* <SmoothScroll /> */}
       <div className="h-full w-full text-black flex justify-center items-center text-lg absolute">
         <div
+          ref={porgress}
           className="w-full h-full absolute  -z-10  bg-[#D284E7]"
           id="loadingBg"
         ></div>
@@ -131,7 +144,7 @@ export default function Home() {
               className="inline-block opacity-0"
             ></img>
           </div>
-          <AwesomeButton
+          {/* <AwesomeButton
             type="primary"
             size="large"
             onPress={() => {
@@ -139,7 +152,7 @@ export default function Home() {
             }}
           >
             Contact us
-          </AwesomeButton>
+          </AwesomeButton> */}
         </div>
 
         <p className=" pt-10 pb-24 text-white font-main md:text-6xl text-4xl text-center">
@@ -238,7 +251,7 @@ export default function Home() {
           ></img>
         </div>
 
-        <div className="h-screen w-full flex flex-col items-center justify-center font-main space-y-6">
+        <div className="h-fit w-full flex flex-col items-center justify-center font-main space-y-6">
           <p className=" pt-24 pb-10 text-white font-main text-6xl text-center">
             CONTACT US
           </p>

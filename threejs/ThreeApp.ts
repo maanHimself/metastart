@@ -44,22 +44,22 @@ export default (canvas: any) => {
   );
   camera.position.set(0, 0, 600);
 
-  document.onreadystatechange = function () {
-    if (document.readyState === "complete") {
-      console.log(document.readyState);
-      let opacity = { value: 0 };
-      let loadingBg = document.getElementById("loadingBg");
-      if (loadingBg != null) loadingBg.style.display = "none";
-      new TWEEN.Tween(opacity)
-        .to({ value: 100 })
-        .easing(TWEEN.Easing.Exponential.Out)
-        .onUpdate(() => {
-          // document.getElementById("loadingBg")?.style.opacity =
-          //   "" + opacity.value + "%";
-        })
-        .start();
-    }
-  };
+  // document.onreadystatechange = function () {
+  //   if (document.readyState === "complete") {
+  //     console.log(document.readyState);
+  //     let opacity = { value: 0 };
+  //     let loadingBg = document.getElementById("loadingBg");
+  //     if (loadingBg != null) loadingBg.style.display = "none";
+  //     new TWEEN.Tween(opacity)
+  //       .to({ value: 100 })
+  //       .easing(TWEEN.Easing.Exponential.Out)
+  //       .onUpdate(() => {
+  //         // document.getElementById("loadingBg")?.style.opacity =
+  //         //   "" + opacity.value + "%";
+  //       })
+  //       .start();
+  //   }
+  // };
 
   camera.fov =
     2 * Math.atan(window.innerHeight / 2 / camera.position.z) * (180 / Math.PI);
@@ -489,7 +489,7 @@ export default (canvas: any) => {
   }
   function updateElements() {
     donutbounds = document.getElementById("donut")?.getBoundingClientRect();
-    // setMeshtoHtmlPos(torus, donutbounds);
+    setMeshtoHtmlPos(torus, donutbounds);
     elems.forEach((elem) => {
       setMeshtoHtmlPos(elem.mesh, elem.dom.getBoundingClientRect());
       setMeshtoHtmlSize(elem.mesh, elem.dom.getBoundingClientRect());
