@@ -77,6 +77,8 @@ export default (canvas: any) => {
   };
 
   let donutbounds = document.getElementById("donut")?.getBoundingClientRect();
+  let weBounds = document.getElementById("we")?.getBoundingClientRect();
+  let reachedWE = false;
 
   // if (donutbounds != undefined) {
   //   camera.position.y =
@@ -181,31 +183,25 @@ export default (canvas: any) => {
   createThreeHtml("/team7.png", true, "team7");
   createThreeHtml("/indie.png", true, "indie");
   createThreeHtml("/skyDeck.png", true, "skyDeck");
-
-  const torusG = new THREE.TorusGeometry(
-    window.innerWidth < 756
-      ? (innerWidth * 0.7) / 4
-      : (innerWidth * 0.7 * 0.5) / 4,
-    window.innerWidth < 756
-      ? ((innerWidth * 0.7) / 4) * 0.2
-      : ((innerWidth * 0.7 * 0.5) / 4) * 0.2,
-    30,
-    100
-  );
+  let s = 1;
+  const torusG = new THREE.TorusGeometry(100 * s, 25 * s, 30, 100);
   const torusM = new torusMaterial();
   torusM.side = THREE.DoubleSide;
-  // torusM.uniforms["t"].value = new THREE.TextureLoader().load(
-  //   "/torusTexture.jpg"
-  // );
+
   const torus = new THREE.Mesh(torusG, torusM);
   torus.position.z = 0;
-  // torus.position.x =
   torus.rotation.x = (90 * Math.PI) / 180;
-  // torus.rotateY((20 * Math.PI) / 180);
-  // torus.rotateZ((320 * Math.PI) / 180);
-  // torus.rotation.x = (90 * Math.PI) / 180;
+  let torusSize = new Vector3();
+  torus.geometry.computeBoundingBox();
+  torus.geometry.boundingBox?.getSize(torusSize);
 
-  // torus.position.y += 100;
+  if (donutbounds != undefined) s = (donutbounds.width / torusSize.x) * 0.9;
+
+  torus.scale.set(s, s, s);
+
+  // window.innerWidth < 756
+  // ? torus.scale.set(0.68, 0.68, 0.68)
+  // : torus.scale.set(2, 2, 2);
 
   camera.fov =
     2 * Math.atan(window.innerHeight / 2 / camera.position.z) * (180 / Math.PI);
@@ -213,10 +209,11 @@ export default (canvas: any) => {
   setMeshtoHtmlPos(torus, donutbounds);
 
   camera.position.y = torus.position.y;
-  camera.position.z =
-    window.innerWidth < 756
-      ? ((innerWidth * 0.7) / 4) * 0.98
-      : ((innerWidth * 0.7 * 0.5) / 4) * 0.98;
+  camera.position.z = torus.position.z + 100 * s;
+  // camera.position.z =
+  //   window.innerWidth < 756
+  //     ? ((innerWidth * 0.7) / 4) * 0.98
+  //     : ((innerWidth * 0.7 * 0.5) / 4) * 0.98;
 
   scene.add(torus);
 
@@ -475,7 +472,7 @@ export default (canvas: any) => {
           let power =
             ((1 * maxDist) / dist) *
             ((20 - Math.min(mouse.curScroll, 20)) / 20) *
-            0.5;
+            0.1;
           data[4 * (i + size * j)] += mouse.vX * power;
           data[4 * (i + size * j) + 1] += mouse.vY * power;
         }
@@ -499,8 +496,8 @@ export default (canvas: any) => {
     composer.addPass(effect1);
   }
   function updateElements() {
-    donutbounds = document.getElementById("donut")?.getBoundingClientRect();
-    setMeshtoHtmlPos(torus, donutbounds);
+    // donutbounds = document.getElementById("donut")?.getBoundingClientRect();
+    // setMeshtoHtmlPos(torus, donutbounds);
     elems.forEach((elem) => {
       setMeshtoHtmlPos(elem.mesh, elem.dom.getBoundingClientRect());
       setMeshtoHtmlSize(elem.mesh, elem.dom.getBoundingClientRect());
@@ -518,6 +515,16 @@ export default (canvas: any) => {
         func(...args);
       }, timeout);
     };
+  }
+
+  function updateWe() {
+    weBounds = document.getElementById("we")?.getBoundingClientRect();
+    // console.log(weBounds!.top);
+    if (weBounds != undefined && weBounds?.top < window.innerHeight * 0.6) {
+      reachedWE = true;
+    } else {
+      // reachedWE = false;
+    }
   }
 
   function render(time: number) {
@@ -540,13 +547,20 @@ export default (canvas: any) => {
     // torusM.uniforms["c4"].value = settings["c4" as keyof typeof settings];
     // torusM.uniforms["d4"].value = settings["d4" as keyof typeof settings];
 
-    if (mesh != undefined) {
-      // mesh.rotation.x = Math.sin(-time * 0.001) + 0.5;
-      // mesh.rotation.y = Math.sin(time * 0.001);
-      // mesh.rotation.z = Math.sin(time * 0.001);
-      // mesh.rotation.x += 0.05;
-      // mesh.rotation.y += 0.05;
+    updateWe();
+    // debounce(updateWe, 100);
+
+    if (reachedWE) {
+      torus.position.y =
+        window.innerHeight / 2 - weBounds!.top - weBounds!.height / 2;
+      torus.rotation.x += 0.05;
+      torus.rotation.y += 0.05;
     }
+    // else {
+    //   torus.position.y =
+    //     window.innerHeight / 2 - donutbounds!.top - donutbounds!.height / 2;
+    // }
+
     material.uniforms.time.value = time * 0.005;
     if (entered) {
       debounce(updateElements, 100)();

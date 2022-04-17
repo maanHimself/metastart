@@ -10,6 +10,8 @@ import { AnimatedIcon } from "../components/AnimatedIcon";
 import Services from "../components/ServicesSection";
 import SmoothScroll from "../components/SmoothScroll/SmoothScroll";
 
+import CircleServices from "../components/CircleServices";
+
 import "react-awesome-button/dist/styles.css";
 import Head from "next/head";
 
@@ -36,7 +38,12 @@ export default function Home() {
 
   useEffect(() => {
     if (clickAnything) {
-      clickAnything.deleteAll(1).start();
+      clickAnything
+        .deleteAll(1)
+        .callFunction((state) => {
+          state.elements.cursor.style.display = "none";
+        })
+        .start();
     }
   }, [entered]);
 
@@ -101,13 +108,11 @@ export default function Home() {
                 state.elements.container.style.color = "#00000";
               })
               .pauseFor(250)
-              .typeString("click anything ... ")
-              // .pauseFor(2500)
+              .typeString("Click to get MetaStarted")
               .start();
           }}
           options={{
             delay: 10,
-            cursor: "",
           }}
         />
       </div>
@@ -132,7 +137,7 @@ export default function Home() {
             className="inline-block opacity-0 md:w-2/3 -translate-y-20 "
           ></img> */}
           {/* new logo */}
-          <div className=" md:w-2/4 w-3/3 flex flex-col justify-center items-center">
+          <div className=" md:w-2/5 w-3/3 flex flex-col justify-center items-center">
             <img
               id="donut"
               src="/donut.png"
@@ -155,10 +160,8 @@ export default function Home() {
           </AwesomeButton> */}
         </div>
 
-        <p className=" pt-10  text-white font-main md:text-6xl text-4xl text-center">
-          WE ...
-        </p>
-        <Services />
+        {/* <Services /> */}
+        <CircleServices />
 
         <AboutSection
           src="/goal.png"

@@ -84,6 +84,58 @@ a {
   text-decoration: none;
 }
 
+.ciclegraph {
+  position: relative;
+  width: 60vw;
+  height: 60vw;
+  margin: calc(100px / 2 + 0px);
+  --borderWidth: 3px;
+}
+
+.ciclegraph:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100% - 2px * 2);
+  height: calc(100% - 2px * 2);
+  border-radius: 50%;
+}
+
+@keyframes animatedgradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.ciclegraph .circle {
+  display: flex;
+  justify-content: left;
+  align-items: left;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 10vw;
+  margin: calc(-100px / 2);
+  border-radius: 50%;
+  text-align: center;
+}
+
+.circle {
+  white-space: nowrap;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 * {
   box-sizing: border-box;
 }

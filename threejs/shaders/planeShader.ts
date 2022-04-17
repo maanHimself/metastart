@@ -1,4 +1,5 @@
 export const vertex: string = `
+
 uniform float times;
 varying vec2 vUv;
 varying vec3 vPosition;
@@ -15,6 +16,7 @@ void main() {
 
 `;
 export const fragment: string = `
+    #define HALFPI 1.5707964
     uniform float time;
     varying float vTime;
     uniform float progress;
@@ -55,6 +57,38 @@ export const fragment: string = `
         return step(0.8,ot);
     }
 
+    vec4 hash42(vec2 p) {
+        vec4 p4 = fract(vec4(p.xyxy) * vec4(.1031, .1030, .0973, .1099));
+        p4 += dot(p4, p4.wzxy + 33.33);
+        return fract((p4.xxyz + p4.yzzw) * p4.zywx);
+    }
+
+    float star(vec2 uv, vec2 s, vec2 offset)
+    {
+        uv += offset;
+        uv *= 2.0;
+        float l = length(uv);
+        l = sqrt(l);
+        vec2 v = smoothstep(s, vec2(0.0), vec2(l));
+        
+        return v.x + v.y*0.1;
+    }
+
+    vec4 starField(vec2 uv)
+    {
+        vec2 fracuv = fract(uv);
+        vec2 flooruv = floor(uv);
+        vec4 r = hash42(flooruv);
+        vec4 color = mix(vec4(0.823, 0.517, 0.905, 1.0), vec4(0.149, 0.223, 0.521, 1.0), dot(r.xy, r.zw)) * 4.0 * dot(r.xz, r.yw);
+        
+        float t = time*2.0 * 0.1;
+        vec2 o = sin(vec2(t, t + HALFPI) * r.yx) * r.zw * 0.75;
+        
+        //return color;
+        return color * star((fracuv - 0.5) * 2.0, vec2(0.4, 0.75) * (0.5 + 0.5*r.xy), o);
+    }
+
+
     void main()	{
         vec2 newUV = (vUv - vec2(0.5))*resolution.zw + vec2(0.5);
         float fractals = fractal(newUV* 0.3);
@@ -64,6 +98,6 @@ export const fragment: string = `
         float noiseFract =  fractals * noises;
         color *= noiseFract;
         gl_FragColor = vec4( color,1.);
-        // gl_FragColor = vec4(vec3(1.),1.);
+        gl_FragColor = starField(newUV * 20.);
     }
 `;
