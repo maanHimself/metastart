@@ -515,16 +515,6 @@ export default (canvas: any) => {
     };
   }
 
-  function updateWe() {
-    weBounds = document.getElementById("we")?.getBoundingClientRect();
-    // console.log(weBounds!.top);
-    if (weBounds != undefined && weBounds?.top < window.innerHeight * 0.6) {
-      reachedWE = true;
-    } else {
-      // reachedWE = false;
-    }
-  }
-
   function render(time: number) {
     torusM.uniforms["time"].value = time;
     // torusM.uniforms["sc"].value = settings["sc" as keyof typeof settings];
