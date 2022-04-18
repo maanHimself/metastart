@@ -70,6 +70,7 @@ export const fragment: string = `
         float l = length(uv);
         l = sqrt(l);
         vec2 v = smoothstep(s, vec2(0.0), vec2(l));
+        // vec2 v = step(s, vec2(l));
         
         return v.x + v.y*0.1;
     }
@@ -79,13 +80,13 @@ export const fragment: string = `
         vec2 fracuv = fract(uv);
         vec2 flooruv = floor(uv);
         vec4 r = hash42(flooruv);
-        vec4 color = mix(vec4(0.823, 0.517, 0.905, 1.0), vec4(0.149, 0.223, 0.521, 1.0), dot(r.xy, r.zw)) * 4.0 * dot(r.xz, r.yw);
+        vec4 color = mix(vec4(1.,1.,1.,1.), vec4(1., 1., 1., 1.0), dot(r.xy, r.zw)) * 4.0 * dot(r.xz, r.yw);
         
         float t = time*2.0 * 0.1;
         vec2 o = sin(vec2(t, t + HALFPI) * r.yx) * r.zw * 0.75;
         
         //return color;
-        return color * star((fracuv - 0.5) * 2.0, vec2(0.4, 0.75) * (0.5 + 0.5*r.xy), o);
+        return color * star((fracuv - 0.5) * 2.0, vec2(0.5, 0.4) * (0.5 + 0.5*r.xy), o);
     }
 
 
@@ -98,6 +99,15 @@ export const fragment: string = `
         float noiseFract =  fractals * noises;
         color *= noiseFract;
         gl_FragColor = vec4( color,1.);
-        gl_FragColor = starField(newUV * 20.);
+
+
+        // vec2 spinning = 0.25*vec2(sin(time + newUV.x), cos(time + newUV.y)) ;
+        // vec2 cell = (fract(newUV * 50.)-0.5);
+        // float blob =  step(0.1,length(cell + spinning));
+        // gl_FragColor = vec4(vec3(blob),1.);
+        vec4 stars = starField(newUV * 20.);
+        vec4 final = starField(gl_FragCoord.xy * 0.01);
+        gl_FragColor = smoothstep(0.1,0.,final);
+        // gl_FragColor = ((U.x * U.y) * R.yyyy );
     }
 `;

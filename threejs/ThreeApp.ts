@@ -23,7 +23,7 @@ export default (canvas: any) => {
   const renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(width, height);
-  renderer.setClearColor(0x000000, 1);
+  renderer.setClearColor(0xffffff, 1);
   renderer.outputEncoding = THREE.sRGBEncoding;
 
   container.appendChild(renderer.domElement);
@@ -77,8 +77,6 @@ export default (canvas: any) => {
   };
 
   let donutbounds = document.getElementById("donut")?.getBoundingClientRect();
-  let weBounds = document.getElementById("we")?.getBoundingClientRect();
-  let reachedWE = false;
 
   // if (donutbounds != undefined) {
   //   camera.position.y =
@@ -496,8 +494,8 @@ export default (canvas: any) => {
     composer.addPass(effect1);
   }
   function updateElements() {
-    // donutbounds = document.getElementById("donut")?.getBoundingClientRect();
-    // setMeshtoHtmlPos(torus, donutbounds);
+    donutbounds = document.getElementById("donut")?.getBoundingClientRect();
+    setMeshtoHtmlPos(torus, donutbounds);
     elems.forEach((elem) => {
       setMeshtoHtmlPos(elem.mesh, elem.dom.getBoundingClientRect());
       setMeshtoHtmlSize(elem.mesh, elem.dom.getBoundingClientRect());
@@ -547,25 +545,11 @@ export default (canvas: any) => {
     // torusM.uniforms["c4"].value = settings["c4" as keyof typeof settings];
     // torusM.uniforms["d4"].value = settings["d4" as keyof typeof settings];
 
-    updateWe();
-    // debounce(updateWe, 100);
-
-    if (reachedWE) {
-      torus.position.y =
-        window.innerHeight / 2 - weBounds!.top - weBounds!.height / 2;
-      torus.rotation.x += 0.05;
-      torus.rotation.y += 0.05;
-    }
-    // else {
-    //   torus.position.y =
-    //     window.innerHeight / 2 - donutbounds!.top - donutbounds!.height / 2;
-    // }
-
     material.uniforms.time.value = time * 0.005;
     if (entered) {
       debounce(updateElements, 100)();
       TWEEN.update();
-      updateOffset();
+      // updateOffset();
     }
     requestAnimationFrame(render);
 

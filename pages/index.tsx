@@ -105,7 +105,7 @@ export default function Home() {
             typewriter
               .callFunction((state) => {
                 state.elements.container.style.fontSize = "170%";
-                state.elements.container.style.color = "#00000";
+                state.elements.container.style.color = "#ffffff";
               })
               .pauseFor(250)
               .typeString("Click to get MetaStarted")
@@ -160,8 +160,8 @@ export default function Home() {
           </AwesomeButton> */}
         </div>
 
-        {/* <Services /> */}
-        <CircleServices />
+        <Services />
+        {/* <CircleServices /> */}
 
         <AboutSection
           src="/goal.png"
