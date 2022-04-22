@@ -32,6 +32,8 @@ export const fragment: string = `
     float rand(vec2 n) { 
         return fract(sin(dot(n, vec2(12.9898, 4.1414))) * 43758.5453);
     }
+
+
     
     float noise(vec2 p){
         vec2 ip = floor(p);
@@ -63,12 +65,19 @@ export const fragment: string = `
         return fract((p4.xxyz + p4.yzzw) * p4.zywx);
     }
 
+    float x(float t) { // From http://mathforum.org/kb/message.jspa?messageID=407257
+        t = mod(t, 4.0);
+        return abs(t) - abs(t-1.0) - abs(t-2.0) + abs(t-3.0) - 1.0;	
+    }
+    
+
     float star(vec2 uv, vec2 s, vec2 offset)
     {
         uv += offset;
         uv *= 2.0;
         float l = length(uv);
         l = sqrt(l);
+
         vec2 v = smoothstep(s, vec2(0.0), vec2(l));
         // vec2 v = step(s, vec2(l));
         
@@ -90,24 +99,39 @@ export const fragment: string = `
     }
 
 
+		float iSpeed = 50.0;
+		float iDensity = 1.0;
+		float iStarSize = 4.0;
+
+
+
     void main()	{
-        vec2 newUV = (vUv - vec2(0.5))*resolution.zw + vec2(0.5);
-        float fractals = fractal(newUV* 0.3);
-        float noises = noise(newUV * 20. );
-        noises = step(0.5,noises);
-        vec3 color = vec3(0.823, 0.517, 0.905);
-        float noiseFract =  fractals * noises;
-        color *= noiseFract;
-        gl_FragColor = vec4( color,1.);
+        // vec2 newUV = (vUv - vec2(0.5))*resolution.zw + vec2(0.5);
+        // float fractals = fractal(newUV* 0.3);
+        // float noises = noise(newUV * 20. );
+        // noises = step(0.5,noises);
+        // vec3 color = vec3(0.823, 0.517, 0.905);
+        // float noiseFract =  fractals * noises;
+        // color *= noiseFract;
+        // gl_FragColor = vec4( color,1.);
+
+        // vec4 final = starField(gl_FragCoord.xy * 0.01);
+        // gl_FragColor = 1. - smoothstep(0.1,0.,final);
+        // // gl_FragColor = ((U.x * U.y) * R.yyyy );
 
 
-        // vec2 spinning = 0.25*vec2(sin(time + newUV.x), cos(time + newUV.y)) ;
-        // vec2 cell = (fract(newUV * 50.)-0.5);
-        // float blob =  step(0.1,length(cell + spinning));
-        // gl_FragColor = vec4(vec3(blob),1.);
-        vec4 stars = starField(newUV * 20.);
-        vec4 final = starField(gl_FragCoord.xy * 0.01);
-        gl_FragColor = smoothstep(0.1,0.,final);
-        // gl_FragColor = ((U.x * U.y) * R.yyyy );
+
+        //expoermint
+
+        vec2 filteredRes = vec2(gl_FragCoord.x - mod(gl_FragCoord.x, iStarSize), gl_FragCoord.y - mod(gl_FragCoord.y, iStarSize));
+        vec2 st = filteredRes.xy / 1000.;
+        st *= 10.0;
+    
+        vec2 ipos = floor(st);
+        vec2 fpos = fract(st);
+    
+        float isStar = (pow(rand(fpos), 100.0 / iDensity)) * sin((time * 0.3/(100.0/iSpeed)) * (rand(filteredRes) * (3.14159)));
+        float nebula = (rand(fpos) ) * 0.2;
+        gl_FragColor = vec4(max(isStar, (sin(nebula) + 1.0)/100.0), isStar, max(isStar, (cos(nebula) + 1.0)/100.0), 1.0);
     }
 `;

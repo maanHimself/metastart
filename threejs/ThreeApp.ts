@@ -9,10 +9,13 @@ import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
 import { basicShader } from "./shaders/basicShader";
 import { customShader } from "./shaders/customShader";
 import { torusMaterial } from "./shaders/torusMaterial";
+import { torusMaterialLines } from "./shaders/torusMaterial lines";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import { Vector3 } from "three";
+import { Vector2, Vector3 } from "three";
 // const TWEEN = require("@tweenjs/tween.js");
 import TWEEN from "@tweenjs/tween.js";
+import Box from "./Box";
+import Shape from "./Shape";
 
 export default (canvas: any) => {
   const scene = new THREE.Scene();
@@ -23,7 +26,7 @@ export default (canvas: any) => {
   const renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(width, height);
-  renderer.setClearColor(0xffffff, 1);
+  renderer.setClearColor(0x0, 1);
   renderer.outputEncoding = THREE.sRGBEncoding;
 
   container.appendChild(renderer.domElement);
@@ -165,12 +168,11 @@ export default (canvas: any) => {
   createThreeHtml("/goal.png", true, "goal");
   createThreeHtml("/vision.png", true, "vision");
 
-  // //services
-  // createThreeHtml("/services/1.png", true, "s1");
-  // createThreeHtml("/services/2.png", true, "s2");
-  // createThreeHtml("/services/3.png", true, "s3");
-  // createThreeHtml("/services/4.png", true, "s4");
-  // createThreeHtml("/services/5.png", true, "s5");
+  const box = new Box(mouse, "s1");
+  scene.add(box.getMesh());
+
+  const shape = new Shape(mouse, "s3", "dfsd");
+  scene.add(shape.getMesh());
 
   createThreeHtml("/team1.png", true, "team1");
   createThreeHtml("/team2.png", true, "team2");
@@ -183,7 +185,7 @@ export default (canvas: any) => {
   createThreeHtml("/skyDeck.png", true, "skyDeck");
   let s = 1;
   const torusG = new THREE.TorusGeometry(100 * s, 25 * s, 30, 100);
-  const torusM = new torusMaterial();
+  const torusM = new torusMaterialLines();
   torusM.side = THREE.DoubleSide;
 
   const torus = new THREE.Mesh(torusG, torusM);
@@ -207,7 +209,7 @@ export default (canvas: any) => {
   setMeshtoHtmlPos(torus, donutbounds);
 
   camera.position.y = torus.position.y;
-  camera.position.z = torus.position.z + 100 * s;
+  camera.position.z = torus.position.z + 120 * s;
   // camera.position.z =
   //   window.innerWidth < 756
   //     ? ((innerWidth * 0.7) / 4) * 0.98
@@ -233,11 +235,16 @@ export default (canvas: any) => {
   onWindowResize();
   postProcessing();
   let settings = {};
-  // setSettings();
+  setSettings();
   render(0);
 
   function setSettings() {
     settings = {
+      vColor1: 0x00feec,
+      vColor2: 0x00feec,
+      vColor3: 0x0,
+      vColor4: 0x0,
+      vColor5: 0xffffff,
       sp: 0.0005,
       sc: 1.2,
       a1: 1.5,
@@ -258,6 +265,11 @@ export default (canvas: any) => {
       d4: 3.9,
     };
     let gui = new dat.GUI();
+    gui.addColor(settings, "vColor1");
+    gui.addColor(settings, "vColor2");
+    gui.addColor(settings, "vColor3");
+    gui.addColor(settings, "vColor4");
+    gui.addColor(settings, "vColor5");
     gui.add(settings, "sp", 0, 10, 0.0001);
     gui.add(settings, "sc", 0, 10, 0.1);
     gui.add(settings, "a1", 0, 10, 0.01);
@@ -284,8 +296,8 @@ export default (canvas: any) => {
     window.addEventListener("touchmove", onMouseMove);
     window.addEventListener("resize", onWindowResize);
     window.addEventListener("keydown", OnEntered);
-    window.addEventListener("mousedown", OnEntered);
-    window.addEventListener("touchstart", OnEntered);
+    // window.addEventListener("mousedown", OnEntered);
+    // window.addEventListener("touchstart", OnEntered);
   }
 
   function OnEntered(e: Event) {
@@ -517,23 +529,28 @@ export default (canvas: any) => {
 
   function render(time: number) {
     torusM.uniforms["time"].value = time;
-    // torusM.uniforms["sc"].value = settings["sc" as keyof typeof settings];
-    // torusM.uniforms["a1"].value = settings["a1" as keyof typeof settings];
-    // torusM.uniforms["b1"].value = settings["b1" as keyof typeof settings];
-    // torusM.uniforms["c1"].value = settings["c1" as keyof typeof settings];
-    // torusM.uniforms["d1"].value = settings["d1" as keyof typeof settings];
-    // torusM.uniforms["a2"].value = settings["a2" as keyof typeof settings];
-    // torusM.uniforms["b2"].value = settings["b2" as keyof typeof settings];
-    // torusM.uniforms["c2"].value = settings["c2" as keyof typeof settings];
-    // torusM.uniforms["d2"].value = settings["d2" as keyof typeof settings];
-    // torusM.uniforms["a3"].value = settings["a3" as keyof typeof settings];
-    // torusM.uniforms["b3"].value = settings["b3" as keyof typeof settings];
-    // torusM.uniforms["c3"].value = settings["c3" as keyof typeof settings];
-    // torusM.uniforms["d3"].value = settings["d3" as keyof typeof settings];
-    // torusM.uniforms["a4"].value = settings["a4" as keyof typeof settings];
-    // torusM.uniforms["b4"].value = settings["b4" as keyof typeof settings];
-    // torusM.uniforms["c4"].value = settings["c4" as keyof typeof settings];
-    // torusM.uniforms["d4"].value = settings["d4" as keyof typeof settings];
+    torusM.uniforms["vColor1"].value = new THREE.Color(0xfeec);
+    torusM.uniforms["vColor2"].value = new THREE.Color(0xfeec);
+    torusM.uniforms["vColor3"].value = new THREE.Color(0x0);
+    torusM.uniforms["vColor4"].value = new THREE.Color("#ff004f");
+    torusM.uniforms["vColor5"].value = new THREE.Color("#ff004f");
+    torusM.uniforms["sc"].value = settings["sc" as keyof typeof settings];
+    torusM.uniforms["a1"].value = settings["a1" as keyof typeof settings];
+    torusM.uniforms["b1"].value = settings["b1" as keyof typeof settings];
+    torusM.uniforms["c1"].value = settings["c1" as keyof typeof settings];
+    torusM.uniforms["d1"].value = settings["d1" as keyof typeof settings];
+    torusM.uniforms["a2"].value = settings["a2" as keyof typeof settings];
+    torusM.uniforms["b2"].value = settings["b2" as keyof typeof settings];
+    torusM.uniforms["c2"].value = settings["c2" as keyof typeof settings];
+    torusM.uniforms["d2"].value = settings["d2" as keyof typeof settings];
+    torusM.uniforms["a3"].value = settings["a3" as keyof typeof settings];
+    torusM.uniforms["b3"].value = settings["b3" as keyof typeof settings];
+    torusM.uniforms["c3"].value = settings["c3" as keyof typeof settings];
+    torusM.uniforms["d3"].value = settings["d3" as keyof typeof settings];
+    torusM.uniforms["a4"].value = settings["a4" as keyof typeof settings];
+    torusM.uniforms["b4"].value = settings["b4" as keyof typeof settings];
+    torusM.uniforms["c4"].value = settings["c4" as keyof typeof settings];
+    torusM.uniforms["d4"].value = settings["d4" as keyof typeof settings];
 
     material.uniforms.time.value = time * 0.005;
     if (entered) {

@@ -1,7 +1,7 @@
 import { Vector2 } from "three";
 import { Texture, Color } from "three";
 import { ShaderMaterial } from "three";
-class torusMaterial extends ShaderMaterial {
+class torusMaterialLines extends ShaderMaterial {
   constructor() {
     const shader = {
       uniforms: {
@@ -107,6 +107,22 @@ class torusMaterial extends ShaderMaterial {
 			  }
 			  
 
+
+			float random (in float x) {
+				return fract(sin(x)*1e4);
+			}
+			
+			float random (in vec2 st) {
+				return fract(sin(dot(st.xy, vec2(12.9898,78.233)))* 43758.5453123);
+			}
+			
+			float pattern(vec2 st, vec2 v, float t) {
+				vec2 p = floor(st+v);
+				return step(t, random(100.+p*.000001)+random(p.x)*0.5 );
+			}
+			
+			float density = 0.1;
+
 	  
 			void main() {
 				
@@ -114,10 +130,10 @@ class torusMaterial extends ShaderMaterial {
 				vec2 p = 2.*vUv - vec2(1.0);
 						
 				
-				float Pixels = 2048.;
-				float dx = 15.0 * (1.0 / Pixels);
-				float dy = 10.0 * (1.0 / Pixels);
-				p = vec2(dx * floor(p.x / dx),dy * floor(p.y / dy));
+				// float Pixels = 2048.;
+				// float dx = 15.0 * (1.0 / Pixels);
+				// float dy = 10.0 * (1.0 / Pixels);
+				// p = vec2(dx * floor(p.x / dx),dy * floor(p.y / dy));
 
 				
 				float speed = 0.0001;
@@ -127,60 +143,10 @@ class torusMaterial extends ShaderMaterial {
 				p += 0.1 * cos( ( a3 * scale ) * p.yx + b3 * speed * time  + vec2(c3, d3) );
 				p += 0.6 * cos( ( a4 * scale ) * p.yx + b4 * speed * time  + vec2(c4, d4) );
 				
-				float a = noise(p * vec2(scale,10.) + time * 0.001);
+				float a = noise(p * vec2(scale,10.) + time * 0.0001);
 				
 				vec3 color = vec3(0.819, 0.517, 0.901);
 
-
-				//original colors
-				// vec3 cl1 = vec3(0.823, 0.517, 0.905);
-				// vec3 cl2 = vec3(0.447, 0.419, 0.952);
-				// vec3 cl3 = vec3(0., 0.996, 0.925);
-				// vec3 cl4 = vec3(0.149, 0.223, 0.521);
-				// vec3 cl5 = vec3(0.870, 0.976, 0.8);
-
-				//mkbhd
-				// vec3 cl1 = vec3(0.898, 0.125, 0.168);
-				// vec3 cl2 = vec3(0.145, 0.156, 0.176);
-				// vec3 cl3 = vec3(1., 1., 1.);
-
-				// purple arcady 
-				// vec3 cl1 = vec3(0.670, 0.078, 0.388);
-				// vec3 cl2 = vec3(0.384, 0.203, 0.729);
-				// vec3 cl3 = vec3(0.023, 0.003, 0.149);
-				// vec3 cl4 = vec3(0.121, 0.839, 0.831);
-				// vec3 cl5 = vec3(0.949, 0.913, 0.388);
-
-				// // sifi red
-				// vec3 cl1 = vec3(1., 0.094, 0.301);
-				// vec3 cl2 = vec3(1., 0.341, 0.494);
-				// vec3 cl3 = vec3(1., 0.803, 0.858);
-				// vec3 cl4 = vec3(0.443, 0.043, 0.596);
-				// vec3 cl5 = vec3(0.525, 0.921, 0.850);
-
-
-				// // retro
-				// vec3 cl5 = vec3(1., 0.196, 0.101);
-				// vec3 cl4 = vec3(1., 0.564, 0.105);
-				// vec3 cl3 = vec3(0.270, 0.996, 0.823);
-				// vec3 cl2 = vec3(0.270, 0.054, 1.);
-				// vec3 cl1 = vec3(0.133, 0, 0.439);
-
-
-				// // sahdes of red
-				// vec3 cl1 = vec3(0.647, 0.003, 0.290);
-				// vec3 cl2 = vec3(0.992, 0.050, 0.188);
-				// vec3 cl3 = vec3(1., 0.239, 0.184);
-				// vec3 cl4 = vec3(1., 0.447, 0.125);
-				// vec3 cl5 = vec3(1., 0.643, 0.227);
-
-
-				// // // rocket picture
-				// vec3 cl1 = vec3(0.043, 0.074, 0.250);
-				// vec3 cl2 = vec3(0.019, 0.513, 0.949);
-				// vec3 cl3 = vec3(0.062, 0.047, 0.152);
-				// vec3 cl4 = vec3(0.815, 0.345, 0.972);
-				// vec3 cl5 = vec3(0.949, 0.949, 0.949);
 
 
 				vec3 cl1 = vec3(0, 0.996, 0.925);
@@ -191,14 +157,46 @@ class torusMaterial extends ShaderMaterial {
 
 				if(a < 0.4)
 					color = cl1;
-				else if(a <0.8)
+				else if(a <0.7)
 					color = cl2;
 				else 
 					color = cl3;
+
+
+
+			
 				
 								
 				gl_FragColor = vec4(color,1.);
 				// gl_FragColor = vec4(vUv.yx, 0., 1.);
+
+
+
+				// lines 
+			
+				vec2 st = p.xy/1.;
+				st.x *= 1.;
+
+				vec2 grid = vec2(500.0,100.);
+				st *= grid;
+
+				vec2 ipos = floor(st);  // integer
+				vec2 fpos = fract(st);  // fraction
+
+				vec2 vel = vec2(time * 0.0002*max(grid.x,grid.y)); // time
+				vel *= vec2(1.,0.0) * random(1.0+ipos.y); // direction
+
+				vec2 offset = vec2(0.1,0.);
+
+				vec3 lines = vec3(0.);
+				lines.r = pattern(st+offset,vel,0.5 + density);
+				lines.g = pattern(st,vel,0.5 + density);
+				lines.b = pattern(st-offset,vel,0.5 + density);
+
+				// Margins
+				lines *= step(0.2,fpos.y);			
+
+				gl_FragColor = vec4(color * lines,lines.r);
 			
 		}`,
     };
@@ -206,4 +204,4 @@ class torusMaterial extends ShaderMaterial {
   }
 }
 
-export { torusMaterial };
+export { torusMaterialLines };

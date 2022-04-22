@@ -1,18 +1,10 @@
 import AboutSection from "../components/AboutSection/AboutSection";
 import ThreeContainer from "./ThreeComp";
 import { useInView } from "react-intersection-observer";
-import Service from "../components/Service";
 import emailjs from "@emailjs/browser";
 // @ts-ignore
-import { AwesomeButton } from "react-awesome-button";
 import Typewriter, { TypewriterClass } from "typewriter-effect";
-import { AnimatedIcon } from "../components/AnimatedIcon";
 import Services from "../components/ServicesSection";
-import SmoothScroll from "../components/SmoothScroll/SmoothScroll";
-
-import CircleServices from "../components/CircleServices";
-
-import "react-awesome-button/dist/styles.css";
 import Head from "next/head";
 
 import { useEffect, useRef, useState } from "react";
@@ -105,7 +97,7 @@ export default function Home() {
             typewriter
               .callFunction((state) => {
                 state.elements.container.style.fontSize = "170%";
-                state.elements.container.style.color = "#ffffff";
+                state.elements.container.style.color = "#FF0052";
               })
               .pauseFor(250)
               .typeString("Click to get MetaStarted")
@@ -137,16 +129,16 @@ export default function Home() {
             className="inline-block opacity-0 md:w-2/3 -translate-y-20 "
           ></img> */}
           {/* new logo */}
-          <div className=" md:w-2/5 w-3/3 flex flex-col justify-center items-center">
+          <div className=" md:w-3/5 max-w-4xl w-3/3 flex flex-col justify-center items-center">
             <img
               id="donut"
               src="/donut.png"
-              className="inline-block w-[45%] mb-4  -z-10 opacity-0 "
+              className="inline-block w-[45%] mb-4  -z-10 opacity-0 p-8"
             ></img>
             <img
               id="logo"
               src="/metastart.png"
-              className="inline-block opacity-0"
+              className="inline-block opacity-0 w-full "
             ></img>
           </div>
           {/* <AwesomeButton
