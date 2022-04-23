@@ -43,7 +43,7 @@ class SolidMaterial extends ShaderMaterial {
 				return step(t, random(100.+p*.000001)+random(p.x)*0.5 );
 			}
 			
-			float density = 0.1;
+			float density = 0.6;
 	  
 	  
 	

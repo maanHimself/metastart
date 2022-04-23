@@ -84,10 +84,10 @@ export default function Home() {
       <div ref={StartRef} />
       <ThreeContainer></ThreeContainer>
       {/* <SmoothScroll /> */}
-      <div className="h-full w-full text-black flex justify-center items-center text-lg absolute">
+      <div className="-z-10 h-full w-full text-black flex justify-center items-center text-lg absolute">
         <div
           ref={porgress}
-          className="w-full h-full fixed  -z-10  bg-[#D284E7]"
+          className="w-full h-full fixed  -z-10  bg-[#000000]"
           id="loadingBg"
         ></div>
         <Typewriter
@@ -98,6 +98,7 @@ export default function Home() {
               .callFunction((state) => {
                 state.elements.container.style.fontSize = "170%";
                 state.elements.container.style.color = "#FF0052";
+                state.elements.container.style.backgroundColor = "#FFFFFF";
               })
               .pauseFor(250)
               .typeString("Click to get MetaStarted")

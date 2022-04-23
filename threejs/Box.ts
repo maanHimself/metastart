@@ -18,16 +18,20 @@ export default class Box {
   private mouse: any;
   private dom: HTMLElement | null = null;
   private bounds: DOMRect | null = null;
+  private hover: boolean;
+  private progress = 0;
 
   constructor(mouse: any, id: string) {
     this.mouse = mouse;
+    this.hover = false;
     console.log(this.mouse);
     this.geo = new THREE.PlaneGeometry(500, 500, 1, 1);
 
     if (document.getElementById(id) != null) {
       this.dom = document.getElementById(id)!;
       this.bounds = this.dom.getBoundingClientRect();
-      console.log(this.dom);
+      this.dom.onmouseenter = this.onMouseEneter.bind(this);
+      this.dom.onmouseleave = this.onMouseLeave.bind(this);
     } else {
       console.error("can't find ", id);
     }
@@ -46,23 +50,14 @@ export default class Box {
     this.redMat.uniforms["color"].value = new THREE.Color("#FF0052");
     this.redMat.transparent = true;
     this.bgMat = new BoxBG();
-    this.bgMat.uniforms["t"].value = new THREE.TextureLoader().load(
-      "/retro.jpg"
+    this.bgMat.uniforms["t1"].value = new THREE.TextureLoader().load(
+      "/retro1.jpg"
+    );
+    this.bgMat.uniforms["t2"].value = new THREE.TextureLoader().load(
+      "/retro2.jpg"
     );
 
     this.bgMat.uniforms["mouse"].value = new Vector2(
-      this.mouse.x,
-      this.mouse.y
-    );
-    this.centeredMat.uniforms["mouse"].value = new Vector2(
-      this.mouse.x,
-      this.mouse.y
-    );
-    this.redMat.uniforms["mouse"].value = new Vector2(
-      this.mouse.x,
-      this.mouse.y
-    );
-    this.cyanMat.uniforms["mouse"].value = new Vector2(
       this.mouse.x,
       this.mouse.y
     );
@@ -93,9 +88,14 @@ export default class Box {
     this.group.add(this.rightMesh);
     this.group.add(this.bgMesh);
 
-    // this.setMeshtoHtmlPos();
-    // this.setMeshtoHtmlSize();
     this.render(0);
+  }
+
+  onMouseEneter() {
+    this.hover = true;
+  }
+  onMouseLeave() {
+    this.hover = false;
   }
 
   getMesh() {
@@ -132,6 +132,13 @@ export default class Box {
   }
 
   render(time: number) {
+    if (this.hover) {
+      this.progress = Math.min(1, this.progress + 0.05);
+    } else {
+      this.progress = Math.max(0, this.progress - 0.05);
+    }
+
+    this.bgMat.uniforms["progress"].value = this.progress;
     let mouse = new Vector2(this.mouse.x, this.mouse.y)
       .multiplyScalar(2)
       .addScalar(-1);

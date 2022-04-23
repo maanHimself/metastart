@@ -121,7 +121,7 @@ class torusMaterialLines extends ShaderMaterial {
 				return step(t, random(100.+p*.000001)+random(p.x)*0.5 );
 			}
 			
-			float density = 0.1;
+			float density = 0.2;
 
 	  
 			void main() {
@@ -161,6 +161,12 @@ class torusMaterialLines extends ShaderMaterial {
 					color = cl2;
 				else 
 					color = cl3;
+				/*
+					color = mix(cl1 , cl2 , step(0.4,a))
+					mix(a , b , r)
+					step(0.2,a)
+					smoothstep(0.2,0.3,a)
+				*/
 
 
 
@@ -197,6 +203,7 @@ class torusMaterialLines extends ShaderMaterial {
 				lines *= step(0.2,fpos.y);			
 
 				gl_FragColor = vec4(color * lines,lines.r);
+				// gl_FragColor = vec4(a);
 			
 		}`,
     };

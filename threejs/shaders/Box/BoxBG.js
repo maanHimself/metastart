@@ -6,7 +6,9 @@ class BoxBG extends ShaderMaterial {
     const shader = {
       uniforms: {
         time: { value: 0 },
-        t: { value: new Texture() },
+        progress: { value: 0 },
+        t1: { value: new Texture() },
+        t2: { value: new Texture() },
         mouse: { value: new Vector2() },
       },
 
@@ -17,97 +19,78 @@ class BoxBG extends ShaderMaterial {
 	
 			void main() {
 
-				
-			float theta = mouse.x  * 0.2;
-
-
-			mat4 yRotate = mat4(
-			cos(theta), 0., - sin(theta), 0.,
-			0. ,1. ,0. , 0.,
-			sin(theta), 0. , cos(theta), 0.,
-			0., 0., 0., 1
-
-			);
-
-			theta = mouse.y *  0.1;
-			mat4 xRotate = mat4(
-			1., 0., 0., 0.,
-			0. ,cos(theta) , sin(theta) , 0.,
-			0., -sin(theta) , cos(theta), 0.,
-			0., 0., 0., 1
-
-			);
-
-
-
 			vUv = vec2(uv.x - mouse.x * 0.2 , uv.y + mouse.y * 0.1);
-			// gl_Position = projectionMatrix   * yRotate * xRotate * modelViewMatrix  * vec4( position, 1.0 );
 			gl_Position = projectionMatrix   * modelViewMatrix  * vec4( position, 1.0 );
 
 	}`,
 
       fragmentShader: /* glsl */ `
 	  
-			  uniform float time;
-			  uniform float progress;
-	  
-			  uniform sampler2D t;
-	  
-	  
-			  varying vec2 vUv;
-			  float scale = 2.;
+			uniform float time;
+			uniform float progress;
+	
+			uniform sampler2D t1;
+			uniform sampler2D t2;
+	
+	
+			varying vec2 vUv;
+			// 2D Random
+			// float random (in vec2 st) {
+			// 	return fract(sin(dot(st.xy,
+			// 						vec2(12.9898,78.233)))
+			// 				* 43758.5453123);
+			// }
 
-			float random (in float x) {
-				return fract(sin(x)*1e4);
+			// // 2D Noise based on Morgan McGuire @morgan3d
+			// // https://www.shadertoy.com/view/4dS3Wd
+			// float noise (in vec2 st) {
+			// 	vec2 i = floor(st);
+			// 	vec2 f = fract(st);
+
+			// 	// Four corners in 2D of a tile
+			// 	float a = random(i);
+			// 	float b = random(i + vec2(1.0, 0.0));
+			// 	float c = random(i + vec2(0.0, 1.0));
+			// 	float d = random(i + vec2(1.0, 1.0));
+
+			// 	// Smooth Interpolation
+
+			// 	// Cubic Hermine Curve.  Same as SmoothStep()
+			// 	vec2 u = f*f*(3.0-2.0*f);
+			// 	// u = smoothstep(0.,1.,f);
+
+			// 	// Mix 4 coorners percentages
+			// 	return mix(a, b, u.x) +
+			// 			(c - a)* u.y * (1.0 - u.x) +
+			// 			(d - b) * u.x * u.y;
+			// }
+			float rand(vec2 n) { 
+				return fract(sin(dot(n, vec2(12.9898, 4.1414))) * 43758.5453);
 			}
+		
+		
 			
-			float random (in vec2 st) {
-				return fract(sin(dot(st.xy, vec2(12.9898,78.233)))* 43758.5453123);
+			float noise(vec2 p){
+				vec2 ip = floor(p);
+				vec2 u = fract(p);
+				u = u*u*(2.01-2.0*u);
+				
+				float res = mix(
+					mix(rand(ip),rand(ip+vec2(1.0,0.0)),u.x),
+					mix(rand(ip+vec2(0.0,1.0)),rand(ip+vec2(1.0,1.0)),u.x),u.y);
+				return res*res;
 			}
-			
-			float pattern(vec2 st, vec2 v, float t) {
-				vec2 p = floor(st+v);
-				return step(t, random(100.+p*.000001)+random(p.x)*0.5 );
-			}
-			
-			float density = 0.5;
-	  
 			void main() {
 
-				vec2 st = gl_FragCoord.xy/1000.;
-				st.x *= 1.;
 
-				vec2 grid = vec2(100.0,100.);
-				st *= grid;
+				vec4 tex1 = texture2D(t1,vUv);
+				vec4 tex2 = texture2D(t2,vUv);
+				float a = step(1. - progress,noise(vUv * 30.));
+				 
+				vec4 color = mix(tex1,tex2, a);
+				gl_FragColor = color;
 
-				vec2 ipos = floor(st);  // integer
-				vec2 fpos = fract(st);  // fraction
 
-				vec2 vel = vec2(time*2.*max(grid.x,grid.y)); // time
-				vel *= vec2(-1.,0.0) * random(1.0+ipos.y); // direction
-
-				vec2 offset = vec2(0.1,0.);
-
-				vec3 color = vec3(0.);
-				color.r = pattern(st+offset,vel,0.5 + density);
-				color.g = pattern(st,vel,0.5 + density);
-				color.b = pattern(st-offset,vel,0.5 + density);
-
-				// Margins
-				color *= step(0.2,fpos.y);
-
-				vec4 image = texture2D(t, (vUv ) * 0.7 + vec2(0.2));
-				
-
-				gl_FragColor = vec4(color,1.0);
-				// gl_FragColor = vec4(image.xyz * color.xyz,1.);
-				gl_FragColor = vec4(image.xyz ,1.);
-
-					
-				
-
-				// gl_FragColor = color;
-				//   gl_FragColor = vec4(newUV.xy, 0., 1.);
 	
 			}`,
     };

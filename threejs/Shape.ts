@@ -29,27 +29,18 @@ export default class Shape {
     }
 
     this.centeredMat = new boxMaterial();
-    this.centeredMat.uniforms["t"].value = new THREE.TextureLoader().load(
-      "/donut.png"
-    );
+    this.centeredMat.uniforms["t"].value = new THREE.TextureLoader().load(src);
     this.centeredMat.transparent = true;
 
     this.redMat = new SolidMaterial();
     this.redMat.uniforms["color"].value = new THREE.Color("#FF0052");
-    this.redMat.uniforms["t"].value = new THREE.TextureLoader().load(
-      "/donut.png"
-    );
+    this.redMat.uniforms["t"].value = new THREE.TextureLoader().load(src);
     this.redMat.transparent = true;
-
-    this.centeredMat.uniforms["mouse"].value = new Vector2(
-      this.mouse.x,
-      this.mouse.y
-    );
 
     this.centeredMesh = new THREE.Mesh(this.geo, this.centeredMat);
     this.rightMesh = new THREE.Mesh(this.geo, this.redMat);
 
-    let offset = 30;
+    let offset = 5;
 
     //poisitioning
 
@@ -109,13 +100,13 @@ export default class Shape {
 
     let tilt = 0.1;
 
-    this.rightMesh.rotation.x = mouse.y * tilt;
-    this.rightMesh.rotation.y = mouse.x * tilt;
+    // this.rightMesh.rotation.x = mouse.y * tilt;
+    // this.rightMesh.rotation.y = mouse.x * tilt;
 
-    this.centeredMesh.rotation.x = mouse.y * tilt;
-    this.centeredMesh.rotation.y = mouse.x * tilt;
+    // this.centeredMesh.rotation.x = mouse.y * tilt;
+    // this.centeredMesh.rotation.y = mouse.x * tilt;
 
-    this.redMat.uniforms["time"].value += 0.005;
+    this.redMat.uniforms["time"].value += 0.001;
 
     this.updateElem();
 
