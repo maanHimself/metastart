@@ -98,7 +98,10 @@ export default function Home() {
               .callFunction((state) => {
                 state.elements.container.style.fontSize = "170%";
                 state.elements.container.style.color = "#FF0052";
-                state.elements.container.style.backgroundColor = "#FFFFFF";
+                state.elements.container.style.backgroundColor = "#000000";
+                state.elements.container.style.textAlign = "center";
+                state.elements.container.style.justifyContent = "center";
+                state.elements.container.style.alignItems = "center";
               })
               .pauseFor(250)
               .typeString("Click to get MetaStarted")
