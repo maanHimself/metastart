@@ -18,6 +18,7 @@ import {
 } from "./utils/HtmlUtil";
 import Plane from "./Plane";
 import Torus from "./Torus";
+import Title from "./Title";
 
 export default (canvas: any) => {
   const scene = new THREE.Scene();
@@ -53,8 +54,8 @@ export default (canvas: any) => {
   camera.fov =
     2 * Math.atan(window.innerHeight / 2 / camera.position.z) * (180 / Math.PI);
   let mouse = {
-    x: 0,
-    y: 0,
+    x: 0.5,
+    y: 0.5,
     prevX: 0,
     prevY: 0,
     vX: 0,
@@ -104,8 +105,6 @@ export default (canvas: any) => {
   plane = new Plane();
   scene.add(plane.getMesh());
 
-  elems.push(createThreeHtml("/goal.png", true, "goal", scene));
-  elems.push(createThreeHtml("/vision.png", true, "vision", scene));
   elems.push(createThreeHtml("/team1.png", true, "team1", scene));
   elems.push(createThreeHtml("/team2.png", true, "team2", scene));
   elems.push(createThreeHtml("/team3.png", true, "team3", scene));
@@ -116,8 +115,23 @@ export default (canvas: any) => {
   elems.push(createThreeHtml("/indie.png", true, "indie", scene));
   elems.push(createThreeHtml("/skyDeck.png", true, "skyDeck", scene));
 
-  const box = new Box(mouse, "s1");
+  const box = new Box(
+    mouse,
+    "services",
+    "/services.png",
+    "retro1.jpg",
+    "retro2.jpg"
+  );
   scene.add(box.getMesh());
+  const AboutTitle = new Box(
+    mouse,
+    "about",
+    "/about.png",
+    "retro1.jpg",
+    "retro2.jpg"
+  );
+  scene.add(box.getMesh());
+  scene.add(AboutTitle.getMesh());
 
   const logo = new Shape(mouse, "logo", "metastart.png", null, false);
   scene.add(logo.getMesh());
@@ -136,8 +150,16 @@ export default (canvas: any) => {
     "/services/ss32.png",
     true
   );
+  const s4 = new Shape(
+    mouse,
+    "s4",
+    "/services/ss41.png",
+    "/services/ss42.png",
+    true
+  );
   scene.add(s2.getMesh());
   scene.add(s3.getMesh());
+  scene.add(s4.getMesh());
 
   const torus = new Torus(camera, entered).getMesh();
   scene.add(torus);

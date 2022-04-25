@@ -156,10 +156,31 @@ export default function Home() {
           </AwesomeButton> */}
         </div>
 
+        <div className="w-full flex flex-row flex-wrap justify-center items-center ">
+          <img
+            src="retro1.jpg"
+            id="services"
+            className="mb-4 mt-4 md:w-1/4 w-3/4 opacity-0"
+          />
+        </div>
         <Services />
         {/* <CircleServices /> */}
 
-        <AboutSection
+        <div className="w-full flex flex-row flex-wrap justify-center items-center mt-28">
+          <img
+            src="retro1.jpg"
+            id="about"
+            className="mb-4 mt-4 md:w-1/4 w-3/4 opacity-0"
+          />
+        </div>
+        <p className=" pt-6 pb-0 mt-10 text-white font-main md:text-2xl text-[20px] md:max-w-7xl text-center">
+          We're web3 natives, having worked since its early stages. Bringing
+          diverse talent under one roof towards a share goal for democratizing
+          the world, and taking down all things fundamentally wrong with web2.
+          We're sort of like the Robinhood for web3. Taking back power from the
+          biggies, and putting it back in your hands !
+        </p>
+        {/* <AboutSection
           src="/goal.png"
           id="goal"
           titel="MISSION"
@@ -172,7 +193,7 @@ export default function Home() {
           reverse
           titel="VISION"
           desc="Building a democratic and Decentralised World."
-        />
+        /> */}
 
         <p
           className=" pt-24 pb-0 mt-10 text-white font-main md:text-6xl text-4xl"

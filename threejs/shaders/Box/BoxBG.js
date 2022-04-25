@@ -117,10 +117,11 @@ class BoxBG extends ShaderMaterial {
 				float displace = blockyNoise(vUv + vec2(vUv.y, 0.0), displaceIntesnsity, 25.0, 66.6);
     			displace *= blockyNoise(vUv.yx + vec2(0.0, vUv.x), displaceIntesnsity, 111.0, 13.7);
 				
-    			vec2 newUV = vec2(vUv.x + displace, vUv.y)  ;
+    			vec2 newUV = vec2(vUv.x + displace, vUv.y) ;
 
-				vec4 tex1 = texture2D(t1,newUV);
-				vec4 tex2 = texture2D(t2,newUV);
+				vec2 offset = newUV * 0.7 + vec2(0.15);
+				vec4 tex1 = texture2D(t1,offset);
+				vec4 tex2 = texture2D(t2,offset );
 				float a = step(1. - progress,noise(newUV * 30.));
 				vec4 color = mix(tex1,tex2, a);
 

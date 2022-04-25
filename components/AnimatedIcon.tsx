@@ -21,15 +21,9 @@ const AnimatedIcon: FC<props> = (props: props) => {
     if (window.innerWidth <= 768) type();
   }, []);
   const type = () => {
-    if (writer && lock < 2) {
+    if (writer && lock < 1) {
       lock++;
-      untype();
-      writer
-        .typeString(props.desc)
-        .start()
-        .callFunction(() => {
-          lock--;
-        });
+      writer.typeString(props.desc).start();
     }
   };
   const untype = () => {
@@ -54,7 +48,6 @@ const AnimatedIcon: FC<props> = (props: props) => {
       onMouseEnter={() => {
         if (window.innerWidth > 768) type();
       }}
-      onMouseLeave={untype}
     >
       <div
         className={classNames(

@@ -24,9 +24,6 @@ export default function Services() {
   return (
     <>
       <div className="flex flex-row flex-wrap justify-center items-center w-full max-w-7xl">
-        <div className="w-full flex flex-row flex-wrap justify-center items-center ">
-          <img src="services/1.png" id="s1" className="mb-4 mt-4" />
-        </div>
         <AnimatedIcon
           src="services/ss21.png"
           id="s2"
@@ -38,8 +35,11 @@ export default function Services() {
           reverse
           desc={descs ? descs[2] : ""}
         />
-        {/* <AnimatedIcon src="services/4.png" id="s4" />
-        <AnimatedIcon src="services/5.png" id="s5" /> */}
+        <AnimatedIcon
+          src="services/ss41.png"
+          id="s4"
+          desc={descs ? descs[3] : ""}
+        />
       </div>
     </>
   );
