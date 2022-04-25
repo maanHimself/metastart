@@ -44,14 +44,14 @@ const AnimatedIcon: FC<props> = (props: props) => {
   const reverseClassName = props.reverse ? "left-0" : "right-0";
   return (
     <div
-      className="md:w-[50vw] w-full relative"
+      className="md:w-[70vw] w-full relative"
       onMouseEnter={() => {
         if (window.innerWidth > 768) type();
       }}
     >
       <div
         className={classNames(
-          " w-3/6 h-1/3 text-white top-1/2 absolute md:text-2xl text-[12px]",
+          " w-3/6 h-1/3 text-white top-1/2 absolute md:text-lg text-[12px]",
           reverseClassName
         )}
       >
