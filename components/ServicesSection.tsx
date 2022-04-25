@@ -38,8 +38,8 @@ export default function Services() {
           reverse
           desc={descs ? descs[2] : ""}
         />
-        <AnimatedIcon src="services/4.png" id="s4" />
-        <AnimatedIcon src="services/5.png" id="s5" />
+        {/* <AnimatedIcon src="services/4.png" id="s4" />
+        <AnimatedIcon src="services/5.png" id="s5" /> */}
       </div>
     </>
   );
