@@ -44,7 +44,7 @@ const AnimatedIcon: FC<props> = (props: props) => {
   const reverseClassName = props.reverse ? "left-0" : "right-0";
   return (
     <div
-      className="md:w-1/2 w-full relative"
+      className="md:w-[50vw] w-full relative"
       onMouseEnter={() => {
         if (window.innerWidth > 768) type();
       }}
