@@ -1,30 +1,44 @@
+import { useEffect, useState } from "react";
 import { AnimatedIcon } from "./AnimatedIcon";
 
 export default function Services() {
+  const [descs, setdescs] = useState<string[]>();
+  useEffect(() => {
+    if (window.innerWidth > 768) {
+      setdescs([
+        "Build your own metaverse, or host an event in one of our metaverses!",
+        "From  building NFT Marketplaces to designing NFT Collections , we’ll advise and create what your brand needs!",
+        "For any crypto project to succeed, Tokenomics becomes make or break. From P2E to  Governance tokens, find out today what your brand needs",
+        "Community is the single most important component of web3. Work with us to supercharge your brand and dominate your community growth!",
+      ]);
+    } else {
+      setdescs([
+        "Building Metaverses and Hosting Events",
+        "NFT Marketplaces & NFT Collections design",
+        "P2E, Governance, LP etc<br/>Token Economy Sorted",
+        "Crush your Discord and Dominate your socials !",
+      ]);
+    }
+  }, []);
+
   return (
-    // <>
-    //   <div className="flex flex-row flex-wrap justify-center items-center w-full max-w-7xl opacity-100">
-    //     <div className="w-full flex flex-row flex-wrap justify-center items-center ">
-    //       <AnimatedIcon src="services/1.png" id="s1" />
-    //     </div>
-    //     <AnimatedIcon src="services/2.png" id="s2" />
-    //     <AnimatedIcon src="services/3.png" id="s3" />
-    //     <div className="w-full flex flex-row flex-wrap justify-center items-center translate-y-10">
-    //       <AnimatedIcon src="services/4.png" id="s4" />
-    //     </div>
-    //     <AnimatedIcon src="services/5.png" id="s5" />
-    //   </div>
-    // </>
     <>
-      <div className="flex flex-row flex-wrap justify-center items-center w-full max-w-7xl opacity-100">
+      <div className="flex flex-row flex-wrap justify-center items-center w-full max-w-7xl">
         <div className="w-full flex flex-row flex-wrap justify-center items-center ">
           <img src="services/1.png" id="s1" className="mb-4 mt-4" />
         </div>
-        <AnimatedIcon src="services/2.png" id="s2" />
-        <AnimatedIcon src="services/3.png" id="s3" />
-        <div className="w-full flex flex-row flex-wrap justify-center items-center translate-y-10">
-          <AnimatedIcon src="services/4.png" id="s4" />
-        </div>
+        <AnimatedIcon
+          src="services/ss21.png"
+          id="s2"
+          desc={descs ? descs[1] : ""}
+        />
+        <AnimatedIcon
+          src="services/ss31.png"
+          id="s3"
+          reverse
+          desc={descs ? descs[2] : ""}
+        />
+        <AnimatedIcon src="services/4.png" id="s4" />
         <AnimatedIcon src="services/5.png" id="s5" />
       </div>
     </>

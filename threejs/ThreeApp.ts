@@ -119,8 +119,25 @@ export default (canvas: any) => {
   const box = new Box(mouse, "s1");
   scene.add(box.getMesh());
 
-  const shape = new Shape(mouse, "logo", "metastart.png");
-  scene.add(shape.getMesh());
+  const logo = new Shape(mouse, "logo", "metastart.png", null, false);
+  scene.add(logo.getMesh());
+
+  const s2 = new Shape(
+    mouse,
+    "s2",
+    "/services/ss21.png",
+    "/services/ss22.png",
+    true
+  );
+  const s3 = new Shape(
+    mouse,
+    "s3",
+    "/services/ss31.png",
+    "/services/ss32.png",
+    true
+  );
+  scene.add(s2.getMesh());
+  scene.add(s3.getMesh());
 
   const torus = new Torus(camera, entered).getMesh();
   scene.add(torus);
@@ -147,9 +164,14 @@ export default (canvas: any) => {
     window.addEventListener("touchstart", OnEntered);
   }
 
-  function OnEntered(e: Event) {
+  function sleep(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  async function OnEntered(e: Event) {
     if (!entered) {
       e.preventDefault();
+      await sleep(500);
 
       const torusRotation = {
         x: (90 * Math.PI) / 180,

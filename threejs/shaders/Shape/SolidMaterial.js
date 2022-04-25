@@ -73,7 +73,7 @@ class SolidMaterial extends ShaderMaterial {
 			lines *= step(0.2,fpos.y);			
 
 			gl_FragColor = vec4(color * lines,lines.r);
-			gl_FragColor = vec4(color * lines, tex.a);
+			gl_FragColor = vec4(color, tex.a);
 	
 				// gl_FragColor = vec4(vUv.xy, 0., 1.);
 	

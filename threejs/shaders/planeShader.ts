@@ -98,6 +98,22 @@ export const fragment: string = `
         return color * star((fracuv - 0.5) * 2.0, vec2(0.5, 0.4) * (0.5 + 0.5*r.xy), o);
     }
 
+    float random (in float x) {
+        return fract(sin(x)*1e4);
+    }
+
+    float random (in vec2 st) {
+        return fract(sin(dot(st.xy, vec2(12.9898,78.233)))* 43758.5453123);
+    }
+
+    float pattern(vec2 st, vec2 v, float t) {
+        vec2 p = floor(st+v);
+        return step(t, random(100.+p*.000001)+random(p.x)*0.5 );
+    }
+    
+    float density = 0.95;
+
+
 
 		float iSpeed = 50.0;
 		float iDensity = 1.0;
@@ -125,7 +141,7 @@ export const fragment: string = `
 
         vec2 filteredRes = vec2(gl_FragCoord.x - mod(gl_FragCoord.x, iStarSize), gl_FragCoord.y - mod(gl_FragCoord.y, iStarSize));
         vec2 st = filteredRes.xy / 1000.;
-        st *= 10.0;
+        st *= 1.0;
     
         vec2 ipos = floor(st);
         vec2 fpos = fract(st);
@@ -133,5 +149,9 @@ export const fragment: string = `
         float isStar = (pow(rand(fpos), 100.0 / iDensity)) * sin((time * 0.3/(100.0/iSpeed)) * (rand(filteredRes) * (3.14159)));
         float nebula = (rand(fpos) ) * 0.2;
         gl_FragColor = vec4(max(isStar, (sin(nebula) + 1.0)/100.0), isStar, max(isStar, (cos(nebula) + 1.0)/100.0), 1.0);
+        
+    
+
+    
     }
 `;

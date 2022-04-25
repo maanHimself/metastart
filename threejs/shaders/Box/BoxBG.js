@@ -68,6 +68,10 @@ class BoxBG extends ShaderMaterial {
 				return fract(sin(dot(n, vec2(12.9898, 4.1414))) * 43758.5453);
 			}
 		
+
+			float rand () {
+				return fract(sin(time * 0.2)*1e4);
+			}
 		
 			
 			float noise(vec2 p){
@@ -80,14 +84,56 @@ class BoxBG extends ShaderMaterial {
 					mix(rand(ip+vec2(0.0,1.0)),rand(ip+vec2(1.0,1.0)),u.x),u.y);
 				return res*res;
 			}
+
+			float rand(float n){return fract(sin(n) * 43758.5453123);}
+
+			float noise(float p){
+				float fl = floor(p);
+				float fc = fract(p);
+				return mix(rand(fl), rand(fl + 1.0), fc);
+			}
+
+			float blockyNoise(vec2 uv, float threshold, float scale, float seed)
+			{
+				float scroll = floor(time + sin(11.0 *  time) + sin(time) ) * 0.77;
+				vec2 noiseUV = uv.yy / scale + scroll;
+				float noise2 = noise(uv);
+				
+				float id = floor( noise2 * 20.0);
+				id = noise(id + seed) - 0.5;
+				
+			
+				if ( abs(id) > threshold )
+					id = 0.0;
+
+				return id;
+			}
+
 			void main() {
 
+				float displaceIntesnsity = 0.2 +  0.3 * pow( sin(time * 20.), 5.0);
 
-				vec4 tex1 = texture2D(t1,vUv);
-				vec4 tex2 = texture2D(t2,vUv);
-				float a = step(1. - progress,noise(vUv * 30.));
-				 
+
+				float displace = blockyNoise(vUv + vec2(vUv.y, 0.0), displaceIntesnsity, 25.0, 66.6);
+    			displace *= blockyNoise(vUv.yx + vec2(0.0, vUv.x), displaceIntesnsity, 111.0, 13.7);
+				
+    			vec2 newUV = vec2(vUv.x + displace, vUv.y)  ;
+
+				vec4 tex1 = texture2D(t1,newUV);
+				vec4 tex2 = texture2D(t2,newUV);
+				float a = step(1. - progress,noise(newUV * 30.));
 				vec4 color = mix(tex1,tex2, a);
+
+
+
+
+				float scanline = sin( newUV.y * 800.0 * rand())/30.0; 
+				color *= 1.0 - scanline * 10.; 
+				
+				//vignette
+				float vegDist = length(( 0.5 , 0.5 ) - vUv);
+				color *= 1.0 - vegDist * 0.6;
+				 
 				gl_FragColor = color;
 
 

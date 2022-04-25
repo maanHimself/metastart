@@ -1,12 +1,11 @@
 import * as THREE from "three";
-import { boxMaterial } from "./shaders/Box/boxMaterial";
+import { ShapeMaterial } from "./shaders/Shape/ShapeMaterial";
 import { SolidMaterial } from "./shaders/Shape/SolidMaterial";
-import { BoxBG } from "./shaders/Box/BoxBG";
 import { Vector2 } from "three";
 
 export default class Shape {
   private geo: THREE.PlaneGeometry;
-  private centeredMat: boxMaterial;
+  private centeredMat: ShapeMaterial;
   private redMat: SolidMaterial;
   private centeredMesh: THREE.Mesh;
   private rightMesh: THREE.Mesh;
@@ -14,27 +13,43 @@ export default class Shape {
   private mouse: any;
   private dom: HTMLElement | null = null;
   private bounds: DOMRect | null = null;
+  private hover = false;
+  private hoverable;
+  private progress = 0;
 
-  constructor(mouse: any, id: string, src: string) {
+  constructor(
+    mouse: any,
+    id: string,
+    src1: string,
+    src2: string | null,
+    hoverable: boolean
+  ) {
     this.mouse = mouse;
+    this.hoverable = hoverable;
     console.log(this.mouse);
     this.geo = new THREE.PlaneGeometry(500, 500, 1, 1);
 
     if (document.getElementById(id) != null) {
       this.dom = document.getElementById(id)!;
       this.bounds = this.dom.getBoundingClientRect();
-      console.log(this.dom);
+      this.dom.onmouseenter = this.onMouseEneter.bind(this);
+      this.dom.onmouseleave = this.onMouseLeave.bind(this);
     } else {
       console.error("can't find ", id);
     }
 
-    this.centeredMat = new boxMaterial();
-    this.centeredMat.uniforms["t"].value = new THREE.TextureLoader().load(src);
+    this.centeredMat = new ShapeMaterial();
+    this.centeredMat.uniforms["t1"].value = new THREE.TextureLoader().load(
+      src1
+    );
+    this.centeredMat.uniforms["t2"].value = new THREE.TextureLoader().load(
+      src2!
+    );
     this.centeredMat.transparent = true;
 
     this.redMat = new SolidMaterial();
-    this.redMat.uniforms["color"].value = new THREE.Color("#FF0052");
-    this.redMat.uniforms["t"].value = new THREE.TextureLoader().load(src);
+    this.redMat.uniforms["color"].value = new THREE.Color("#000000");
+    this.redMat.uniforms["t"].value = new THREE.TextureLoader().load(src1);
     this.redMat.transparent = true;
 
     this.centeredMesh = new THREE.Mesh(this.geo, this.centeredMat);
@@ -44,8 +59,8 @@ export default class Shape {
 
     //poisitioning
 
-    this.rightMesh.translateX(offset);
-    this.rightMesh.translateY(-offset);
+    // this.rightMesh.translateX(offset);
+    // this.rightMesh.translateY(-offset);
 
     let zSpacing = -5;
 
@@ -87,6 +102,12 @@ export default class Shape {
     }
   }
 
+  onMouseEneter() {
+    if (this.hoverable) this.hover = true;
+  }
+  onMouseLeave() {
+    if (this.hoverable) this.hover = false;
+  }
   updateElem() {
     if (this.dom) this.bounds = this.dom.getBoundingClientRect();
     this.setMeshtoHtmlPos();
@@ -94,6 +115,15 @@ export default class Shape {
   }
 
   render(time: number) {
+    if (this.hover) {
+      this.progress = Math.min(1, this.progress + 0.05);
+    } else {
+      this.progress = Math.max(0, this.progress - 0.05);
+    }
+
+    this.centeredMat.uniforms["progress"].value = this.progress;
+    this.centeredMat.uniforms["time"].value = time;
+
     let mouse = new Vector2(this.mouse.x, this.mouse.y)
       .multiplyScalar(2)
       .addScalar(-1);
