@@ -174,11 +174,12 @@ export default function Home() {
           />
         </div>
         <p className=" pt-6 pb-0 mt-10 text-white font-main md:text-2xl text-[20px] md:max-w-7xl text-center">
-          We're web3 natives, having worked since its early stages. Bringing
-          diverse talent under one roof towards a share goal for democratizing
-          the world, and taking down all things fundamentally wrong with web2.
-          We're sort of like the Robinhood for web3. Taking back power from the
-          biggies, and putting it back in your hands !
+          We&apos;re web3 natives, having worked since its early stages.
+          Bringing diverse talent under one roof towards a share goal for
+          democratizing the world, and taking down all things fundamentally
+          wrong with web2. We&apos;re sort of like the Robinhood for web3.
+          Taking back power from the biggies, and putting it back in your hands
+          !
         </p>
         {/* <AboutSection
           src="/goal.png"
