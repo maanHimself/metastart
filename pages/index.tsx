@@ -133,18 +133,16 @@ export default function Home() {
             className="inline-block opacity-0 md:w-2/3 -translate-y-20 "
           ></img> */}
           {/* new logo */}
-          <div className=" md:w-3/5 max-w-4xl w-3/3 flex flex-col justify-center items-center">
-            <img
-              id="donut"
-              src="/donut.png"
-              className="inline-block w-[45%] mb-4  -z-10 opacity-0 p-8"
-            ></img>
-            <img
-              id="logo"
-              src="/metastart.png"
-              className="inline-block  w-full "
-            ></img>
-          </div>
+          <img
+            id="donut"
+            src="/donut.png"
+            className="inline-block md:w-1/3 w-2/4 max-w-sm  mb-4  -z-10 opacity-0 p-8"
+          ></img>
+          <img
+            id="logo"
+            src="/metastart.png"
+            className="inline-block md:w-1/3 max-w-4xl w-full "
+          ></img>
           {/* <AwesomeButton
             type="primary"
             size="large"
