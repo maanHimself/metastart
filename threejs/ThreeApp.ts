@@ -167,19 +167,20 @@ export default (canvas: any) => {
   async function OnEntered(e: Event) {
     if (!entered.value) {
       e.preventDefault();
-      await sleep(500);
 
+      entered.value = true;
+      // await sleep(500);
       const torusRotation = {
         x: (90 * Math.PI) / 180,
         y: 0,
-        z: 0,
+        z: (330 * Math.PI) / 180,
       };
       let tweenTorusIntro = new TWEEN.Tween(torusRotation)
         .to(
           {
             x: (140 * Math.PI) / 180,
             y: (20 * Math.PI) / 180,
-            z: (320 * Math.PI) / 180,
+            z: (1280 * Math.PI) / 180,
           },
           1000
         )
@@ -189,15 +190,14 @@ export default (canvas: any) => {
           torus.rotation.y = torusRotation.y;
           torus.rotation.z = torusRotation.z;
 
-          camera.fov =
-            2 *
-            Math.atan(window.innerHeight / 2 / camera.position.z) *
-            (180 / Math.PI);
+          // camera.fov =
+          //   2 *
+          //   Math.atan(window.innerHeight / 2 / camera.position.z) *
+          //   (180 / Math.PI);
           camera.updateProjectionMatrix();
         })
-        .start();
-      document.body.style.overflow = "auto";
-      // document..style.overflow = "auto";
+        .start()
+        .onComplete(() => {});
       const coords = {
         x: camera.position.x,
         y: camera.position.y,
@@ -207,20 +207,20 @@ export default (canvas: any) => {
         .to({ x: 0, y: 0, z: 600 }, 1000)
         .easing(TWEEN.Easing.Circular.InOut)
         .onUpdate(() => {
+          console.log(camera.position.z);
           camera.position.x = coords.x;
           camera.position.y = coords.y;
           camera.position.z = coords.z;
 
-          camera.fov =
-            2 *
-            Math.atan(window.innerHeight / 2 / camera.position.z) *
-            (180 / Math.PI);
+          // camera.fov =
+          //   2 *
+          //   Math.atan(window.innerHeight / 2 / camera.position.z) *
+          //   (180 / Math.PI);
           camera.updateProjectionMatrix();
         })
         .start();
 
-      entered.value = true;
-
+      document.body.style.overflow = "auto";
       if (content != null) content.style.opacity = "100%";
     }
   }
@@ -290,10 +290,10 @@ export default (canvas: any) => {
   }
 
   function render(time: number) {
-    if (entered) {
+    if (entered.value) {
       debounce(updateElements, 100)();
-      TWEEN.update();
     }
+    TWEEN.update();
     requestAnimationFrame(render);
 
     renderer.render(scene, camera);
