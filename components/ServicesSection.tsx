@@ -23,7 +23,13 @@ export default function Services() {
 
   return (
     <>
-      <div className="flex flex-row flex-wrap justify-center items-center w-full max-w-7xl">
+      <div className="flex flex-row flex-wrap justify-center items-center w-full max-w-5xl">
+        <AnimatedIcon
+          src="services/ss01.png"
+          id="s1"
+          reverse
+          desc={descs ? descs[0] : ""}
+        />
         <AnimatedIcon
           src="services/ss21.png"
           id="s2"

@@ -136,6 +136,13 @@ export default (canvas: any) => {
   const logo = new Shape(mouse, "logo", "metastart.png", null, false);
   scene.add(logo.getMesh());
 
+  const s1 = new Shape(
+    mouse,
+    "s1",
+    "/services/ss01.png",
+    "/services/ss02.png",
+    true
+  );
   const s2 = new Shape(
     mouse,
     "s2",
@@ -157,6 +164,7 @@ export default (canvas: any) => {
     "/services/ss42.png",
     true
   );
+  scene.add(s1.getMesh());
   scene.add(s2.getMesh());
   scene.add(s3.getMesh());
   scene.add(s4.getMesh());
@@ -338,6 +346,7 @@ export default (canvas: any) => {
   function updateElements() {
     donutBounds = document.getElementById("donut")?.getBoundingClientRect();
     setMeshtoHtmlPos(torus, donutBounds);
+    setMeshtoHtmlSize(torus, donutBounds);
     elems.forEach((elem) => {
       setMeshtoHtmlPos(elem.mesh, elem.dom.getBoundingClientRect());
       setMeshtoHtmlSize(elem.mesh, elem.dom.getBoundingClientRect());

@@ -125,7 +125,7 @@ export default function Home() {
           />
         </Head>
 
-        <div className="h-[80vh] w-full flex flex-col items-center justify-center ">
+        <div className="h-[95vh] w-full flex flex-col items-center justify-center ">
           {/* old logo */}
           {/* <img
             id="logo"
@@ -160,7 +160,7 @@ export default function Home() {
           <img
             src="retro1.jpg"
             id="services"
-            className="mb-4 mt-4 md:w-1/4 w-3/4 opacity-0"
+            className="mb-4 mt-4 md:w-2/6 w-3/4 opacity-0"
           />
         </div>
         <Services />
@@ -170,10 +170,10 @@ export default function Home() {
           <img
             src="retro1.jpg"
             id="about"
-            className="mb-4 mt-4 md:w-1/4 w-3/4 opacity-0"
+            className="mb-4 mt-4 md:w-2/6 w-3/4 opacity-0"
           />
         </div>
-        <p className=" pt-6 pb-0 mt-10 text-white font-main md:text-2xl text-[20px] md:max-w-7xl text-center">
+        <p className=" pt-6 pb-0 mt-10 text-white font-main md:text-2xl text-[20px] md:max-w-5xl text-center">
           We&apos;re web3 natives, having worked since its early stages.
           Bringing diverse talent under one roof towards a share goal for
           democratizing the world, and taking down all things fundamentally
@@ -181,20 +181,6 @@ export default function Home() {
           Taking back power from the biggies, and putting it back in your hands
           !
         </p>
-        {/* <AboutSection
-          src="/goal.png"
-          id="goal"
-          titel="MISSION"
-          desc="Accelerating the migration of Businesses and Creators towards the web3 sphere."
-        />
-
-        <AboutSection
-          src="/vision.png"
-          id={"vision"}
-          reverse
-          titel="VISION"
-          desc="Building a democratic and Decentralised World."
-        /> */}
 
         <p
           className=" pt-24 pb-0 mt-10 text-white font-main md:text-6xl text-4xl"
