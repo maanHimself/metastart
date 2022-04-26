@@ -124,17 +124,13 @@ export default class Shape {
     this.centeredMat.uniforms["progress"].value = this.progress;
     this.centeredMat.uniforms["time"].value = time;
 
-    let mouse = new Vector2(this.mouse.x, this.mouse.y)
-      .multiplyScalar(2)
-      .addScalar(-1);
-
-    let tilt = 0.1;
-
-    // this.rightMesh.rotation.x = mouse.y * tilt;
-    // this.rightMesh.rotation.y = mouse.x * tilt;
-
-    // this.centeredMesh.rotation.x = mouse.y * tilt;
-    // this.centeredMesh.rotation.y = mouse.x * tilt;
+    if (this.bounds)
+      if (
+        this.bounds.top < window.innerHeight * 0.7 &&
+        this.bounds.top > window.innerHeight * 0.2
+      )
+        this.hover = true;
+      else this.hover = false;
 
     this.redMat.uniforms["time"].value += 0.001;
 

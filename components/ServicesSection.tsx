@@ -25,15 +25,15 @@ export default function Services() {
     <>
       <div className="flex flex-row flex-wrap justify-center items-center w-full max-w-5xl">
         <AnimatedIcon
+          src="services/ss21.png"
+          id="s2"
+          desc={descs ? descs[1] : ""}
+        />
+        <AnimatedIcon
           src="services/ss01.png"
           id="s1"
           reverse
           desc={descs ? descs[0] : ""}
-        />
-        <AnimatedIcon
-          src="services/ss21.png"
-          id="s2"
-          desc={descs ? descs[1] : ""}
         />
         <AnimatedIcon
           src="services/ss31.png"

@@ -17,6 +17,7 @@ export default function Home() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    scrollToTop();
     window.addEventListener("keydown", () => setEntered(true));
     window.addEventListener("mousedown", () => setEntered(true));
     window.addEventListener("touchstart", () => setEntered(true));
@@ -93,7 +94,6 @@ export default function Home() {
         <Typewriter
           onInit={(typewriter) => {
             setClickAnything(typewriter);
-
             typewriter
               .callFunction((state) => {
                 state.elements.container.style.fontSize = "170%";
@@ -142,7 +142,7 @@ export default function Home() {
             <img
               id="logo"
               src="/metastart.png"
-              className="inline-block opacity-0 w-full "
+              className="inline-block  w-full "
             ></img>
           </div>
           {/* <AwesomeButton

@@ -1,5 +1,5 @@
 import { Controller, Scene } from "react-scrollmagic";
-import { FC, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { Tween, Timeline } from "react-gsap";
 import Typewriter, { TypewriterClass } from "typewriter-effect";
 import classNames from "classnames";
@@ -14,12 +14,37 @@ type props = {
 };
 
 const AnimatedIcon: FC<props> = (props: props) => {
-  const [writer, setWriter] = useState<TypewriterClass>();
+  const [writer, _setWriter] = useState<TypewriterClass>();
+  const ref = useRef<HTMLImageElement>(null);
+  const writerRef = useRef<TypewriterClass | undefined>(writer);
+  const desc = useRef<string>(props.desc);
   let lock = 0;
 
-  useEffect(() => {
-    if (window.innerWidth <= 768) type();
+  const setWriter = (writer: TypewriterClass) => {
+    writerRef.current = writer;
+    _setWriter(writer);
+  };
+
+  const onScroll = useCallback(() => {
+    let bounds = ref.current?.getBoundingClientRect();
+    if (bounds)
+      if (
+        bounds.top < window.innerHeight * 0.7 &&
+        bounds.top > window.innerHeight * 0.2
+      )
+        if (writerRef.current && lock < 1) {
+          lock++;
+          writerRef.current.typeString(desc.current).start();
+        }
   }, []);
+  useEffect(() => {
+    window.addEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    desc.current = props.desc;
+  }, [props.desc]);
+
   const type = () => {
     if (writer && lock < 1) {
       lock++;
@@ -67,7 +92,12 @@ const AnimatedIcon: FC<props> = (props: props) => {
           }}
         />
       </div>
-      <img src={props.src} id={props.id} className="mb-4 mt-4 opacity-0" />
+      <img
+        src={props.src}
+        id={props.id}
+        ref={ref}
+        className="mb-4 mt-4 opacity-0"
+      />
     </div>
   );
 };

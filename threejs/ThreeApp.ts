@@ -38,7 +38,7 @@ export default (canvas: any) => {
 
   const loader = new GLTFLoader();
 
-  let entered = false;
+  let entered = { value: false };
 
   const elems: any[] = [];
 
@@ -69,36 +69,6 @@ export default (canvas: any) => {
   let content = document.getElementById("content");
   if (content != null) content.style.opacity = "0%";
   //end setup
-
-  let size = 64;
-  let offsetTexture: THREE.DataTexture;
-  async function fillBuffer() {
-    let offsetWidth = size;
-    let offsetHeight = size;
-    let offsetSize = offsetHeight * offsetWidth;
-
-    let offsetArray = new Float32Array(offsetSize * 4);
-
-    for (let i = 0; i < offsetSize; i++) {
-      let stride = i * 4;
-      let r = Math.random() * 1 * 2 - 1;
-      let r2 = Math.random() * 1 * 2 - 1;
-
-      offsetArray[stride] = 0;
-      offsetArray[stride + 1] = 0;
-      offsetArray[stride + 2] = 0;
-      offsetArray[stride + 3] = 0;
-    }
-
-    let offsetTexture = new THREE.DataTexture(
-      offsetArray,
-      offsetWidth,
-      offsetHeight,
-      THREE.RGBAFormat,
-      THREE.FloatType
-    );
-    offsetTexture.magFilter = offsetTexture.minFilter = THREE.NearestFilter;
-  }
 
   // fillBuffer().then(() => {});
   let plane: Plane;
@@ -132,9 +102,6 @@ export default (canvas: any) => {
   );
   scene.add(box.getMesh());
   scene.add(AboutTitle.getMesh());
-
-  const logo = new Shape(mouse, "logo", "metastart.png", null, false);
-  scene.add(logo.getMesh());
 
   const s1 = new Shape(
     mouse,
@@ -178,7 +145,6 @@ export default (canvas: any) => {
 
   setupListeners();
   onWindowResize();
-  postProcessing();
   setSettings();
   render(0);
 
@@ -199,7 +165,7 @@ export default (canvas: any) => {
   }
 
   async function OnEntered(e: Event) {
-    if (!entered) {
+    if (!entered.value) {
       e.preventDefault();
       await sleep(500);
 
@@ -253,7 +219,7 @@ export default (canvas: any) => {
         })
         .start();
 
-      entered = true;
+      entered.value = true;
 
       if (content != null) content.style.opacity = "100%";
     }
@@ -301,52 +267,9 @@ export default (canvas: any) => {
     mouse.prevY = mouse.y;
   }
 
-  function updateOffset() {
-    let data = offsetTexture.image.data;
-    for (let i = 0; i < data.length; i += 4) {
-      data[i] *= 0.95;
-      data[i + 1] *= 0.95;
-    }
-
-    let mouseGridX = size * mouse.x; //* (window.innerHeight / window.innerWidth);
-    let mouseGridY = size * (1 - mouse.y);
-    let maxDist = clamp(mouse.v * 100, 25, 150);
-
-    for (let i = 0; i < size; i++) {
-      for (let j = 0; j < size; j++) {
-        let dist = (mouseGridX - i) ** 2 + (mouseGridY - j) ** 2;
-
-        if (dist < maxDist) {
-          let power =
-            ((1 * maxDist) / dist) *
-            ((20 - Math.min(mouse.curScroll, 20)) / 20) *
-            0.1;
-          data[4 * (i + size * j)] += mouse.vX * power;
-          data[4 * (i + size * j) + 1] += mouse.vY * power;
-        }
-        let s = 0;
-        mouse.scrollV > 0 ? (s = (size - j) / size) : (s = j / size);
-        // if (j < size / 2)
-        data[4 * (i + size * j) + 1] += mouse.scrollV * Math.random() * 0.1 * s;
-      }
-    }
-    mouse.scrollV *= 0.9;
-    mouse.vX *= 0.5;
-    mouse.vY *= 0.5;
-
-    offsetTexture.needsUpdate = true;
-  }
-
-  function postProcessing() {
-    composer.addPass(new RenderPass(scene, camera));
-
-    effect1.uniforms["offsetT"].value = offsetTexture;
-    composer.addPass(effect1);
-  }
   function updateElements() {
     donutBounds = document.getElementById("donut")?.getBoundingClientRect();
-    setMeshtoHtmlPos(torus, donutBounds);
-    setMeshtoHtmlSize(torus, donutBounds);
+    // setMeshtoHtmlSize(torus, donutBounds);
     elems.forEach((elem) => {
       setMeshtoHtmlPos(elem.mesh, elem.dom.getBoundingClientRect());
       setMeshtoHtmlSize(elem.mesh, elem.dom.getBoundingClientRect());
@@ -370,10 +293,9 @@ export default (canvas: any) => {
     if (entered) {
       debounce(updateElements, 100)();
       TWEEN.update();
-      // updateOffset();
     }
     requestAnimationFrame(render);
 
-    composer.render();
+    renderer.render(scene, camera);
   }
 };

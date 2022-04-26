@@ -8,9 +8,9 @@ export default class Torus {
   private mesh: THREE.Mesh;
   private dom: HTMLElement | null = null;
   private bounds: DOMRect | null = null;
-  private entered: boolean;
+  private entered: { value: boolean };
 
-  constructor(camera: THREE.PerspectiveCamera, entered: boolean) {
+  constructor(camera: THREE.PerspectiveCamera, entered: { value: boolean }) {
     if (document.getElementById("donut") != null) {
       this.dom = document.getElementById("donut")!;
       this.bounds = this.dom.getBoundingClientRect();
@@ -83,7 +83,8 @@ export default class Torus {
   render(time: number) {
     this.mat.uniforms["time"].value = time;
 
-    // this.updateElem();
+    console.log(this.entered.value);
+    if (this.entered.value) this.updateElem();
 
     requestAnimationFrame(this.render.bind(this));
   }
