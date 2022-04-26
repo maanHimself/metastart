@@ -301,7 +301,7 @@ export default function Home() {
             not cause we can’t afford an intense UX website :P
           </p> */}
           <div className="w-full h-16  flex flex-row items-center justify-center space-x-4 mt-auto pb-6">
-            <a href="https://wa.me/00919686343315">
+            <a href="https://wa.me/qr/YUDVJTVNUTAOP1">
               <img id="media" src="/whatsapp.png" className=" w-8"></img>
             </a>
             <a href="http://www.twitter.com/0xmetastart">
