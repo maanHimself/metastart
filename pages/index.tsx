@@ -11,7 +11,6 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 export default function Home() {
   // let services = useRef(null);
-  const [dimensions, setDimensions] = useState({});
 
   const [entered, setEntered] = useState(false);
   const [clickAnything, setClickAnything] = useState<TypewriterClass>();

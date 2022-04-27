@@ -14,6 +14,7 @@ export default class Shape {
   private dom: HTMLElement | null = null;
   private bounds: DOMRect | null = null;
   private hover = false;
+  private inView = false;
   private hoverable;
   private progress = 0;
 
@@ -127,8 +128,13 @@ export default class Shape {
       if (
         this.bounds.top < window.innerHeight * 0.7 &&
         this.bounds.top > window.innerHeight * 0.2
-      )
+      ) {
         this.hover = true;
+        this.inView = true;
+      } else if (this.inView) {
+        this.inView = false;
+        this.hover = false;
+      }
 
     this.redMat.uniforms["time"].value += 0.001;
 
