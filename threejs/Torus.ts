@@ -36,7 +36,7 @@ export default class Torus {
 
     this.setMeshtoHtmlPos();
     camera.position.y = this.mesh.position.y;
-    camera.position.z = this.mesh.position.z + 120 * s;
+    camera.position.z = this.mesh.position.z + 100 * s;
     // camera.fov =
     //   2 *
     //   Math.atan(window.innerHeight / 2 / camera.position.z) *
@@ -83,7 +83,6 @@ export default class Torus {
   render(time: number) {
     this.mat.uniforms["time"].value = time;
 
-    console.log(this.entered.value);
     if (this.entered.value) this.updateElem();
 
     requestAnimationFrame(this.render.bind(this));

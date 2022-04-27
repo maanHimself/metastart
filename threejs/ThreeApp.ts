@@ -1,13 +1,5 @@
 import * as THREE from "three";
-import { clamp } from "three/src/math/MathUtils";
 const dat = require("dat.gui");
-import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
-import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
-import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
-import { basicShader } from "./shaders/basicShader";
-import { torusMaterialLines } from "./shaders/torusMaterial lines";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import { Vector2, Vector3 } from "three";
 import TWEEN from "@tweenjs/tween.js";
 import Box from "./Box";
 import Shape from "./Shape";
@@ -18,7 +10,6 @@ import {
 } from "./utils/HtmlUtil";
 import Plane from "./Plane";
 import Torus from "./Torus";
-import Title from "./Title";
 
 export default (canvas: any) => {
   const scene = new THREE.Scene();
@@ -47,8 +38,7 @@ export default (canvas: any) => {
   camera.position.set(0, 0, 600);
   let donutBounds = document.getElementById("donut")?.getBoundingClientRect();
 
-  camera.fov =
-    2 * Math.atan(window.innerHeight / 2 / camera.position.z) * (180 / Math.PI);
+  // camera.fov = 2 * Math.atan(window.innerHeight / 2 / camera.position.z) * (180 / Math.PI);
   let mouse = {
     x: 0.5,
     y: 0.5,
@@ -184,7 +174,6 @@ export default (canvas: any) => {
           torus.rotation.x = torusRotation.x;
           torus.rotation.y = torusRotation.y;
           torus.rotation.z = torusRotation.z;
-          camera.updateProjectionMatrix();
         })
         .start()
         .onComplete(() => {});
@@ -197,10 +186,15 @@ export default (canvas: any) => {
         .to({ x: 0, y: 0, z: 600 }, 1000)
         .easing(TWEEN.Easing.Circular.InOut)
         .onUpdate(() => {
-          console.log(camera.position.z);
           camera.position.x = coords.x;
           camera.position.y = coords.y;
           camera.position.z = coords.z;
+
+          camera.fov =
+            2 *
+            Math.atan(window.innerHeight / 2 / camera.position.z) *
+            (180 / Math.PI);
+          camera.updateProjectionMatrix();
         })
         .start();
 
@@ -223,10 +217,19 @@ export default (canvas: any) => {
   function onWindowResize() {
     // width = container.offsetWidth;
     // height = container.offsetHeight;
-    width = window.innerWidth;
+
     height = window.innerHeight;
+    width = window.innerWidth;
+    container.height = window.innerHeight;
+    container.width = window.innerWidth;
     renderer.setSize(width, height);
     camera.aspect = width / height;
+
+    console.log("resizing");
+    camera.fov =
+      2 *
+      Math.atan(window.innerHeight / 2 / camera.position.z) *
+      (180 / Math.PI);
 
     camera.updateProjectionMatrix();
 

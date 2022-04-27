@@ -1,9 +1,9 @@
-import React from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import Sketch from "../threejs/ThreeApp";
 
 export default function ThreeContainer() {
-  const threeRootElement = React.useRef<HTMLDivElement>(null);
-  React.useEffect(() => {
+  const threeRootElement = useRef<HTMLDivElement>(null);
+  useEffect(() => {
     Sketch(threeRootElement.current);
   }, []);
 

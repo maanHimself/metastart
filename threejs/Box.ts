@@ -30,7 +30,6 @@ export default class Box {
   ) {
     this.mouse = mouse;
     this.hover = false;
-    console.log(this.mouse);
     this.geo = new THREE.PlaneGeometry(500, 500, 1, 1);
 
     if (document.getElementById(id) != null) {

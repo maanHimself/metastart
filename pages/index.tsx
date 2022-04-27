@@ -1,5 +1,4 @@
-import AboutSection from "../components/AboutSection/AboutSection";
-
+import classNames from "classnames";
 import ThreeContainer from "./ThreeComp";
 import { useInView } from "react-intersection-observer";
 import emailjs from "@emailjs/browser";
@@ -8,10 +7,11 @@ import Typewriter, { TypewriterClass } from "typewriter-effect";
 import Services from "../components/ServicesSection";
 import Head from "next/head";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 export default function Home() {
   // let services = useRef(null);
+  const [dimensions, setDimensions] = useState({});
 
   const [entered, setEntered] = useState(false);
   const [clickAnything, setClickAnything] = useState<TypewriterClass>();
@@ -22,6 +22,12 @@ export default function Home() {
     window.addEventListener("keydown", () => setEntered(true));
     window.addEventListener("mousedown", () => setEntered(true));
     window.addEventListener("touchstart", () => setEntered(true));
+    // window.addEventListener("resize", () =>
+    //   setDimensions({
+    //     height: window.innerHeight,
+    //     width: window.innerWidth,
+    //   })
+    // );
 
     return () => {
       window.removeEventListener("keydown", () => setEntered(true));
@@ -87,7 +93,7 @@ export default function Home() {
       <ThreeContainer></ThreeContainer>
 
       {/* <SmoothScroll /> */}
-      <div className="-z-10 h-full w-full text-black flex justify-center items-center text-lg absolute">
+      <div className="-z-10 h-full w-full text-black flex justify-center items-center text-lg fixed">
         <div
           ref={porgress}
           className="w-full h-full fixed  -z-10  bg-[#000000]"
@@ -116,7 +122,9 @@ export default function Home() {
       </div>
       <div
         id="content"
-        className="content h-full w-full flex flex-col items-center justify-center m-0 p-6 pt-0 pb-0 "
+        className={
+          "content h-full w-full flex flex-col items-center justify-center m-0 p-6 pt-0 pb-0 "
+        }
       >
         <Head>
           <title>Metastart</title>

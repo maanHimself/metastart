@@ -18,24 +18,28 @@ const AnimatedIcon: FC<props> = (props: props) => {
   const ref = useRef<HTMLImageElement>(null);
   const writerRef = useRef<TypewriterClass | undefined>(writer);
   const desc = useRef<string>(props.desc);
-  let lock = 0;
+  const [lock, setLock] = useState(0);
 
   const setWriter = (writer: TypewriterClass) => {
     writerRef.current = writer;
     _setWriter(writer);
   };
 
+  const [inView, setInView] = useState<boolean>(false);
+
+  useEffect(() => {
+    type();
+  }, [inView]);
+
   const onScroll = useCallback(() => {
     let bounds = ref.current?.getBoundingClientRect();
     if (bounds)
       if (
         bounds.top < window.innerHeight * 0.7 &&
-        bounds.top > window.innerHeight * 0.2
+        bounds.top > window.innerHeight * 0.2 &&
+        !inView
       )
-        if (writerRef.current && lock < 1) {
-          lock++;
-          writerRef.current.typeString(desc.current).start();
-        }
+        setInView(true);
   }, []);
   useEffect(() => {
     window.addEventListener("scroll", onScroll);
@@ -47,13 +51,13 @@ const AnimatedIcon: FC<props> = (props: props) => {
 
   const type = () => {
     if (writer && lock < 1) {
-      lock++;
+      setLock(1);
       writer.typeString(props.desc).start();
     }
   };
   const untype = () => {
     if (writer && window.innerWidth > 768 && lock < 2) {
-      lock++;
+      setLock(1);
       writer
         .deleteAll(1)
         .callFunction((state) => {
@@ -61,7 +65,7 @@ const AnimatedIcon: FC<props> = (props: props) => {
         })
         .start()
         .callFunction((state) => {
-          lock--;
+          setLock(0);
         });
     }
   };
@@ -76,15 +80,15 @@ const AnimatedIcon: FC<props> = (props: props) => {
     >
       <div
         className={classNames(
-          " w-3/6 h-1/3 text-white top-1/2 absolute md:text-lg text-[12px]",
+          " w-3/6 h-1/3 text-white top-1/2 absolute md:text-lg text-[18px]",
           reverseClassName
         )}
       >
         <Typewriter
           onInit={(typewriter) => {
             setWriter(typewriter);
-            if (window.innerWidth <= 768)
-              typewriter.typeString(props.desc).start();
+            // if (window.innerWidth <= 768)
+            //   typewriter.typeString(props.desc).start();
           }}
           options={{
             delay: 0.1,
