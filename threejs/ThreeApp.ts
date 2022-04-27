@@ -33,10 +33,6 @@ export default (canvas: any) => {
   renderer.outputEncoding = THREE.sRGBEncoding;
 
   container.appendChild(renderer.domElement);
-  const composer = new EffectComposer(renderer);
-  const effect1 = new ShaderPass(basicShader);
-
-  const loader = new GLTFLoader();
 
   let entered = { value: false };
 
@@ -169,7 +165,6 @@ export default (canvas: any) => {
       e.preventDefault();
 
       entered.value = true;
-      // await sleep(500);
       const torusRotation = {
         x: (90 * Math.PI) / 180,
         y: 0,
@@ -178,7 +173,7 @@ export default (canvas: any) => {
       let tweenTorusIntro = new TWEEN.Tween(torusRotation)
         .to(
           {
-            x: (140 * Math.PI) / 180,
+            x: (120 * Math.PI) / 180,
             y: (20 * Math.PI) / 180,
             z: (1280 * Math.PI) / 180,
           },
@@ -189,11 +184,6 @@ export default (canvas: any) => {
           torus.rotation.x = torusRotation.x;
           torus.rotation.y = torusRotation.y;
           torus.rotation.z = torusRotation.z;
-
-          // camera.fov =
-          //   2 *
-          //   Math.atan(window.innerHeight / 2 / camera.position.z) *
-          //   (180 / Math.PI);
           camera.updateProjectionMatrix();
         })
         .start()
@@ -211,12 +201,6 @@ export default (canvas: any) => {
           camera.position.x = coords.x;
           camera.position.y = coords.y;
           camera.position.z = coords.z;
-
-          // camera.fov =
-          //   2 *
-          //   Math.atan(window.innerHeight / 2 / camera.position.z) *
-          //   (180 / Math.PI);
-          camera.updateProjectionMatrix();
         })
         .start();
 
@@ -237,14 +221,16 @@ export default (canvas: any) => {
   }
 
   function onWindowResize() {
-    width = container.offsetWidth;
-    height = container.offsetHeight;
+    // width = container.offsetWidth;
+    // height = container.offsetHeight;
+    width = window.innerWidth;
+    height = window.innerHeight;
     renderer.setSize(width, height);
     camera.aspect = width / height;
 
     camera.updateProjectionMatrix();
 
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    // renderer.setSize(window.innerWidth, window.innerHeight);
 
     // render();
   }

@@ -1,4 +1,5 @@
 import AboutSection from "../components/AboutSection/AboutSection";
+
 import ThreeContainer from "./ThreeComp";
 import { useInView } from "react-intersection-observer";
 import emailjs from "@emailjs/browser";
@@ -84,6 +85,7 @@ export default function Home() {
     <>
       <div ref={StartRef} />
       <ThreeContainer></ThreeContainer>
+
       {/* <SmoothScroll /> */}
       <div className="-z-10 h-full w-full text-black flex justify-center items-center text-lg absolute">
         <div
@@ -125,14 +127,7 @@ export default function Home() {
           />
         </Head>
 
-        <div className="h-[95vh] w-full flex flex-col items-center justify-center ">
-          {/* old logo */}
-          {/* <img
-            id="logo"
-            src="/logo.png"
-            className="inline-block opacity-0 md:w-2/3 -translate-y-20 "
-          ></img> */}
-          {/* new logo */}
+        <div className="h-[100vh] w-full flex flex-col items-center justify-center ">
           <img
             id="donut"
             src="/donut.png"
@@ -141,20 +136,25 @@ export default function Home() {
           <img
             id="logo"
             src="/metastart.png"
-            className="inline-block md:w-1/3 max-w-4xl w-full "
+            className="inline-block md:w-2/3 max-w-4xl w-full "
           ></img>
-          {/* <AwesomeButton
-            type="primary"
-            size="large"
-            onPress={() => {
-              scrollToBottom();
-            }}
-          >
-            Contact us
-          </AwesomeButton> */}
+
+          <div id="scrolldown" className="scrolldown-wrapper">
+            <div className="scrolldown">
+              <svg
+                height="30"
+                width="10"
+                className="flex justify-center items-center"
+              >
+                <circle className="scrolldown-p1" cx="5" cy="15" r="2" />
+                <circle className="scrolldown-p2" cx="5" cy="15" r="2" />
+              </svg>
+            </div>
+          </div>
         </div>
 
         <div className="w-full flex flex-row flex-wrap justify-center items-center ">
+          <div className="h-16 w-full"></div>
           <img
             src="retro1.jpg"
             id="services"
@@ -162,7 +162,6 @@ export default function Home() {
           />
         </div>
         <Services />
-        {/* <CircleServices /> */}
 
         <div className="w-full flex flex-row flex-wrap justify-center items-center mt-28">
           <img

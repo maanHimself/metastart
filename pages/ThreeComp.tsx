@@ -4,10 +4,7 @@ import Sketch from "../threejs/ThreeApp";
 export default function ThreeContainer() {
   const threeRootElement = React.useRef<HTMLDivElement>(null);
   React.useEffect(() => {
-    let s: null | void = Sketch(threeRootElement.current);
-    return () => {
-      s = null;
-    };
+    Sketch(threeRootElement.current);
   }, []);
 
   return (

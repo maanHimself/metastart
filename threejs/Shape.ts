@@ -130,7 +130,6 @@ export default class Shape {
         this.bounds.top > window.innerHeight * 0.2
       )
         this.hover = true;
-      else this.hover = false;
 
     this.redMat.uniforms["time"].value += 0.001;
 
