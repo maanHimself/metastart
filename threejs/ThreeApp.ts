@@ -175,6 +175,8 @@ export default (canvas: any) => {
           torus.rotation.z = torusRotation.z;
         })
         .onComplete(() => {
+          entered.value = true;
+
           document.body.style.overflow = "auto";
         });
       // .start()
@@ -210,7 +212,6 @@ export default (canvas: any) => {
           camera.updateProjectionMatrix();
         })
         .onComplete(() => {
-          entered.value = true;
           tweenCamera.start();
           tweenTorusIntro.start();
           if (content != null) content.style.opacity = "100%";
