@@ -14,6 +14,8 @@ export default class Torus {
     if (document.getElementById("donut") != null) {
       this.dom = document.getElementById("donut")!;
       this.bounds = this.dom.getBoundingClientRect();
+    } else {
+      console.log("donut wasn't found");
     }
 
     this.entered = entered;
