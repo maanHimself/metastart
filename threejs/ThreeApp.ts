@@ -154,7 +154,6 @@ export default (canvas: any) => {
     if (!entered.value) {
       e.preventDefault();
 
-      entered.value = true;
       const torusRotation = {
         x: (90 * Math.PI) / 180,
         y: 0,
@@ -211,6 +210,7 @@ export default (canvas: any) => {
           camera.updateProjectionMatrix();
         })
         .onComplete(() => {
+          entered.value = true;
           tweenCamera.start();
           tweenTorusIntro.start();
           if (content != null) content.style.opacity = "100%";
@@ -295,7 +295,6 @@ export default (canvas: any) => {
   }
 
   function render(time: number) {
-    console.log(camera.fov);
     if (entered.value) {
       debounce(updateElements, 50)();
     }

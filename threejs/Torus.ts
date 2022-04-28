@@ -38,7 +38,7 @@ export default class Torus {
 
     this.setMeshtoHtmlPos();
     camera.position.y = this.mesh.position.y;
-    camera.position.z = this.mesh.position.z + 125 * s;
+    camera.position.z = this.mesh.position.z + 120 * s;
     // camera.fov =
     //   2 *
     //   Math.atan(window.innerHeight / 2 / camera.position.z) *
