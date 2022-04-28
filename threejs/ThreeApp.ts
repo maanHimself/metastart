@@ -38,7 +38,7 @@ export default (canvas: any) => {
   camera.position.set(0, 0, 600);
   let donutBounds = document.getElementById("donut")?.getBoundingClientRect();
 
-  // camera.fov = 2 * Math.atan(window.innerHeight / 2 / camera.position.z) * (180 / Math.PI);
+  camera.fov = 2 * Math.atan(window.innerHeight / 2 / 600) * (180 / Math.PI);
   let mouse = {
     x: 0.5,
     y: 0.5,
@@ -130,7 +130,7 @@ export default (canvas: any) => {
   let mesh: THREE.Mesh;
 
   setupListeners();
-  onWindowResize();
+  // onWindowResize();
   setSettings();
   render(0);
 
@@ -175,8 +175,10 @@ export default (canvas: any) => {
           torus.rotation.y = torusRotation.y;
           torus.rotation.z = torusRotation.z;
         })
-        .start()
-        .onComplete(() => {});
+        .onComplete(() => {
+          document.body.style.overflow = "auto";
+        });
+      // .start()
       const coords = {
         x: camera.position.x,
         y: camera.position.y,
@@ -195,11 +197,25 @@ export default (canvas: any) => {
             Math.atan(window.innerHeight / 2 / camera.position.z) *
             (180 / Math.PI);
           camera.updateProjectionMatrix();
+        });
+      // .start()
+      const fov = {
+        value: 600,
+      };
+      let tweenFov = new TWEEN.Tween(fov)
+        .to({ value: camera.position.z }, 1000)
+        .easing(TWEEN.Easing.Circular.Out)
+        .onUpdate(() => {
+          camera.fov =
+            2 * Math.atan(window.innerHeight / 2 / fov.value) * (180 / Math.PI);
+          camera.updateProjectionMatrix();
+        })
+        .onComplete(() => {
+          tweenCamera.start();
+          tweenTorusIntro.start();
+          if (content != null) content.style.opacity = "100%";
         })
         .start();
-
-      document.body.style.overflow = "auto";
-      if (content != null) content.style.opacity = "100%";
     }
   }
   function onScroll(e: Event) {
@@ -279,8 +295,9 @@ export default (canvas: any) => {
   }
 
   function render(time: number) {
+    console.log(camera.fov);
     if (entered.value) {
-      debounce(updateElements, 100)();
+      debounce(updateElements, 50)();
     }
     TWEEN.update();
     requestAnimationFrame(render);
