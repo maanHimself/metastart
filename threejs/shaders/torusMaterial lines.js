@@ -183,7 +183,7 @@ class torusMaterialLines extends ShaderMaterial {
 				vec2 st = p.xy/1.;
 				st.x *= 1.;
 
-				vec2 grid = vec2(50.0,50.);
+				vec2 grid = vec2(500.0,100.);
 				st *= grid;
 
 				vec2 ipos = floor(st);  // integer
