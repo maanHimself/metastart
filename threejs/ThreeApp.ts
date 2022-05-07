@@ -61,13 +61,13 @@ export default (canvas: any) => {
   plane = new Plane();
   scene.add(plane.getMesh());
 
-  elems.push(createThreeHtml("/team1.png", true, "team1", scene));
-  elems.push(createThreeHtml("/team2.png", true, "team2", scene));
-  elems.push(createThreeHtml("/team3.png", true, "team3", scene));
-  elems.push(createThreeHtml("/team4.png", true, "team4", scene));
-  elems.push(createThreeHtml("/team5.png", true, "team5", scene));
-  elems.push(createThreeHtml("/team6.png", true, "team6", scene));
-  elems.push(createThreeHtml("/team7.png", true, "team7", scene));
+  // elems.push(createThreeHtml("/team1.png", true, "team1", scene));
+  // elems.push(createThreeHtml("/team2.png", true, "team2", scene));
+  // elems.push(createThreeHtml("/team3.png", true, "team3", scene));
+  // elems.push(createThreeHtml("/team4.png", true, "team4", scene));
+  // elems.push(createThreeHtml("/team5.png", true, "team5", scene));
+  // elems.push(createThreeHtml("/team6.png", true, "team6", scene));
+  // elems.push(createThreeHtml("/team7.png", true, "team7", scene));
   elems.push(createThreeHtml("/indie.png", true, "indie", scene));
   elems.push(createThreeHtml("/skyDeck.png", true, "skyDeck", scene));
 
@@ -154,6 +154,8 @@ export default (canvas: any) => {
     if (!entered.value) {
       e.preventDefault();
 
+      donutBounds = document.getElementById("donut")?.getBoundingClientRect();
+
       const torusRotation = {
         x: (90 * Math.PI) / 180,
         y: 0,
@@ -176,10 +178,8 @@ export default (canvas: any) => {
         })
         .onComplete(() => {
           entered.value = true;
-
-          document.body.style.overflow = "auto";
         });
-      // .start()
+
       const coords = {
         x: camera.position.x,
         y: camera.position.y,
@@ -205,14 +205,17 @@ export default (canvas: any) => {
       };
       let tweenFov = new TWEEN.Tween(fov)
         .to({ value: camera.position.z }, 1000)
-        .easing(TWEEN.Easing.Circular.Out)
+        .easing(TWEEN.Easing.Linear.None)
         .onUpdate(() => {
+          console.log(fov.value);
           camera.fov =
             2 * Math.atan(window.innerHeight / 2 / fov.value) * (180 / Math.PI);
           camera.updateProjectionMatrix();
         })
         .onComplete(() => {
           tweenCamera.start();
+          document.body.style.overflow = "auto";
+
           tweenTorusIntro.start();
           if (content != null) content.style.opacity = "100%";
         })
@@ -274,8 +277,6 @@ export default (canvas: any) => {
   }
 
   function updateElements() {
-    donutBounds = document.getElementById("donut")?.getBoundingClientRect();
-    // setMeshtoHtmlSize(torus, donutBounds);
     elems.forEach((elem) => {
       setMeshtoHtmlPos(elem.mesh, elem.dom.getBoundingClientRect());
       setMeshtoHtmlSize(elem.mesh, elem.dom.getBoundingClientRect());
@@ -299,7 +300,7 @@ export default (canvas: any) => {
     if (entered.value) {
       debounce(updateElements, 50)();
     }
-    TWEEN.update();
+    TWEEN.update(time);
     requestAnimationFrame(render);
 
     renderer.render(scene, camera);

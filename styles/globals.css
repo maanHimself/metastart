@@ -6,6 +6,10 @@
   font-family: "ARCAD";
   src: url("/Level Up Level Up.otf");
 }
+@font-face {
+  font-family: "thaleah";
+  src: url("/ThaleahFat.ttf");
+}
 /* vietnamese */
 @font-face {
   font-family: "VT323";

@@ -8,6 +8,7 @@ import Services from "../components/ServicesSection";
 import Head from "next/head";
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { teamMember } from "../components/teamMember";
 
 export default function Home() {
   // let services = useRef(null);
@@ -92,10 +93,10 @@ export default function Home() {
       <ThreeContainer></ThreeContainer>
 
       {/* <SmoothScroll /> */}
-      <div className="-z-10 h-full w-full text-black flex justify-center items-center text-lg fixed">
+      <div className="-z-10 h-full w-full text-black flex flex-col justify-end items-center text-lg fixed">
         <div
           ref={porgress}
-          className="w-full h-full fixed  -z-10  bg-[#000000]"
+          className="w-full h-full fixed -z-10  bg-[#000000]"
           id="loadingBg"
         ></div>
         <Typewriter
@@ -105,10 +106,16 @@ export default function Home() {
               .callFunction((state) => {
                 state.elements.container.style.fontSize = "170%";
                 state.elements.container.style.color = "#FF0052";
-                state.elements.container.style.backgroundColor = "#000000";
+                // state.elements.container.style.backgroundColor = "#000000";
                 state.elements.container.style.textAlign = "center";
                 state.elements.container.style.justifyContent = "center";
                 state.elements.container.style.alignItems = "center";
+                state.elements.container.style.marginBottom = "20px";
+                state.elements.container.style.lineHeight = "40px";
+                state.elements.container.style.textShadow =
+                  "-2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff";
+                // state.elements.container.style.webkitTextStrokeWidth = "3px";
+                // state.elements.container.style.webkitTextStrokeColor = "black";
               })
               .pauseFor(250)
               .typeString("Click to get MetaStarted")
@@ -135,16 +142,24 @@ export default function Home() {
         </Head>
 
         <div className="h-[100vh] w-full flex flex-col items-center justify-center ">
+          <div
+            className="text-white lg:text-[120px] md:text-[120px] text-[15vw] absolute
+             w-full max-w-6xl  break-words justify-center items-center text-center
+              leading-none font-head"
+            style={{ textShadow: "2px 3px 0 #FF0052, -2px -3px 0 #00FEEB" }}
+          >
+            KickStart your web3 journey with us.
+          </div>
           <img
             id="donut"
             src="/donut.png"
-            className="inline-block md:w-1/3 w-2/4 max-w-sm  mb-4  -z-10 opacity-0 p-8"
+            className="inline-block md:w-3/5 w-[90vw] max-w-sm  mb-4  -z-10 opacity-0 p-8"
           ></img>
-          <img
+          {/* <img
             id="logo"
             src="/metastart.png"
-            className="inline-block md:w-2/3 max-w-4xl w-full "
-          ></img>
+            className="inline-block md:w-2/5 w-2/4 "
+          ></img> */}
 
           <div id="scrolldown" className="scrolldown-wrapper">
             <div className="scrolldown">
@@ -157,6 +172,7 @@ export default function Home() {
                 <circle className="scrolldown-p2" cx="5" cy="15" r="2" />
               </svg>
             </div>
+            <p className="text-white text-lg">scroll down</p>
           </div>
         </div>
 
@@ -221,42 +237,16 @@ export default function Home() {
         <p className=" pt-24 pb-0 text-white font-main text-6xl text-center">
           THE TEAM
         </p>
-        <div className="flex flex-row justify-center items-center w-full flex-wrap max-w-7xl mt-4">
-          <img
-            id="team1"
-            src="/team1.png"
-            className=" mt-10 md:h-56 h-28 opacity-0  m-4"
-          ></img>
-          <img
-            id="team2"
-            src="/team2.png"
-            className="md:h-56 h-28 mt-10 opacity-0 m-4"
-          ></img>
-          <img
-            id="team3"
-            src="/team3.png"
-            className="md:h-56 h-28 mt-10 opacity-0 m-4"
-          ></img>
-          <img
-            id="team4"
-            src="/team4.png"
-            className="md:h-56 h-28 mt-10 opacity-0 m-4"
-          ></img>
-          <img
-            id="team5"
-            src="/team5.png"
-            className="md:h-56 h-28 mt-10 opacity-0 m-4"
-          ></img>
-          <img
-            id="team6"
-            src="/team6.png"
-            className="md:h-56 h-28 mt-10 opacity-0 m-4"
-          ></img>
-          <img
-            id="team7"
-            src="/team7.png"
-            className="md:h-56 h-28 mt-10 opacity-0 m-4"
-          ></img>
+        <div className="grid grid-cols-3 grid-rows-3  justify-center align-middle items-center w-full max-w-7xl mt-4">
+          {teamMember("team1")}
+          {teamMember("team2")}
+          {teamMember("team3")}
+          {teamMember("team4")}
+          {teamMember("team5")}
+          {teamMember("team9")}
+          {teamMember("team6")}
+          {teamMember("team7")}
+          {teamMember("team8")}
         </div>
 
         <div className="h-fit w-full flex flex-col items-center justify-center font-main space-y-6">

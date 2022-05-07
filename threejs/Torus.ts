@@ -64,7 +64,6 @@ export default class Torus {
       console.log("bounds are null");
     }
   }
-
   setMeshtoHtmlPos() {
     if (this.bounds != undefined) {
       this.mesh.position.y =
@@ -79,14 +78,17 @@ export default class Torus {
   updateElem() {
     if (this.dom) this.bounds = this.dom.getBoundingClientRect();
     this.setMeshtoHtmlPos();
-    this.setMeshtoHtmlSize();
+    // this.setMeshtoHtmlSize();
   }
 
   render(time: number) {
     this.mat.uniforms["time"].value = time;
 
-    if (this.entered.value) this.updateElem();
-
+    if (this.entered.value) {
+      this.updateElem();
+      // this.mesh.rotation.x -= 0.02;
+      // this.mesh.rotation.y -= 0.02;
+    }
     requestAnimationFrame(this.render.bind(this));
   }
 }

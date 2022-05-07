@@ -13,6 +13,7 @@ module.exports = {
     extend: {
       fontFamily: {
         main: ["VT323", "sans-serif"],
+        head: ["thaleah", "sans-serif"],
       },
     },
   },

@@ -52,7 +52,7 @@ const AnimatedIcon: FC<props> = (props: props) => {
   const type = () => {
     if (writer && lock < 1) {
       setLock(1);
-      writer.typeString(props.desc).start();
+      // writer.typeString(props.desc).start();
     }
   };
   const untype = () => {
@@ -87,6 +87,7 @@ const AnimatedIcon: FC<props> = (props: props) => {
         <Typewriter
           onInit={(typewriter) => {
             setWriter(typewriter);
+            typewriter.pasteString(props.desc, null).start();
             // if (window.innerWidth <= 768)
             //   typewriter.typeString(props.desc).start();
           }}
