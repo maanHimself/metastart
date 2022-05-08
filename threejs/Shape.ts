@@ -126,8 +126,8 @@ export default class Shape {
 
     if (this.bounds)
       if (
-        this.bounds.top < window.innerHeight * 0.7 &&
-        this.bounds.top > window.innerHeight * 0.2
+        this.bounds.top < window.innerHeight * 0.9 &&
+        this.bounds.top > window.innerHeight * 0.05
       ) {
         this.hover = true;
         this.inView = true;

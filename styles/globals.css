@@ -161,13 +161,13 @@ body {
 .scrolldown {
   border: 2px solid #ffffff;
   border-radius: 30px;
-  height: 46px;
+  height: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0 auto 8px;
   text-align: center;
-  width: 30px;
+  width: 15px;
 }
 
 .scrolldown-p1,

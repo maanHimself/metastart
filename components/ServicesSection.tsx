@@ -36,15 +36,15 @@ export default function Services() {
           desc={descs ? descs[0] : ""}
         />
         <AnimatedIcon
+          src="services/ss41.png"
+          id="s4"
+          desc={descs ? descs[3] : ""}
+        />
+        <AnimatedIcon
           src="services/ss31.png"
           id="s3"
           reverse
           desc={descs ? descs[2] : ""}
-        />
-        <AnimatedIcon
-          src="services/ss41.png"
-          id="s4"
-          desc={descs ? descs[3] : ""}
         />
       </div>
     </>

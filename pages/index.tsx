@@ -16,12 +16,21 @@ export default function Home() {
   const [entered, setEntered] = useState(false);
   const [clickAnything, setClickAnything] = useState<TypewriterClass>();
 
+  const sleep = (milliseconds: number) => {
+    return new Promise((resolve) => setTimeout(resolve, milliseconds));
+  };
+
+  async function _setEntered() {
+    await sleep(1000);
+    setEntered(true);
+  }
+
   useEffect(() => {
     window.scrollTo(0, 0);
     scrollToTop();
-    window.addEventListener("keydown", () => setEntered(true));
-    window.addEventListener("mousedown", () => setEntered(true));
-    window.addEventListener("touchstart", () => setEntered(true));
+    window.addEventListener("keydown", () => _setEntered());
+    window.addEventListener("mousedown", () => _setEntered());
+    window.addEventListener("touchstart", () => _setEntered());
     // window.addEventListener("resize", () =>
     //   setDimensions({
     //     height: window.innerHeight,
@@ -114,8 +123,6 @@ export default function Home() {
                 state.elements.container.style.lineHeight = "40px";
                 state.elements.container.style.textShadow =
                   "-2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff";
-                // state.elements.container.style.webkitTextStrokeWidth = "3px";
-                // state.elements.container.style.webkitTextStrokeColor = "black";
               })
               .pauseFor(250)
               .typeString("Click to get MetaStarted")
@@ -141,14 +148,31 @@ export default function Home() {
           />
         </Head>
 
+        {/* the header bar */}
+        <div className="w-full md:h-[60px] flex justify-center items-center top-0 absolute p-4">
+          <img id="logo" src="/logo.png" className="w-[100px]"></img>
+        </div>
         <div className="h-[100vh] w-full flex flex-col items-center justify-center ">
           <div
             className="text-white lg:text-[120px] md:text-[120px] text-[15vw] absolute
              w-full max-w-6xl  break-words justify-center items-center text-center
-              leading-none font-head"
+              leading-none font-head p-6"
             style={{ textShadow: "2px 3px 0 #FF0052, -2px -3px 0 #00FEEB" }}
           >
-            KickStart your web3 journey with us.
+            {entered && (
+              <Typewriter
+                onInit={(typewriter) => {
+                  typewriter
+                    .callFunction((state) => {})
+                    .typeString("KickStart your web3 journey with us.")
+                    // .pauseFor(2500)
+                    .start();
+                }}
+                options={{
+                  delay: 30,
+                }}
+              />
+            )}
           </div>
           <img
             id="donut"
@@ -160,8 +184,18 @@ export default function Home() {
             src="/metastart.png"
             className="inline-block md:w-2/5 w-2/4 "
           ></img> */}
-
-          <div id="scrolldown" className="scrolldown-wrapper">
+          <div
+            id="scrolldown"
+            className="scrolldown-wrapper hover:cursor-pointer "
+            onClick={() =>
+              window.scrollTo(
+                0,
+                document.documentElement.scrollTop +
+                  document.body.scrollTop +
+                  window.innerHeight
+              )
+            }
+          >
             <div className="scrolldown">
               <svg
                 height="30"
@@ -172,7 +206,7 @@ export default function Home() {
                 <circle className="scrolldown-p2" cx="5" cy="15" r="2" />
               </svg>
             </div>
-            <p className="text-white text-lg">scroll down</p>
+            <p className="text-white text-[20]">scroll down</p>
           </div>
         </div>
 
