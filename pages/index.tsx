@@ -178,7 +178,7 @@ export default function Home() {
               />
             )}
           </div> */}
-          <div className="w-full flex md:flex-row flex-col justify-center items-center">
+          <div className="w-full flex  flex-col justify-center items-center">
             <img
               id="donut"
               src="/donut.png"
@@ -186,7 +186,7 @@ export default function Home() {
             ></img>
             {entered && (
               <span
-                className="text-white lg:text-[120px] md:text-[120px] text-[15vw] mt-0 pt-0 font-head "
+                className="text-white lg:text-[60px] md:text-[120px] text-[15vw] mt-0 pt-0 font-head "
                 style={{ textShadow: "2px 3px 0 #FF0052, -2px -3px 0 #00FEEB" }}
               >
                 <Typewriter

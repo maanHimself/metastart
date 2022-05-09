@@ -40,6 +40,9 @@ export default (canvas: any) => {
   let donutBounds = document.getElementById("donut")?.getBoundingClientRect();
 
   camera.fov = 2 * Math.atan(window.innerHeight / 2 / 600) * (180 / Math.PI);
+  camera.updateProjectionMatrix();
+  console.log(camera.fov, "from main");
+
   let mouse = {
     x: 0.5,
     y: 0.5,
@@ -56,7 +59,6 @@ export default (canvas: any) => {
   let content = document.getElementById("content");
   if (content != null) content.style.opacity = "0%";
   //end setup
-
   // fillBuffer().then(() => {});
   let plane: Plane;
   plane = new Plane();
@@ -146,9 +148,10 @@ export default (canvas: any) => {
 
   async function OnEntered(e: Event) {
     if (!entered.value) {
-      e.preventDefault();
+      // e.preventDefault();
+      console.log(camera.position.z);
 
-      donutBounds = document.getElementById("donut")?.getBoundingClientRect();
+      // donutBounds = document.getElementById("donut")?.getBoundingClientRect();
 
       const torusRotation = {
         x: (90 * Math.PI) / 180,
