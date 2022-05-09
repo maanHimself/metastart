@@ -94,6 +94,7 @@ const AnimatedIcon: FC<props> = (props: props) => {
           options={{
             delay: 0.1,
             deleteSpeed: 1,
+            cursor: "",
           }}
         />
       </div>

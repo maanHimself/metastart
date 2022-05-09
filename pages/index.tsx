@@ -150,10 +150,14 @@ export default function Home() {
 
         {/* the header bar */}
         <div className="w-full md:h-[60px] flex justify-center items-center top-0 absolute p-4">
-          <img id="logo" src="/logo.png" className="w-[100px]"></img>
+          <img
+            id="logo"
+            src="/logo.png"
+            className="md:w-[150  px] w-[100px]"
+          ></img>
         </div>
         <div className="h-[100vh] w-full flex flex-col items-center justify-center ">
-          <div
+          {/* <div
             className="text-white lg:text-[120px] md:text-[120px] text-[15vw] absolute
              w-full max-w-6xl  break-words justify-center items-center text-center
               leading-none font-head p-6"
@@ -173,12 +177,33 @@ export default function Home() {
                 }}
               />
             )}
+          </div> */}
+          <div className="w-full flex md:flex-row flex-col justify-center items-center">
+            <img
+              id="donut"
+              src="/donut.png"
+              className="inline-block md:w-60 sm:w-48 w-32 lg:w-72 max-w-sm h-fit -z-10 opacity-0 "
+            ></img>
+            {entered && (
+              <span
+                className="text-white lg:text-[120px] md:text-[120px] text-[15vw] mt-0 pt-0 font-head "
+                style={{ textShadow: "2px 3px 0 #FF0052, -2px -3px 0 #00FEEB" }}
+              >
+                <Typewriter
+                  onInit={(typewriter) => {
+                    typewriter
+                      .callFunction((state) => {})
+                      .pauseFor(500)
+                      .typeString("METASTART")
+                      .start();
+                  }}
+                  options={{
+                    delay: 20,
+                  }}
+                />
+              </span>
+            )}
           </div>
-          <img
-            id="donut"
-            src="/donut.png"
-            className="inline-block md:w-3/5 w-[90vw] max-w-sm  mb-4  -z-10 opacity-0 p-8"
-          ></img>
           {/* <img
             id="logo"
             src="/metastart.png"
