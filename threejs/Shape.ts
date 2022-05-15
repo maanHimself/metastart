@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { ShapeMaterial } from "./shaders/Shape/ShapeMaterial";
 import { SolidMaterial } from "./shaders/Shape/SolidMaterial";
-import { Vector2 } from "three";
+import { Camera, Vector2 } from "three";
 
 export default class Shape {
   private geo: THREE.PlaneGeometry;
@@ -99,6 +99,8 @@ export default class Shape {
   }
 
   render(time: number) {
+    this.centeredMat.uniformsNeedUpdate = true;
+
     if (this.hover) {
       this.progress = Math.min(1, this.progress + 0.05);
     } else {

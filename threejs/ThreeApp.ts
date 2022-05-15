@@ -117,6 +117,7 @@ export default (canvas: any) => {
   scene.add(s2.getMesh());
   scene.add(s3.getMesh());
   scene.add(s4.getMesh());
+  renderer.compile(scene, camera);
 
   const torus = new Torus(camera, entered).getMesh();
   scene.add(torus);
@@ -126,7 +127,6 @@ export default (canvas: any) => {
   let mesh: THREE.Mesh;
 
   setupListeners();
-  // onWindowResize();
   setSettings();
   render(0);
 
