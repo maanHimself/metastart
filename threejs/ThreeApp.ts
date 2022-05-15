@@ -200,8 +200,9 @@ export default (canvas: any) => {
       const fov = {
         value: 600,
       };
+
       let tweenFov = new TWEEN.Tween(fov)
-        .to({ value: camera.position.z }, 500)
+        .to({ value: camera.position.z }, 1000)
         .easing(TWEEN.Easing.Circular.InOut)
         .onUpdate(() => {
           console.log(fov.value);
