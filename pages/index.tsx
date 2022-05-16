@@ -102,7 +102,7 @@ export default function Home() {
       <ThreeContainer></ThreeContainer>
 
       {/* <SmoothScroll /> */}
-      <div className="-z-10 h-full w-full text-black flex flex-col justify-end items-center text-lg fixed">
+      <div className="-z-10 h-full w-full text-black flex flex-col justify-center items-center text-lg fixed">
         <div
           ref={porgress}
           className="w-full h-full fixed -z-10  bg-[#000000]"
@@ -149,13 +149,13 @@ export default function Home() {
         </Head>
 
         {/* the header bar */}
-        <div className="w-full md:h-[60px] flex justify-center items-center top-0 absolute p-4">
+        {/* <div className="w-full md:h-[60px] flex justify-center items-center top-0 absolute p-4">
           <img
             id="logo"
             src="/logo.png"
             className="md:w-[150  px] w-[100px]"
           ></img>
-        </div>
+        </div> */}
         <div className="h-[100vh] w-full flex flex-col items-center justify-center ">
           {/* <div
             className="text-white lg:text-[120px] md:text-[120px] text-[15vw] absolute
@@ -178,15 +178,15 @@ export default function Home() {
               />
             )}
           </div> */}
-          <div className="w-full flex  flex-col justify-center items-center">
+          <div className="w-full h-screen flex flex-col items-center justify-center ">
             <img
               id="donut"
               src="/donut.png"
-              className="inline-block md:w-60 sm:w-48 w-32 lg:w-72 max-w-sm h-fit -z-10 opacity-0 "
+              className="inline-block lg:w-[350px] md:w-[300px] sm:w-[300px] w-[300px]  max-w-sm h-fit -z-10 opacity-0 "
             ></img>
             {entered && (
               <span
-                className="text-white lg:text-[60px] md:text-[120px] text-[15vw] mt-0 pt-0 font-head "
+                className="text-white lg:text-[90px] md:text-[120px] text-[15vw] pt-0 font-head absolute translate-y-48"
                 style={{ textShadow: "2px 3px 0 #FF0052, -2px -3px 0 #00FEEB" }}
               >
                 <Typewriter
