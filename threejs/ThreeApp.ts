@@ -42,7 +42,6 @@ export default (canvas: any) => {
   camera.fov = 2 * Math.atan(window.innerHeight / 2 / 600) * (180 / Math.PI);
   camera.updateProjectionMatrix();
   console.log(camera.fov, "from main");
-  // onWindowResize();
 
   let mouse = {
     x: 0.5,
@@ -156,31 +155,36 @@ export default (canvas: any) => {
       // e.preventDefault();
       console.log(camera.position.z);
 
-      torus.position.x = 0;
-      torus.position.y = 0;
-      torus.position.z = 0;
-
       // donutBounds = document.getElementById("donut")?.getBoundingClientRect();
 
-      const torusRotation = {
+      const torusCoords = {
         x: (90 * Math.PI) / 180,
         y: 0,
         z: (330 * Math.PI) / 180,
+        xx: torus.position.x,
+        yy: torus.position.y,
+        zz: torus.position.z,
       };
-      let tweenTorusIntro = new TWEEN.Tween(torusRotation)
+      let tweenTorusIntro = new TWEEN.Tween(torusCoords)
         .to(
           {
             x: (120 * Math.PI) / 180,
             y: (20 * Math.PI) / 180,
             z: (1280 * Math.PI) / 180,
+            xx: 0,
+            yy: 0,
+            zz: 0,
           },
           1000
         )
         .easing(TWEEN.Easing.Circular.InOut)
         .onUpdate(() => {
-          torus.rotation.x = torusRotation.x;
-          torus.rotation.y = torusRotation.y;
-          torus.rotation.z = torusRotation.z;
+          torus.rotation.x = torusCoords.x;
+          torus.rotation.y = torusCoords.y;
+          torus.rotation.z = torusCoords.z;
+          torus.position.x = torusCoords.xx;
+          torus.position.y = torusCoords.yy;
+          torus.position.z = torusCoords.zz;
         })
         .onComplete(() => {
           entered.value = true;
