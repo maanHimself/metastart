@@ -88,7 +88,7 @@ export default class Torus {
     this.mat.uniforms["time"].value = time;
 
     if (this.entered.value) {
-      // this.updateElem();
+      this.updateElem();
       // this.mesh.rotation.x -= 0.02;
       // this.mesh.rotation.y -= 0.02;
     }
