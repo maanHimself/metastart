@@ -42,6 +42,7 @@ export default (canvas: any) => {
   camera.fov = 2 * Math.atan(window.innerHeight / 2 / 600) * (180 / Math.PI);
   camera.updateProjectionMatrix();
   console.log(camera.fov, "from main");
+  onWindowResize();
 
   let mouse = {
     x: 0.5,
@@ -155,6 +156,10 @@ export default (canvas: any) => {
       // e.preventDefault();
       console.log(camera.position.z);
 
+      torus.position.x = 0;
+      torus.position.y = 0;
+      torus.position.z = 0;
+
       // donutBounds = document.getElementById("donut")?.getBoundingClientRect();
 
       const torusRotation = {
@@ -176,9 +181,6 @@ export default (canvas: any) => {
           torus.rotation.x = torusRotation.x;
           torus.rotation.y = torusRotation.y;
           torus.rotation.z = torusRotation.z;
-          torus.position.x = 0;
-          torus.position.y = 0;
-          torus.position.z = 0;
         })
         .onComplete(() => {
           entered.value = true;
