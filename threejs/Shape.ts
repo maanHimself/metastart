@@ -21,7 +21,8 @@ export default class Shape {
     id: string,
     src1: string,
     src2: string | null,
-    hoverable: boolean
+    hoverable: boolean,
+    renderder: THREE.WebGLRenderer
   ) {
     this.mouse = mouse;
     this.hoverable = hoverable;
@@ -37,12 +38,12 @@ export default class Shape {
     }
 
     this.centeredMat = new ShapeMaterial();
-    this.centeredMat.uniforms["t1"].value = new THREE.TextureLoader().load(
-      src1
-    );
-    this.centeredMat.uniforms["t2"].value = new THREE.TextureLoader().load(
-      src2!
-    );
+    let t1 = new THREE.TextureLoader().load(src1);
+    let t2 = new THREE.TextureLoader().load(src2!);
+    renderder.initTexture(t1);
+    renderder.initTexture(t2);
+    this.centeredMat.uniforms["t1"].value = t1;
+    this.centeredMat.uniforms["t2"].value = t2;
     this.centeredMat.transparent = true;
     this.centeredMat.needsUpdate = true;
     this.centeredMat.uniformsNeedUpdate = true;

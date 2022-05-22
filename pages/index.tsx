@@ -184,7 +184,7 @@ export default function Home() {
               src="/donut.png"
               className="inline-block lg:w-[350px] md:w-[300px] sm:w-[300px] w-[300px]  max-w-sm h-fit -z-10 opacity-0 "
             ></img>
-            {entered && (
+            {/* {entered && (
               <span
                 className="text-white lg:text-[90px] md:text-[120px] text-[15vw] pt-0 font-head absolute translate-y-48"
                 style={{ textShadow: "2px 3px 0 #FF0052, -2px -3px 0 #00FEEB" }}
@@ -202,7 +202,7 @@ export default function Home() {
                   }}
                 />
               </span>
-            )}
+            )} */}
           </div>
           {/* <img
             id="logo"

@@ -90,28 +90,32 @@ export default (canvas: any) => {
     "s1",
     "/services/ss01.png",
     "/services/ss02.png",
-    true
+    true,
+    renderer
   );
   const s2 = new Shape(
     mouse,
     "s2",
     "/services/ss21.png",
     "/services/ss22.png",
-    true
+    true,
+    renderer
   );
   const s3 = new Shape(
     mouse,
     "s3",
     "/services/ss31.png",
     "/services/ss32.png",
-    true
+    true,
+    renderer
   );
   const s4 = new Shape(
     mouse,
     "s4",
     "/services/ss41.png",
     "/services/ss42.png",
-    true
+    true,
+    renderer
   );
   scene.add(s1.getMesh());
   scene.add(s2.getMesh());
