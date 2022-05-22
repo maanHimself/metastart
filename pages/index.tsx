@@ -269,11 +269,7 @@ export default function Home() {
         </p>
         <div className="flex flex-col max-w-6xl md:flex-row md:justify-around w-full  md:space-x-4 mt-8 text-white font-main">
           <div className="flex flex-col items-center justify-center mb-10">
-            <img
-              id="indie"
-              src="/indie.png"
-              className="opacity-0 w-3/5 m-0 "
-            ></img>
+            <img id="indie" src="/indie.png" className="w-3/5 m-0 "></img>
             <p className=" text-center right-0 text-4xl  mt-4">Indie Company</p>
             <p className=" text-center right-0 text-2xl m-2">
               Our own crypto enabled e-commerce
@@ -286,11 +282,7 @@ export default function Home() {
                 Our own Nft marketplace based on polygon
               </p>
             </div>
-            <img
-              id="skyDeck"
-              src="/skyDeck.png"
-              className="opacity-0 w-3/5 m-0"
-            ></img>
+            <img id="skyDeck" src="/skyDeck.png" className="w-3/5 m-0"></img>
           </div>
         </div>
         <p className=" pt-24 pb-0 text-white font-main text-6xl text-center">

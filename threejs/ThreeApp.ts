@@ -64,9 +64,6 @@ export default (canvas: any) => {
   plane = new Plane();
   scene.add(plane.getMesh());
 
-  elems.push(createThreeHtml("/indie.png", true, "indie", scene));
-  elems.push(createThreeHtml("/skyDeck.png", true, "skyDeck", scene));
-
   const box = new Box(
     mouse,
     "services",
