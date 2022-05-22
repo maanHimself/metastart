@@ -176,6 +176,9 @@ export default (canvas: any) => {
           torus.rotation.x = torusRotation.x;
           torus.rotation.y = torusRotation.y;
           torus.rotation.z = torusRotation.z;
+          torus.position.x = 0;
+          torus.position.y = 0;
+          torus.position.z = 0;
         })
         .onComplete(() => {
           entered.value = true;
