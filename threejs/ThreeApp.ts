@@ -42,7 +42,7 @@ export default (canvas: any) => {
   camera.fov = 2 * Math.atan(window.innerHeight / 2 / 600) * (180 / Math.PI);
   camera.updateProjectionMatrix();
   console.log(camera.fov, "from main");
-  onWindowResize();
+  // onWindowResize();
 
   let mouse = {
     x: 0.5,
