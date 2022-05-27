@@ -3,33 +3,22 @@ const dat = require("dat.gui");
 import TWEEN from "@tweenjs/tween.js";
 import Box from "./Box";
 import Shape from "./Shape";
-import { TweenLite } from "gsap";
-import {
-  createThreeHtml,
-  setMeshtoHtmlPos,
-  setMeshtoHtmlSize,
-} from "./utils/HtmlUtil";
 import Plane from "./Plane";
 import Torus from "./Torus";
 
+const ImagePreloader = require("image-preloader");
+
 export default (canvas: any) => {
   const scene = new THREE.Scene();
-
   const container = canvas;
   let width = container.offsetWidth;
   let height = container.offsetHeight;
   const renderer = new THREE.WebGLRenderer({ antialias: true });
-  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setPixelRatio(Math.max(window.devicePixelRatio, 2));
   renderer.setSize(width, height);
   renderer.setClearColor(0x0, 1);
   renderer.outputEncoding = THREE.sRGBEncoding;
-
   container.appendChild(renderer.domElement);
-
-  let entered = { value: false };
-
-  const elems: any[] = [];
-
   const camera = new THREE.PerspectiveCamera(
     70,
     window.innerWidth / window.innerHeight,
@@ -37,12 +26,10 @@ export default (canvas: any) => {
     2000
   );
   camera.position.set(0, 0, 600);
-  let donutBounds = document.getElementById("donut")?.getBoundingClientRect();
-
   camera.fov = 2 * Math.atan(window.innerHeight / 2 / 600) * (180 / Math.PI);
   camera.updateProjectionMatrix();
-  console.log(camera.fov, "from main");
 
+  let entered = { value: false };
   let mouse = {
     x: 0.5,
     y: 0.5,
@@ -58,78 +45,118 @@ export default (canvas: any) => {
 
   let content = document.getElementById("content");
   if (content != null) content.style.opacity = "0%";
+
+  let curtain = document.getElementById("curtain");
+
+  const curtainValue = {
+    opacity: 100,
+  };
+  let tweenCurtain = new TWEEN.Tween(curtainValue)
+    .to({ opacity: 0 }, 1000)
+    .easing(TWEEN.Easing.Circular.InOut)
+    .onUpdate(() => {
+      if (curtain != null) curtain.style.opacity = `${curtainValue.opacity}%`;
+    });
+
+  let torus: THREE.Mesh;
   //end setup
-  // fillBuffer().then(() => {});
-  let plane: Plane;
-  plane = new Plane();
-  scene.add(plane.getMesh());
-
-  const box = new Box(
-    mouse,
-    "services",
-    "/services.png",
-    "retro1.jpg",
-    "retro2.jpg"
-  );
-  scene.add(box.getMesh());
-  const AboutTitle = new Box(
-    mouse,
-    "about",
-    "/about.png",
-    "retro1.jpg",
-    "retro2.jpg"
-  );
-  scene.add(box.getMesh());
-  scene.add(AboutTitle.getMesh());
-
-  const s1 = new Shape(
-    mouse,
-    "s1",
+  let imgs = [
     "/services/ss01.png",
     "/services/ss02.png",
-    true,
-    renderer
-  );
-  const s2 = new Shape(
-    mouse,
-    "s2",
     "/services/ss21.png",
     "/services/ss22.png",
-    true,
-    renderer
-  );
-  const s3 = new Shape(
-    mouse,
-    "s3",
     "/services/ss31.png",
     "/services/ss32.png",
-    true,
-    renderer
-  );
-  const s4 = new Shape(
-    mouse,
-    "s4",
     "/services/ss41.png",
     "/services/ss42.png",
-    true,
-    renderer
-  );
-  scene.add(s1.getMesh());
-  scene.add(s2.getMesh());
-  scene.add(s3.getMesh());
-  scene.add(s4.getMesh());
-  renderer.compile(scene, camera);
+    "retro1.jpg",
+    "retro2.jpg",
+  ];
+  let toalImages = imgs.length;
+  let currentProgress = 0;
+  var preloader = new ImagePreloader();
 
-  const torus = new Torus(camera, entered).getMesh();
-  scene.add(torus);
+  preloader.onProgress = function (info: any) {
+    currentProgress++;
+    console.log((currentProgress / toalImages) * 100);
+  };
 
-  scene.add(new THREE.AmbientLight("white", 1));
+  preloader.preload(imgs).then(function (status: any) {
+    console.log("all done!", status);
 
-  let mesh: THREE.Mesh;
+    tweenCurtain.start();
 
-  setupListeners();
-  setSettings();
-  render(0);
+    let plane: Plane;
+    plane = new Plane();
+    scene.add(plane.getMesh());
+
+    const box = new Box(
+      mouse,
+      "services",
+      "/services.png",
+      "retro1.jpg",
+      "retro2.jpg"
+    );
+    scene.add(box.getMesh());
+    const AboutTitle = new Box(
+      mouse,
+      "about",
+      "/about.png",
+      "retro1.jpg",
+      "retro2.jpg"
+    );
+    scene.add(box.getMesh());
+    scene.add(AboutTitle.getMesh());
+
+    const s1 = new Shape(
+      mouse,
+      "s1",
+      "/services/ss01.png",
+      "/services/ss02.png",
+      true,
+      renderer
+    );
+    const s2 = new Shape(
+      mouse,
+      "s2",
+      "/services/ss21.png",
+      "/services/ss22.png",
+      true,
+      renderer
+    );
+    const s3 = new Shape(
+      mouse,
+      "s3",
+      "/services/ss31.png",
+      "/services/ss32.png",
+      true,
+      renderer
+    );
+    const s4 = new Shape(
+      mouse,
+      "s4",
+      "/services/ss41.png",
+      "/services/ss42.png",
+      true,
+      renderer
+    );
+    scene.add(s1.getMesh());
+    scene.add(s2.getMesh());
+    scene.add(s3.getMesh());
+    scene.add(s4.getMesh());
+    renderer.compile(scene, camera);
+
+    torus = new Torus(camera, entered).getMesh();
+    scene.add(torus);
+
+    scene.add(new THREE.AmbientLight("white", 1));
+
+    let mesh: THREE.Mesh;
+
+    setupListeners();
+    setSettings();
+    render(0);
+  });
 
   function setSettings() {}
 
@@ -227,16 +254,6 @@ export default (canvas: any) => {
           if (content != null) content.style.opacity = "100%";
         })
         .start();
-
-      // var tween = TweenLite.to(fov, 1, {
-      //   value: camera.position.z,
-      //   onUpdate: () => {
-      //     console.log(fov.value);
-      //     camera.fov =
-      //       2 * Math.atan(window.innerHeight / 2 / fov.value) * (180 / Math.PI);
-      //     camera.updateProjectionMatrix();
-      //   },
-      // });
     }
   }
   function onScroll(e: Event) {
@@ -293,12 +310,12 @@ export default (canvas: any) => {
     mouse.prevY = mouse.y;
   }
 
-  function updateElements() {
-    elems.forEach((elem) => {
-      setMeshtoHtmlPos(elem.mesh, elem.dom.getBoundingClientRect());
-      setMeshtoHtmlSize(elem.mesh, elem.dom.getBoundingClientRect());
-    });
-  }
+  // function updateElements() {
+  //   elems.forEach((elem) => {
+  //     setMeshtoHtmlPos(elem.mesh, elem.dom.getBoundingClientRect());
+  //     setMeshtoHtmlSize(elem.mesh, elem.dom.getBoundingClientRect());
+  //   });
+  // }
 
   function debounce<Params extends any[]>(
     func: (...args: Params) => any,
@@ -314,9 +331,9 @@ export default (canvas: any) => {
   }
 
   function render(time: number) {
-    if (entered.value) {
-      debounce(updateElements, 50)();
-    }
+    // if (entered.value) {
+    //   debounce(updateElements, 50)();
+    // }
     TWEEN.update(time);
     requestAnimationFrame(render);
 

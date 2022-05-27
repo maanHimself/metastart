@@ -60,7 +60,7 @@ export default function Home() {
   //make the progress disapear
   const porgress = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (porgress.current != null) porgress.current.style.opacity = "0%";
+    // if (porgress.current != null) porgress.current.style.opacity = "0%";
   });
 
   const { ref: services, inView: myElementIsVisible } = useInView();
@@ -90,7 +90,12 @@ export default function Home() {
         return;
       }
     }
-    setFeedback(<div className="text-white">Thank you!</div>);
+    setFeedback(
+      <div className="text-white">
+        Thank you!, will connect with yo u shortly
+      </div>
+    );
+    e.target[2].value = "";
 
     emailjs
       .sendForm(
@@ -118,8 +123,8 @@ export default function Home() {
       <div className="-z-10 h-full w-full text-black flex flex-col justify-center items-center text-lg fixed">
         <div
           ref={porgress}
-          className="w-full h-full fixed -z-10  bg-[#000000]"
-          id="loadingBg"
+          className="w-full h-full fixed z-10 bg-[#00FEEC]"
+          id="curtain"
         ></div>
         <Typewriter
           onInit={(typewriter) => {
