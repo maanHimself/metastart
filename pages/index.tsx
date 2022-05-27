@@ -14,6 +14,7 @@ export default function Home() {
   // let services = useRef(null);
 
   const [entered, setEntered] = useState(false);
+  const [feedback, setFeedback] = useState(<div></div>);
   const [clickAnything, setClickAnything] = useState<TypewriterClass>();
 
   const sleep = (milliseconds: number) => {
@@ -78,6 +79,18 @@ export default function Home() {
 
   const sendEmail = (e: any) => {
     e.preventDefault();
+
+    for (let i = 0; i < 3; i++) {
+      if (e.target[i].value == "") {
+        setFeedback(
+          <div className="text-red-700 text-lg">
+            {e.target[i].id} is missing
+          </div>
+        );
+        return;
+      }
+    }
+    setFeedback(<div className="text-white">Thank you!</div>);
 
     emailjs
       .sendForm(
@@ -184,7 +197,7 @@ export default function Home() {
               src="/donut.png"
               className="inline-block lg:w-[350px] md:w-[300px] sm:w-[300px] w-[300px]  max-w-sm h-fit -z-10 opacity-0 "
             ></img>
-            {/* {entered && (
+            {entered && (
               <span
                 className="text-white lg:text-[90px] md:text-[120px] text-[15vw] pt-0 font-head absolute translate-y-48"
                 style={{ textShadow: "2px 3px 0 #FF0052, -2px -3px 0 #00FEEB" }}
@@ -202,7 +215,7 @@ export default function Home() {
                   }}
                 />
               </span>
-            )} */}
+            )}
           </div>
           {/* <img
             id="logo"
@@ -311,23 +324,20 @@ export default function Home() {
           >
             <input
               name="from_name"
+              id="name"
               placeholder="Name"
               type={"text"}
               className="w-3/4 h-10 rounded-md border-2 text-white border-[#0daa93] bg-transparent bg-[#0DAA93] bg-opacity-10 p-2 "
             ></input>
             <input
+              id="email"
               name="from_email"
               placeholder="Email"
               type={"email"}
               className="w-3/4 h-10 rounded-md border-2 text-white border-[#0daa93] bg-transparent bg-[#0DAA93] bg-opacity-10 p-2 "
             ></input>
-            <input
-              name="from_phone"
-              placeholder="phone number"
-              type={"text"}
-              className="w-3/4 h-10 rounded-md border-2 text-white border-[#0daa93] bg-transparent bg-[#0DAA93] bg-opacity-10 p-2 "
-            ></input>
             <textarea
+              id="message"
               name="message"
               placeholder="Details"
               className="w-3/4 min-h-[200px] rounded-md border-2 text-white resize-none align-text-top border-[#0daa93] bg-transparent bg-[#0DAA93] bg-opacity-10 p-2 "
@@ -339,12 +349,9 @@ export default function Home() {
             >
               Send
             </button>
+            {feedback}
           </form>
           <div className="flex-1"></div>
-          {/* <p className="w-3/4 text-[20px] align-middle text-center text-white">
-            PS: We wanted to give you a taste of the Metaverse hence the theme,
-            not cause we can’t afford an intense UX website :P
-          </p> */}
           <div className="w-full h-16  flex flex-row items-center justify-center space-x-4 mt-auto pb-6">
             <a href="https://wa.me/qr/YUDVJTVNUTAOP1">
               <img id="media" src="/whatsapp.png" className=" w-8"></img>

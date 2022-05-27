@@ -215,7 +215,6 @@ export default (canvas: any) => {
         .to({ value: camera.position.z }, 1000)
         .easing(TWEEN.Easing.Circular.InOut)
         .onUpdate(() => {
-          console.log(fov.value);
           camera.fov =
             2 * Math.atan(window.innerHeight / 2 / fov.value) * (180 / Math.PI);
           camera.updateProjectionMatrix();
